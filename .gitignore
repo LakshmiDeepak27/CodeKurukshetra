@@ -1,0 +1,13 @@
+# binaries
+judge-engine/judge
+
+# runtime folders
+judge-engine/workspace/
+
+# node
+backend/node_modules/
+
+# editor
+*.swp
+*.swo
+compile_commands.json

@@ -1,0 +1,7 @@
+{
+  "id": "two-sum",
+  "title": "Add Two Numbers",
+  "statement": "Given two integers, return their sum.",
+  "sampleInput": "2 3",
+  "sampleOutput": "5"
+}
