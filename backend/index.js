@@ -15,7 +15,7 @@ app.use(
 
 app.use(express.json());
 
-const JUDGE_PATH = path.resolve(__dirname, "..", "judge");
+const JUDGE_PATH = path.resolve(__dirname, "..", "judge.exe");
 
 function loadJSON(filePath) {
   if (!fs.existsSync(filePath)) return null;
@@ -89,8 +89,16 @@ app.post("/submit", (req, res) => {
     testCases: { sample: sampleCases, hidden: hiddenCases },
   };
 
-  const judge = spawn(JUDGE_PATH, [], { stdio: ["pipe", "pipe", "pipe"] });
-
+const judge = spawn("wsl.exe", [
+  "bash",
+  "-lc",
+  "cd /mnt/e/Projects/CodeKurukshetra && ./judge"
+], {
+  stdio: ["pipe", "pipe", "pipe"],
+});
+judge.on("error", (err) => {
+  console.error("Judge spawn error:", err);
+});
   let stdout = "";
   let stderr = "";
 
