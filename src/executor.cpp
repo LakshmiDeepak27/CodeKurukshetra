@@ -9,7 +9,8 @@
 #include <unistd.h> // fork, exec, dup2
 
 ExecResult executeProgram(const std::string &workspacePath,
-                          const std::string &input, int timeLimitMs) {
+                          const std::string &input, int timeLimitMs,
+                          const std::string &language) {
   std::string programPath = workspacePath + "/program";
   std::string inputFile = workspacePath + "/input.txt";
   std::string outputFile = workspacePath + "/output.txt";
@@ -37,7 +38,17 @@ ExecResult executeProgram(const std::string &workspacePath,
     close(outFd);
     close(errFd);
 
-    execl(programPath.c_str(), programPath.c_str(), NULL);
+    if (language == "cpp") {
+      execl(programPath.c_str(), programPath.c_str(), NULL);
+    } else if (language == "python") {
+      std::string pyPath = workspacePath + "/solution.py";
+      execlp("python3", "python3", pyPath.c_str(), NULL);
+    } else if (language == "java") {
+      execlp("java", "java", "-cp", workspacePath.c_str(), "Main", NULL);
+    } else if (language == "js") {
+      std::string jsPath = workspacePath + "/solution.js";
+      execlp("node", "node", jsPath.c_str(), NULL);
+    }
 
     // If exec fails → runtime error
     _exit(1);

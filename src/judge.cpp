@@ -4,13 +4,14 @@
 
 JudgeResult judgeSampleCases(const std::string &workspacePath,
                              const std::vector<TestCase> &cases,
-                             int timeLimitMs) {
+                             int timeLimitMs,
+                             const std::string &language) {
   json results = json::array();
   bool allPassed = true;
 
   int idx = 1;
   for (const auto &tc : cases) {
-    ExecResult exec = executeProgram(workspacePath, tc.input, timeLimitMs);
+    ExecResult exec = executeProgram(workspacePath, tc.input, timeLimitMs, language);
 
     bool passed = false;
     std::string statusStr;
@@ -58,9 +59,10 @@ JudgeResult judgeSampleCases(const std::string &workspacePath,
 }
 
 bool judgeHiddenCases(const std::string &workspacePath,
-                      const std::vector<TestCase> &cases, int timeLimitMs) {
+                      const std::vector<TestCase> &cases, int timeLimitMs,
+                      const std::string &language) {
   for (const auto &tc : cases) {
-    ExecResult exec = executeProgram(workspacePath, tc.input, timeLimitMs);
+    ExecResult exec = executeProgram(workspacePath, tc.input, timeLimitMs, language);
 
     if (exec.status != ExecStatus::PASS)
       return false;

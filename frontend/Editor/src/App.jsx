@@ -76,9 +76,11 @@ using namespace std;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-   // write your code here
-    
-    
+    // write your code here
+    int a, b;
+    if (cin >> a >> b) {
+        cout << a + b << "\n";
+    }
     return 0;
 }`,
   python: `import sys
@@ -573,7 +575,6 @@ export default function App() {
         </div>
         <div className="flex items-center gap-4">
         </div>
-        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold">U</div>
       </header>
 
       <div ref={mainContentRef} className="flex flex-1 overflow-hidden min-h-0">

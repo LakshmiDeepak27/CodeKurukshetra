@@ -12,4 +12,7 @@ struct CompileResult {
 // Compiles workspace/main.cpp into workspace/program
 CompileResult compileCpp(const std::string &workspacePath);
 
+// Generic compilation dispatch function
+CompileResult compileCode(const std::string &workspacePath, const std::string &language);
+
 #endif

@@ -6,8 +6,8 @@ void cleanupAllWorkspaces();
 // Creates a unique workspace directory and returns its path
 std::string createWorkspace();
 
-// Writes source code into workspace/main.cpp
-bool writeSourceCode(const std::string &workspacePath, const std::string &code);
+// Writes source code into workspace/main.cpp or corresponding language file
+bool writeSourceCode(const std::string &workspacePath, const std::string &code, const std::string &language);
 
 // Deletes the workspace directory
 void cleanupWorkspace(const std::string &workspacePath);

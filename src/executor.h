@@ -11,6 +11,7 @@ struct ExecResult {
 };
 
 ExecResult executeProgram(const std::string &workspacePath,
-                          const std::string &input, int timeLimitMs);
+                          const std::string &input, int timeLimitMs,
+                          const std::string &language);
 
 #endif

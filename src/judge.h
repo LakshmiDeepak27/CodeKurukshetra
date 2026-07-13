@@ -15,9 +15,11 @@ struct JudgeResult {
 
 JudgeResult judgeSampleCases(const std::string &workspacePath,
                              const std::vector<TestCase> &cases,
-                             int timeLimitMs);
+                             int timeLimitMs,
+                             const std::string &language);
 
 bool judgeHiddenCases(const std::string &workspacePath,
-                      const std::vector<TestCase> &cases, int timeLimitMs);
+                      const std::vector<TestCase> &cases, int timeLimitMs,
+                      const std::string &language);
 
 #endif
