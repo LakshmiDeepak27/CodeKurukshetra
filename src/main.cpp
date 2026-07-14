@@ -17,6 +17,7 @@ int main() {
 
   std::string code = input["code"];
   int timeLimitMs = input["timeLimitMs"];
+  std::string language = input.value("language", "cpp");
 
   std::vector<TestCase> sampleCases;
   std::vector<TestCase> hiddenCases;
@@ -30,11 +31,11 @@ int main() {
   }
 
   std::string ws = createWorkspace();
-  writeSourceCode(ws, code);
+  writeSourceCode(ws, code, language);
 
   json output;
 
-  CompileResult cr = compileCpp(ws);
+  CompileResult cr = compileCode(ws, language);
   if (!cr.success) {
     output["verdict"] = "Compilation Error";
     output["sampleResults"] = json::array();
@@ -44,9 +45,9 @@ int main() {
     return 0;
   }
 
-  JudgeResult sampleResult = judgeSampleCases(ws, sampleCases, timeLimitMs);
+  JudgeResult sampleResult = judgeSampleCases(ws, sampleCases, timeLimitMs, language);
 
-  bool hiddenPassed = judgeHiddenCases(ws, hiddenCases, timeLimitMs);
+  bool hiddenPassed = judgeHiddenCases(ws, hiddenCases, timeLimitMs, language);
 
   Verdict finalVerdict =
       decideFinalVerdict(sampleResult.allPassed, hiddenPassed);

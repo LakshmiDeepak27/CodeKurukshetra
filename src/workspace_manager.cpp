@@ -44,11 +44,21 @@ void cleanupAllWorkspaces() {
 }
 
 // --------------------------------------------------
-// Write user source code into workspace/main.cpp
+// Write user source code into workspace/main.cpp or corresponding language file
 // --------------------------------------------------
 bool writeSourceCode(const std::string &workspacePath,
-                     const std::string &code) {
-  std::ofstream file(workspacePath + "/main.cpp");
+                     const std::string &code,
+                     const std::string &language) {
+  std::string filename = "main.cpp";
+  if (language == "python") {
+    filename = "solution.py";
+  } else if (language == "java") {
+    filename = "Main.java";
+  } else if (language == "js") {
+    filename = "solution.js";
+  }
+
+  std::ofstream file(workspacePath + "/" + filename);
 
   if (!file.is_open())
     return false;

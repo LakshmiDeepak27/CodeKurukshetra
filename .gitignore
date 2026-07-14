@@ -4,6 +4,7 @@ judge-engine/judge
 
 # runtime folders
 judge-engine/workspace/
+backend/data/users.json
 
 # node
 backend/node_modules/
@@ -12,7 +13,6 @@ backend/node_modules/
 *.swp
 *.swo
 compile_commands.json
-=======
 # Logs
 logs
 *.log
@@ -152,4 +152,3 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
->>>>>>> 6257a3f51189c9baf3158b038dc60e21ac93cd46
