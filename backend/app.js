@@ -4,6 +4,7 @@ const { spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
+const { notFoundHandler, globalErrorHandler } = require("./src/shared/middleware/error-handler");
 const app = express();
 
 const USERS_FILE = path.join(__dirname, "data", "users.json");
@@ -260,5 +261,8 @@ judge.on("error", (err) => {
 });
 
 app.get("/health", (_, res) => res.json({ status: "ok" }));
+
+app.use(notFoundHandler);
+app.use(globalErrorHandler);
 
 module.exports = app;
