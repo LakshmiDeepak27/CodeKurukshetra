@@ -2,6 +2,12 @@
   "id": "two-sum",
   "title": "Add Two Numbers",
   "statement": "Given two integers, return their sum.",
+  "difficulty": "Easy",
   "sampleInput": "2 3",
-  "sampleOutput": "5"
+  "sampleOutput": "5",
+  "tags": ["Math", "Implementation"],
+  "constraints": [
+    "1 <= a, b <= 10^9",
+    "Input is given as two space-separated integers"
+  ]
 }

@@ -1,18 +1,25 @@
 {
-  "name": "1vs1compete",
+  "name": "code-kurukshetra-backend",
   "version": "1.0.0",
-  "description": "1v1 coding challenge between the friends or competitors",
+  "description": "Code Kurukshetra API server with MySQL",
   "license": "ISC",
   "author": "Lakshmi Deepak Neeli",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "db:migrate": "node src/db/migrate.js",
+    "db:seed": "node src/db/seed.js",
+    "db:setup": "npm run db:migrate && npm run db:seed"
   },
   "dependencies": {
     "cors": "^2.8.6",
+    "dotenv": "^16.4.7",
     "express": "^5.2.1",
+    "mysql2": "^3.14.0"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.14"
   }
 }
