@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./style.css";
+import EditorWorkspace from "../../Editor/src/App.jsx";
+import "../../Editor/src/index.css";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:3000";
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -25,14 +27,14 @@ function App() {
     if (!token) return;
     fetch(`${API}/auth/me`, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => response.ok ? response.json() : Promise.reject())
-      .then(({ user: activeUser }) => { setUser(activeUser); setPage("account"); })
+      .then(({ user: activeUser }) => { setUser(activeUser); setPage("dashboard"); })
       .catch(() => { localStorage.removeItem("ck_token"); setPage("home"); });
   }, []);
 
   function completeAuth({ token, user: activeUser }) {
     localStorage.setItem("ck_token", token);
     setUser(activeUser);
-    setPage("account");
+    setPage("dashboard");
   }
 
   function signOut() {
@@ -43,7 +45,8 @@ function App() {
 
   if (page === "checking") return <main className="auth-shell"><ThemeToggle theme={theme} onToggle={() => setTheme(theme === "light" ? "dark" : "light")} /><p className="eyebrow">Checking your session…</p></main>;
   if (page === "signin" || page === "signup") return <AuthPage mode={page} onBack={() => setPage("home")} onSwitch={setPage} onSuccess={completeAuth} theme={theme} onToggleTheme={() => setTheme(theme === "light" ? "dark" : "light")} />;
-  if (page === "account") return <Account user={user} onSignOut={signOut} theme={theme} onToggleTheme={() => setTheme(theme === "light" ? "dark" : "light")} />;
+  if (page === "dashboard") return <Dashboard user={user} onSignOut={signOut} theme={theme} onToggleTheme={() => setTheme(theme === "light" ? "dark" : "light")} onOpenEditor={() => setPage("editor")} />;
+  if (page === "editor") return <EditorWorkspace onExit={() => setPage("dashboard")} />;
 
   return (
     <main>
@@ -226,8 +229,22 @@ function Input({ label, type = "text", value, onChange, autoComplete, hint }) {
   return <label className="input-label">{label}<input required type={type} minLength={type === "password" ? 8 : undefined} value={value} autoComplete={autoComplete} onChange={(event) => onChange(event.target.value)} />{hint && <small>{hint}</small>}</label>;
 }
 
-function Account({ user, onSignOut, theme, onToggleTheme }) {
-  return <main className="auth-shell"><section className="auth-card account-card"><div className="auth-top"><p className="eyebrow">Authentication complete</p><ThemeToggle theme={theme} onToggle={onToggleTheme} /></div><h1>WELCOME, {user?.name?.toUpperCase() || "CODER"}.</h1><p>Your account is active. The dashboard and editor connection will be added in the next phase.</p><button className="solid-button submit" onClick={onSignOut}>SIGN OUT</button></section></main>;
+function Dashboard({ user, onSignOut, theme, onToggleTheme, onOpenEditor }) {
+  const [problemCount, setProblemCount] = useState("—");
+  const [notice, setNotice] = useState("");
+  useEffect(() => {
+    fetch(`${API}/problems`).then((response) => response.ok ? response.json() : null).then((data) => setProblemCount(data?.problems?.length ?? "—")).catch(() => setProblemCount("—"));
+  }, []);
+  return <main className="dashboard-shell">
+    <nav className="dashboard-nav"><a className="brand" href="#dashboard">CODE <span>KURUKSHETRA</span></a><div className="dashboard-nav-actions"><ThemeToggle theme={theme} onToggle={onToggleTheme} /><span className="dashboard-user">{user?.name || "Coder"}</span><button className="outline-button dashboard-signout" onClick={onSignOut}>Sign out</button></div></nav>
+    <section id="dashboard" className="dashboard-hero"><p className="eyebrow">Command centre / 2026</p><h1>WELCOME BACK,<br />{(user?.name || "CODER").toUpperCase()}.</h1><p>Choose your next challenge, sharpen your solution, or prepare to battle another coder.</p></section>
+    <section className="dashboard-grid" aria-label="Platform options">
+      <article className="dashboard-card featured"><span className="dashboard-index">01</span><div className="dashboard-icon">&lt;/&gt;</div><h2>Problems</h2><p>Open the challenge library, run sample cases, and submit a solution from the integrated workspace.</p><div className="dashboard-card-footer"><span>{problemCount} available</span><button onClick={onOpenEditor}>Solve problems <Arrow /></button></div></article>
+      <article className="dashboard-card"><span className="dashboard-index">02</span><div className="dashboard-icon">1v1</div><h2>Battle Arena</h2><p>Challenge another programmer to solve the same problem under pressure.</p><div className="dashboard-card-footer"><span>Coming soon</span><button onClick={() => setNotice("1v1 battles are being prepared for the arena.")}>Notify me <Arrow /></button></div></article>
+      <article className="dashboard-card"><span className="dashboard-index">03</span><div className="dashboard-icon">{`{ }`}</div><h2>Code Editor</h2><p>Jump directly into the full-screen editor with your saved draft and test cases.</p><div className="dashboard-card-footer"><span>Autosave enabled</span><button onClick={onOpenEditor}>Open editor <Arrow /></button></div></article>
+    </section>
+    {notice && <div className="dashboard-notice" role="status">{notice}<button onClick={() => setNotice("")} aria-label="Dismiss">×</button></div>}
+  </main>;
 }
 
 createRoot(document.getElementById("root")).render(<App />);

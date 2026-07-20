@@ -1,28 +1,55 @@
-const API = "http://localhost:3000";
+const API = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-export async function fetchProblem(problemId) {
-  const res = await fetch(`${API}/problems/${problemId}`);
-  return res.json();
+function sessionHeaders() {
+  const token = localStorage.getItem("ck_token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+async function request(path, options = {}) {
+  const response = await fetch(`${API}${path}`, {
+    ...options,
+    headers: { ...sessionHeaders(), ...(options.headers || {}) },
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.message || "The server could not complete this request");
+  return data;
+}
+
+export async function fetchProblems() {
+  const data = await request("/problems");
+  return data.problems || [];
+}
+
+export function fetchProblem(problemId) {
+  return request(`/problems/${problemId}`);
 }
 
 export async function fetchTestCases(problemId) {
-  const res = await fetch(`${API}/problems/${problemId}/testcases`);
-  if (!res.ok) return [];
-  const data = await res.json();
+  const data = await request(`/problems/${problemId}/testcases`);
   return data.sample || [];
 }
 
-export async function submitCode(problemId, code, lang, mode = "submit") {
-  const res = await fetch(`${API}/submit`, {
+export function fetchCurrentUser() {
+  return request("/auth/me");
+}
+
+export function fetchMySubmissions(problemId) {
+  const query = problemId ? `?problemId=${encodeURIComponent(problemId)}` : "";
+  return request(`/submissions/me${query}`);
+}
+
+export function submitCode(problemId, code, language, mode = "submit") {
+  return request("/submissions", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      problemId,
-      code,
-      language: lang,
-      mode,
-    }),
+    body: JSON.stringify({ problemId, code, language, mode }),
   });
+}
 
-  return res.json();
+export function runCustomCases(problemId, code, language, testCases) {
+  return request("/submissions/custom-run", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ problemId, code, language, testCases }),
+  });
 }

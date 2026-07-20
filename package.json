@@ -1,0 +1,8 @@
+{
+  "name": "code-kurukshetra",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix frontend/Home run dev",
+    "build": "npm --prefix frontend/Home run build"
+  }
+}

@@ -63,7 +63,7 @@ async function googleSignIn(credential) {
 
   const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`);
   const profile = await response.json();
-  if (!response.ok || profile.aud !== config.googleClientId || profile.email_verified !== "true") {
+  if (!response.ok || profile.aud !== config.googleClientId || ![true, "true"].includes(profile.email_verified)) {
     const error = new Error("Google sign-in could not be verified");
     error.status = 401;
     throw error;

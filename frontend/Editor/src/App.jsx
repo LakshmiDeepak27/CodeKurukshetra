@@ -1,744 +1,296 @@
-import { useEffect, useRef, useState } from "react";
-import Editor from "@monaco-editor/react";
-import { fetchProblem, fetchTestCases, submitCode } from "./api";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Editor, { loader } from "@monaco-editor/react";
+import { fetchCurrentUser, fetchMySubmissions, fetchProblem, fetchProblems, fetchTestCases, runCustomCases, submitCode } from "./api";
 
-function mapJudgeStatus(tc) {
-  switch (tc.status) {
-    case "PASS":
-      return "pass";
-    case "WA":
-      return "fail";
-    case "TLE":
-      return "tle";
-    case "RE":
-      return "re";
-    default:
-      return "fail";
-  }
-}
-// ─── Difficulty Pill ──────────────────────────────────────────────────────────
-function DifficultyPill({ level = "Medium" }) {
-  const map = {
-    Easy: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
-    Medium: "text-amber-400  bg-amber-400/10  border-amber-400/20",
-    Hard: "text-red-400    bg-red-400/10    border-red-400/20",
-  };
-  return (
-    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${map[level] || map.Medium}`}>
-      {level}
-    </span>
-  );
-}
+loader.config({ paths: { vs: "/monaco/vs" } });
 
-function Tag({ children }) {
-  return (
-    <span className="text-xs px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/50 font-mono">
-      {children}
-    </span>
-  );
-}
-
-function IOBlock({ label, value }) {
-  const [copied, setCopied] = useState(false);
-  const safeValue = value ?? "";
-  const copy = () => {
-    navigator.clipboard.writeText(safeValue);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  };
-  return (
-    <div className="rounded-xl border border-white/8 overflow-hidden">
-      <div className="flex items-center justify-between px-3 py-2 bg-white/3 border-b border-white/8">
-        <span className="text-xs font-semibold text-white/40 uppercase tracking-widest">{label}</span>
-        <button onClick={copy} className="text-xs text-white/30 hover:text-white/70 transition-colors">
-          {copied ? "✓ Copied" : "Copy"}
-        </button>
-      </div>
-      <pre className="px-4 py-3 text-sm font-mono text-white/70 leading-relaxed bg-black/20 overflow-x-auto break-words whitespace-pre-wrap" style={{ wordBreak: "break-word" }}>
-        {safeValue || "-"}
-      </pre>
-    </div>
-  );
-}
-
-// ─── Languages ────────────────────────────────────────────────────────────────
 const LANGUAGES = [
-  { id: "cpp", label: "C++17", monacoId: "cpp" },
-  { id: "python", label: "Python 3", monacoId: "python" },
-  { id: "java", label: "Java 17", monacoId: "java" },
-  { id: "js", label: "JavaScript", monacoId: "javascript" },
+  { id: "cpp", label: "C++17", monacoId: "cpp", extension: "cpp" },
+  { id: "python", label: "Python 3", monacoId: "python", extension: "py" },
+  { id: "java", label: "Java 17", monacoId: "java", extension: "java" },
+  { id: "js", label: "JavaScript", monacoId: "javascript", extension: "js" },
+  { id: "go", label: "Go", monacoId: "go", extension: "go", disabled: true },
+  { id: "rust", label: "Rust", monacoId: "rust", extension: "rs", disabled: true },
+  { id: "csharp", label: "C#", monacoId: "csharp", extension: "cs", disabled: true },
 ];
 
 const DEFAULT_CODE = {
-  cpp: `#include <bits/stdc++.h>
-using namespace std;
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    // write your code here
-    int a, b;
-    if (cin >> a >> b) {
-        cout << a + b << "\n";
-    }
-    return 0;
-}`,
-  python: `import sys
-input = sys.stdin.readline
-
-def main():
-    a, b = map(int, input().split())
-    print(a + b)
-
-main()`,
-  java: `import java.util.*;
-
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt(), b = sc.nextInt();
-        System.out.println(a + b);
-    }
-}`,
-  js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
-const [a, b] = lines[0].split(' ').map(Number);
-console.log(a + b);`,
+  cpp: `#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    // Write your solution here\n    int a, b;\n    if (cin >> a >> b) cout << a + b << "\\n";\n    return 0;\n}`,
+  python: `import sys\n\ndef solve():\n    # Write your solution here\n    a, b = map(int, sys.stdin.readline().split())\n    print(a + b)\n\nif __name__ == "__main__":\n    solve()`,
+  java: `import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        int a = scanner.nextInt();\n        int b = scanner.nextInt();\n        System.out.println(a + b);\n    }\n}`,
+  js: `const input = require("fs").readFileSync(0, "utf8").trim().split(/\\s+/).map(Number);\nconst [a, b] = input;\nconsole.log(a + b);`,
 };
 
-// ─── Individual Case Tab Button ───────────────────────────────────────────────
-// status: null | "pending" | "pass" | "fail" | "tle" | "re"
-function CaseTab({ label, status, active, onClick }) {
-  const statusStyles = {
-    null: {
-      active: "border-white/20 bg-white/8 text-white/85",
-      inactive: "border-white/8  bg-transparent text-white/35 hover:text-white/60 hover:border-white/15",
-    },
-    pending: {
-      active: "border-indigo-400/50 bg-indigo-500/15 text-indigo-300",
-      inactive: "border-indigo-400/20 bg-transparent  text-indigo-400/50 hover:border-indigo-400/40",
-    },
-    pass: {
-      active: "border-emerald-500/50 bg-emerald-500/15 text-emerald-300",
-      inactive: "border-emerald-500/25 bg-transparent   text-emerald-500/60 hover:border-emerald-500/40 hover:text-emerald-400",
-    },
-    fail: {
-      active: "border-red-500/50 bg-red-500/15 text-red-300",
-      inactive: "border-red-500/25 bg-transparent text-red-500/60 hover:border-red-500/40 hover:text-red-400",
-    },
-    tle: {
-      active: "border-amber-500/50 bg-amber-500/15 text-amber-300",
-      inactive: "border-amber-500/25 bg-transparent text-amber-500/60 hover:border-amber-500/40 hover:text-amber-400",
-    },
-    re: {
-      active: "border-orange-500/50 bg-orange-500/15 text-orange-300",
-      inactive: "border-orange-500/25 bg-transparent text-orange-500/60 hover:border-orange-500/40 hover:text-orange-400",
-    },
-  };
+const CodeEditor = memo(function CodeEditor({ language, theme, value, onChange, options, onMount }) {
+  return <Editor height="100%" language={language} theme={theme} value={value} onChange={(next) => onChange(next ?? "")} onMount={onMount} options={options} loading={<div className="text-sm text-white/50 font-mono">Loading editor…</div>} />;
+});
 
-  const icon = {
-    null: null,
-    pending: <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse flex-shrink-0" />,
-    pass: <svg className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20 6L9 17l-5-5" /></svg>,
-    fail: <svg className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" /></svg>,
-    tle: <svg className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
-    re: <svg className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
-  };
+const ICON_PATHS = {
+  list: <><path d="M4 6h16M4 12h16M4 18h16" /><path d="M2 6h.01M2 12h.01M2 18h.01" /></>,
+  left: <path d="m15 18-6-6 6-6" />, right: <path d="m9 18 6-6-6-6" />,
+  shuffle: <><path d="m18 14 4 4-4 4" /><path d="m2 2 4 4 12 12" /><path d="m22 2-4 4" /><path d="M2 22 7 17" /><path d="M14 6h8v8" /></>,
+  terminal: <><path d="m4 17 6-6-6-6" /><path d="M12 19h8" /></>, play: <path d="m8 5 11 7-11 7Z" />,
+  panel: <><rect width="18" height="14" x="3" y="5" rx="2" /><path d="M3 10h18" /></>, grid: <><rect width="6" height="6" x="3" y="3" rx="1" /><rect width="6" height="6" x="15" y="3" rx="1" /><rect width="6" height="6" x="3" y="15" rx="1" /><rect width="6" height="6" x="15" y="15" rx="1" /></>,
+  settings: <><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.35 2.35-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.01 1.55V20.5h-3v-.08A1.7 1.7 0 0 0 10.5 18.9a1.7 1.7 0 0 0-1.88.34l-.06.06-2.35-2.35.06-.06A1.7 1.7 0 0 0 6.61 15a1.7 1.7 0 0 0-1.55-1.01H5v-3h.06A1.7 1.7 0 0 0 6.61 10a1.7 1.7 0 0 0-.34-1.88l-.06-.06L8.56 5.7l.06.06A1.7 1.7 0 0 0 10.5 6.1a1.7 1.7 0 0 0 1.01-1.55V4.5h3v.08A1.7 1.7 0 0 0 15.5 6.1a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.35 2.35-.06.06A1.7 1.7 0 0 0 19.4 10a1.7 1.7 0 0 0 1.55 1.01H21v3h-.06A1.7 1.7 0 0 0 19.4 15Z" /></>,
+  refresh: <><path d="M21 12a9 9 0 0 1-15.2 6.5L3 16" /><path d="M3 21v-5h5" /><path d="M3 12A9 9 0 0 1 18.2 5.5L21 8" /><path d="M21 3v5h-5" /></>, userplus: <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M19 8v6M22 11h-6" /></>,
+  code: <><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14" /></>, align: <><path d="M3 5h18M3 9h12M3 13h18M3 17h12" /></>, copy: <><rect width="13" height="13" x="8" y="8" rx="2" /><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" /></>, braces: <path d="M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1M16 3h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1" />, reset: <><path d="M3 12a9 9 0 1 0 3-6.7" /><path d="M3 4v5h5" /></>, panelleft: <><rect width="18" height="14" x="3" y="5" rx="2" /><path d="M9 5v14" /></>
+};
+function Icon({ name, size = 16 }) { return <svg className="ui-icon" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{ICON_PATHS[name]}</svg>; }
 
-  const s = statusStyles[status ?? "null"] ?? statusStyles.null;
-  return (
-    <button
-      onClick={onClick}
-      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all select-none ${active ? s.active : s.inactive
-        }`}
-    >
-      {icon[status ?? "null"] ?? icon.null}
-      {label}
-    </button>
-  );
+function mapStatus(status) {
+  return ({ PASS: "Accepted", WA: "Wrong Answer", TLE: "Time Limit Exceeded", RE: "Runtime Error" })[status] || status || "Pending";
 }
 
-// ─── Bottom Panel ─────────────────────────────────────────────────────────────
-function TestPanel({ height = 210, loading, results, submitted, sampleCases, verdict, errorMessage, onSubmit, onTest }) {
+function StatusPill({ verdict, loading }) {
+  if (loading) return <span className="status-pill running"><i />Running…</span>;
+  if (!verdict) return null;
+  const label = mapStatus(verdict === "Accepted" ? "PASS" : verdict === "Wrong Answer" ? "WA" : verdict === "Compilation Error" ? "Compilation Error" : verdict);
+  const kind = label === "Accepted" ? "accepted" : "failed";
+  return <span className={`status-pill ${kind}`}>{label}</span>;
+}
+
+function Difficulty({ level = "Easy" }) {
+  return <span className={`difficulty-pill ${(level || "Easy").toLowerCase()}`}>{level}</span>;
+}
+
+const TAB_ICONS = { Description: "list", Editorial: "code", Submissions: "refresh", Solutions: "braces" };
+
+function ProblemPanel({ problem, tab, setTab, submissions }) {
+  const [hintOpen, setHintOpen] = useState(false);
+  const [topicsOpen, setTopicsOpen] = useState(false);
+  const tabs = ["Description", "Editorial", "Submissions", "Solutions"];
+  const solved = (submissions || []).some((item) => { const verdict = item.verdict || item.status; return verdict === "Accepted" || verdict === "PASS"; });
+  return <aside className="problem-panel">
+    <div className="problem-tabs" role="tablist">{tabs.map((item) => <button key={item} role="tab" aria-selected={tab === item} onClick={() => setTab(item)} className={tab === item ? "active" : ""}><Icon name={TAB_ICONS[item]} size={15} />{item}</button>)}</div>
+    <div className="problem-heading">
+      <div className="problem-heading-top">
+        <h1>{problem.title}</h1>
+        <div className="heading-badges">
+          {solved && <span className="solved-check">✓ Solved</span>}
+          <Difficulty level={problem.difficulty} />
+        </div>
+      </div>
+      <div className="meta-row">
+        <button className={topicsOpen ? "active" : ""} onClick={() => setTopicsOpen((value) => !value)} aria-expanded={topicsOpen}>◇ Topics</button>
+        <button title="Companies (Premium)">▣ Companies</button>
+        <button className={hintOpen ? "active" : ""} onClick={() => setHintOpen((value) => !value)} aria-expanded={hintOpen}>✺ Hint</button>
+      </div>
+      {topicsOpen && <div className="tag-row">{(problem.tags || []).map((tag) => <span key={tag}>{tag}</span>)}</div>}
+      {hintOpen && <p className="hint">Start with the direct approach, then look for the data structure that avoids repeated work.</p>}
+    </div>
+    <div className="problem-body">
+      {tab === "Description" && <>
+        <p className="statement">{problem.statement}</p>
+        <Section title="Examples"><div className="example-grid"><CodeBlock label="Example 1" value={`Input: ${problem.sampleInput || "—"}\nOutput: ${problem.sampleOutput || "—"}`} /></div></Section>
+        <Section title="Constraints"><ul>{(problem.constraints || []).map((item) => <li key={item}>{item}</li>)}</ul></Section>
+      </>}
+      {tab === "Editorial" && <EmptyPanel title="Editorial coming soon" text="A full explanation and complexity analysis will be added for this challenge." />}
+      {tab === "Solutions" && <EmptyPanel title="Community solutions" text="Verified solutions will appear here in a future update." />}
+      {tab === "Submissions" && <SubmissionList submissions={submissions} />}
+    </div>
+    <div className="engagement-bar">
+      <div className="engagement-actions">
+        <button title="Like">▲ 0</button>
+        <button title="Dislike">▽</button>
+        <button title="Comments">✉ 0</button>
+        <button title="Save to list">☆</button>
+        <button title="Share">↗</button>
+        <button title="Help" aria-label="Help">?</button>
+      </div>
+      <span className="online-badge"><span className="online-dot" />0 Online</span>
+    </div>
+  </aside>;
+}
+
+function Section({ title, children }) { return <section className="problem-section"><h2>{title}</h2>{children}</section>; }
+function CodeBlock({ label, value }) { return <div className="code-block"><header>{label}<button onClick={() => navigator.clipboard.writeText(value || "")}>Copy</button></header><pre>{value || "—"}</pre></div>; }
+function EmptyPanel({ title, text }) { return <div className="empty-panel"><strong>{title}</strong><p>{text}</p></div>; }
+function SubmissionList({ submissions }) { return submissions?.length ? <div className="submission-list">{submissions.map((item) => <div key={item.id}><strong>{item.verdict || item.status}</strong><span>{item.language} · {new Date(item.created_at).toLocaleString()}</span></div>)}</div> : <EmptyPanel title="No submissions yet" text="Sign in and submit a solution to build your history." />; }
+
+function ConsolePanel({ height, activeTab, setActiveTab, customCases, setCustomCases, results, consoleLines, loading, onRunCustom, onRunSamples, submissions }) {
   const [activeCase, setActiveCase] = useState(0);
-  const [panelTab, setPanelTab] = useState("testcase");
-
-  // Use sample cases for tabs when we have them; otherwise fall back to results
-  const displayCases = sampleCases?.length > 0 ? sampleCases : results;
-  const total = displayCases.length;
-
-  // Switch to result tab when results arrive (or when there's an error)
-  useEffect(() => {
-    if (submitted && (results.length > 0 || errorMessage)) setPanelTab("result");
-  }, [submitted, results.length, errorMessage]);
-
-  // Reset to first case whenever new results or sample cases come in
-  useEffect(() => {
-    setActiveCase(0);
-  }, [results, sampleCases]);
-
-  // Clamp activeCase when display list changes
-  const safeActive = total > 0 ? Math.min(activeCase, total - 1) : 0;
-  const tc = displayCases[safeActive];
-  const res = results[safeActive];
-  const passed = results.filter(r => r?.status === "pass").length;
-  const allAC = results.length > 0 && passed === results.length;
-  const hasTle = results.some(r => r?.status === "tle");
-  const hasRe = results.some(r => r?.status === "re");
-  const verdictType = allAC ? "ac" : hasTle ? "tle" : hasRe ? "re" : "wa";
-  const showErrorBanner = errorMessage || verdict === "Compilation Error";
-
-  return (
-    <div className="border-t border-white/6 bg-[#090909] shrink-0 flex flex-col overflow-hidden" style={{ height }}>
-
-      {/* Header row */}
-      <div className="flex items-center justify-between px-4 h-10 border-b border-white/5">
-
-        {/* Panel tabs */}
-        <div className="flex items-center gap-0.5">
-          {[
-            { id: "testcase", label: "Test Cases" },
-            { id: "result", label: "Result" },
-          ].map(({ id, label }) => (
-            <button
-              key={id}
-              onClick={() => setPanelTab(id)}
-              className={`relative px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${panelTab === id
-                ? "text-white bg-white/6"
-                : "text-white/30 hover:text-white/60"
-                }`}
-            >
-              {label}
-              {id === "result" && results.length > 0 && (
-                <span className={`ml-2 px-1.5 py-0.5 rounded text-[10px] font-bold ${allAC ? "bg-emerald-500/20 text-emerald-400"
-                  : hasTle ? "bg-amber-500/20 text-amber-400"
-                    : hasRe ? "bg-orange-500/20 text-orange-400"
-                      : "bg-red-500/20 text-red-400"
-                  }`}>
-                  {passed}/{results.length}
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Action buttons */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onTest}
-            disabled={loading}
-            className="px-4 py-1.5 text-xs rounded-lg border border-white/10 text-white/45 hover:text-white/75 hover:border-white/20 transition-all font-semibold disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            Run Tests
-          </button>
-          <button
-            onClick={onSubmit}
-            disabled={loading}
-            className="run-btn px-5 py-1.5 text-xs rounded-lg text-white font-bold flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? (
-              <>
-                <div className="w-3 h-3 border-[1.5px] border-white/30 border-t-white rounded-full animate-spin" />
-                Judging…
-              </>
-            ) : (
-              <>
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v14l11-7-11-7z" /></svg>
-                Submit
-              </>
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Case tab row: sample cases when available, else results */}
-      <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/5">
-        {displayCases.map((_, i) => {
-          const status = loading ? "pending" : results[i]?.status ?? null;
-          return (
-            <CaseTab
-              key={i}
-              label={`Case ${i + 1}`}
-              status={status}
-              active={safeActive === i}
-              onClick={() => setActiveCase(i)}
-            />
-          );
-        })}
-
-        {/* Show placeholder tabs while loading (before results arrive) */}
-        {loading && displayCases.length === 0 && [0, 1, 2].map(i => (
-          <CaseTab
-            key={i}
-            label={`Case ${i + 1}`}
-            status="pending"
-            active={safeActive === i}
-            onClick={() => setActiveCase(i)}
-          />
-        ))}
-
-        {/* Overall verdict — right-aligned (Accepted / Wrong Answer / TLE / RE / Compilation Error) */}
-        {submitted && !loading && (results.length > 0 || showErrorBanner) && (() => {
-          if (showErrorBanner && verdict === "Compilation Error") {
-            return (
-              <div className="ml-auto flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-bold bg-red-500/10 border-red-500/30 text-red-400">
-                <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                Compilation Error
-              </div>
-            );
-          }
-          if (results.length === 0) return null;
-          const v = { ac: ["Accepted", "bg-emerald-500/10 border-emerald-500/30 text-emerald-400", "M20 6L9 17l-5-5"], tle: ["Time Limit Exceeded", "bg-amber-500/10 border-amber-500/30 text-amber-400", "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"], re: ["Runtime Error", "bg-orange-500/10 border-orange-500/30 text-orange-400", "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"], wa: ["Wrong Answer", "bg-red-500/10 border-red-500/30 text-red-400", "M18 6L6 18M6 6l12 12"] };
-          const [text, className, icon] = v[verdictType] || v.wa;
-          return (
-            <div className={`ml-auto flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-bold ${className}`}>
-              <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d={icon} /></svg>
-              {text}
-            </div>
-          );
-        })()}
-      </div>
-
-      {/* Detail body: error banner on top (like LeetCode), then Input → Expected → Output stacked */}
-      <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
-        {panelTab === "result" && showErrorBanner && (
-          <div className="shrink-0 px-4 pt-3">
-            <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-mono text-red-300 whitespace-pre-wrap break-words">
-              {errorMessage || verdict === "Compilation Error" ? (errorMessage || "Compilation Error") : null}
-            </div>
-          </div>
-        )}
-        <div className="flex-1 min-h-0 overflow-auto px-4 py-3">
-          {panelTab === "testcase" ? (
-
-            /* ── Test Case view: Input, Expected, Your Output stacked ── */
-            <div className="space-y-4">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-white/25 font-semibold mb-1.5">Input</p>
-                <pre className="text-xs font-mono text-white/60 bg-white/3 rounded-lg px-3 py-2 border border-white/6 leading-relaxed min-h-[2rem] overflow-auto whitespace-pre-wrap break-words" style={{ wordBreak: "break-word" }}>{tc?.input ?? "-"}</pre>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-white/25 font-semibold mb-1.5">Expected</p>
-                <pre className="text-xs font-mono text-white/60 bg-white/3 rounded-lg px-3 py-2 border border-white/6 leading-relaxed min-h-[2rem] overflow-auto whitespace-pre-wrap break-words" style={{ wordBreak: "break-word" }}>{tc?.expected ?? "-"}</pre>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-white/25 font-semibold mb-1.5">Your Output</p>
-                <pre className="text-xs font-mono text-white/60 bg-white/3 rounded-lg px-3 py-2 border border-white/6 leading-relaxed min-h-[2rem] overflow-auto whitespace-pre-wrap break-words" style={{ wordBreak: "break-word" }}>
-                  {res?.status === "tle" ? "Time Limit Exceeded" : res?.status === "re" ? "Runtime Error" : (res?.output ?? "-")}
-                </pre>
-              </div>
-            </div>
-
-          ) : (res || showErrorBanner) ? (
-
-            /* ── Result view: error on top already; then Input, Expected, Your Output stacked ── */
-            (() => {
-              const outputVal = res ? (res.status === "tle" ? "Time Limit Exceeded" : res.status === "re" ? "Runtime Error" : (res.output ?? "—")) : "—";
-              const accent = res ? (res.status === "pass" ? "pass" : res.status === "tle" ? "tle" : res.status === "re" ? "re" : "fail") : "null";
-              const accentStyles = {
-                pass: { label: "text-emerald-500/60", pre: "text-emerald-300 bg-emerald-500/5 border-emerald-500/20" },
-                fail: { label: "text-red-500/60", pre: "text-red-300 bg-red-500/5 border-red-500/20" },
-                tle: { label: "text-amber-500/60", pre: "text-amber-300 bg-amber-500/5 border-amber-500/20" },
-                re: { label: "text-orange-500/60", pre: "text-orange-300 bg-orange-500/5 border-orange-500/20" },
-                null: { label: "text-white/25", pre: "text-white/60 bg-white/3 border-white/6" },
-              };
-              const s = accentStyles[accent] ?? accentStyles.null;
-              return (
-                <div className="space-y-4">
-                  <div>
-                    <p className={`text-[10px] uppercase tracking-widest font-semibold mb-1.5 ${accentStyles.null.label}`}>Input</p>
-                    <pre className={`text-xs font-mono rounded-lg px-3 py-2 border leading-relaxed min-h-[2rem] overflow-auto whitespace-pre-wrap break-words ${accentStyles.null.pre}`} style={{ wordBreak: "break-word" }}>{tc?.input ?? "-"}</pre>
-                  </div>
-                  <div>
-                    <p className={`text-[10px] uppercase tracking-widest font-semibold mb-1.5 ${accentStyles.null.label}`}>Expected</p>
-                    <pre className={`text-xs font-mono rounded-lg px-3 py-2 border leading-relaxed min-h-[2rem] overflow-auto whitespace-pre-wrap break-words ${accentStyles.null.pre}`} style={{ wordBreak: "break-word" }}>{tc?.expected ?? "-"}</pre>
-                  </div>
-                  <div>
-                    <p className={`text-[10px] uppercase tracking-widest font-semibold mb-1.5 ${s.label}`}>Your Output</p>
-                    <pre className={`text-xs font-mono rounded-lg px-3 py-2 border leading-relaxed min-h-[2rem] overflow-auto whitespace-pre-wrap break-words ${s.pre}`} style={{ wordBreak: "break-word" }}>{outputVal}</pre>
-                  </div>
-                </div>
-              );
-            })()
-
-          ) : (
-            <div className="flex items-center justify-center h-full min-h-[120px]">
-              <p className="text-white/20 text-xs">Run your code to see results here</p>
-            </div>
-          )}
-        </div>
-      </div>
+  const tabs = ["Testcase", "Test Results", "Console", "Output", "Submissions"];
+  const safeActiveCase = Math.min(activeCase, Math.max(customCases.length - 1, 0));
+  const current = customCases[safeActiveCase] || customCases[0];
+  const updateCase = (field, value) => setCustomCases((cases) => cases.map((item, index) => index === safeActiveCase ? { ...item, [field]: value } : item));
+  return <section className="console-panel" style={{ height }}>
+    <div className="console-header"><div className="console-tabs" role="tablist">{tabs.map((tab) => <button key={tab} onClick={() => setActiveTab(tab)} className={activeTab === tab ? "active" : ""}>{tab}</button>)}</div><StatusPill loading={loading} /></div>
+    <div className="console-content">
+      {activeTab === "Testcase" && <>
+        <div className="case-tabs">{customCases.map((_, index) => <button key={index} onClick={() => setActiveCase(index)} className={safeActiveCase === index ? "active" : ""}>Case {index + 1}</button>)}<button aria-label="Add testcase" onClick={() => { setCustomCases([...customCases, { input: "", expected: "" }]); setActiveCase(customCases.length); }}>+</button></div>
+        <div className="custom-case"><label>Input<textarea value={current?.input || ""} onChange={(event) => updateCase("input", event.target.value)} placeholder="Custom input" /></label><label>Expected output<textarea value={current?.expected || ""} onChange={(event) => updateCase("expected", event.target.value)} placeholder="Expected output" /></label></div>
+        <div className="console-actions"><button className="subtle-btn" disabled={loading || customCases.length === 1} onClick={() => { setCustomCases(customCases.filter((_, index) => index !== activeCase)); setActiveCase(0); }}>Remove case</button><button className="primary-btn" onClick={onRunCustom} disabled={loading}>Run custom cases</button><button className="subtle-btn" onClick={onRunSamples} disabled={loading}>Run sample cases</button></div>
+      </>}
+      {activeTab === "Test Results" && <ResultList results={results} />}
+      {activeTab === "Console" && <pre className="console-log">{consoleLines.length ? consoleLines.join("\n") : "Ready. Run code to see judge activity."}</pre>}
+      {activeTab === "Output" && <ResultList results={results} showOutput />}
+      {activeTab === "Submissions" && <SubmissionList submissions={submissions} />}
     </div>
-  );
+  </section>;
 }
 
-// ─── Main ─────────────────────────────────────────────────────────────────────
-export default function App() {
+function ResultList({ results, showOutput = false }) { return results?.length ? <div className="results-list">{results.map((result, index) => <article key={index} className={result.status === "PASS" ? "pass" : "fail"}><header><strong>Case {index + 1}</strong><span>{mapStatus(result.status)}</span></header><div><b>Input</b><pre>{result.input}</pre></div>{!showOutput && <div><b>Expected</b><pre>{result.expected}</pre></div>}<div><b>Your output</b><pre>{result.output || (result.status === "TLE" ? "Time Limit Exceeded" : result.status === "RE" ? "Runtime Error" : "—")}</pre></div></article>)}</div> : <EmptyPanel title="No results yet" text="Run a sample or custom testcase to see the result here." />; }
+
+function CommandPalette({ open, onClose, commands }) {
+  const [query, setQuery] = useState("");
+  const inputRef = useRef(null);
+  useEffect(() => { if (open) requestAnimationFrame(() => inputRef.current?.focus()); }, [open]);
+  if (!open) return null;
+  const visible = commands.filter((command) => command.label.toLowerCase().includes(query.toLowerCase()));
+  return <div className="palette-backdrop" role="presentation" onMouseDown={onClose}><section className="command-palette" role="dialog" aria-label="Command palette" onMouseDown={(event) => event.stopPropagation()}><input ref={inputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Type a command" aria-label="Filter commands" />{visible.map((command) => <button key={command.label} onClick={() => { command.action(); onClose(); }}><span>{command.label}</span><kbd>{command.key}</kbd></button>)}</section></div>;
+}
+
+export default function App({ onExit }) {
+  const [problemId, setProblemId] = useState("two-sum");
   const [problem, setProblem] = useState(null);
-  const [sampleCases, setSampleCases] = useState([]);
-  const [lang, setLang] = useState("cpp");
+  const [problems, setProblems] = useState([]);
+  const [language, setLanguage] = useState("cpp");
   const [code, setCode] = useState(DEFAULT_CODE.cpp);
-  const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
-  const [verdict, setVerdict] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [fontSize, setFontSize] = useState(14);
-  const [activeTab, setActiveTab] = useState("description");
-  const [leftPanelWidthPct, setLeftPanelWidthPct] = useState(42);
-  const [testPanelHeight, setTestPanelHeight] = useState(210);
+  const [editorTheme, setEditorTheme] = useState(() => localStorage.getItem("ck_editor_theme") || "vs-dark");
+  const [wordWrap, setWordWrap] = useState(() => localStorage.getItem("ck_word_wrap") === "true");
+  const [minimap, setMinimap] = useState(() => localStorage.getItem("ck_minimap") !== "false");
+  const [lineNumbers, setLineNumbers] = useState(() => localStorage.getItem("ck_line_numbers") !== "false");
+  const [leftWidth, setLeftWidth] = useState(() => Number(localStorage.getItem("ck_editor_left_width")) || 42);
+  const [consoleHeight, setConsoleHeight] = useState(() => Number(localStorage.getItem("ck_editor_console_height")) || 270);
+  const [consoleOpen, setConsoleOpen] = useState(false);
+  const [problemTab, setProblemTab] = useState("Description");
+  const [consoleTab, setConsoleTab] = useState("Testcase");
+  const [customCases, setCustomCases] = useState([{ input: "2 3", expected: "5" }]);
+  const [results, setResults] = useState([]);
+  const [verdict, setVerdict] = useState("");
+  const [consoleLines, setConsoleLines] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [workspaceError, setWorkspaceError] = useState("");
+  const [user, setUser] = useState(null);
+  const [submissions, setSubmissions] = useState([]);
+  const [activeFile, setActiveFile] = useState("solution");
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [problemMenuOpen, setProblemMenuOpen] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ line: 1, column: 1 });
   const editorRef = useRef(null);
-  const monacoRef = useRef(null);
-  const mainContentRef = useRef(null);
-  const resizeStartRef = useRef({ x: 0, pct: 42 });
-  const panelResizeStartRef = useRef({ y: 0, h: 210 });
-  const [resizingLeft, setResizingLeft] = useState(false);
-  const [resizingPanel, setResizingPanel] = useState(false);
+  const uploadRef = useRef(null);
+  const workspaceRef = useRef(null);
+  const resizeRef = useRef(null);
+
+  const selectedLanguage = LANGUAGES.find((item) => item.id === language) || LANGUAGES[0];
+  const editorOptions = useMemo(() => ({ fontSize, fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontLigatures: true, minimap: { enabled: minimap }, wordWrap: wordWrap ? "on" : "off", lineNumbers: lineNumbers ? "on" : "off", scrollBeyondLastLine: false, renderLineHighlight: "gutter", smoothScrolling: true, cursorBlinking: "smooth", padding: { top: 16, bottom: 16 }, tabSize: 4, bracketPairColorization: { enabled: true }, guides: { bracketPairs: true }, folding: true, automaticLayout: true }), [fontSize, lineNumbers, minimap, wordWrap]);
+
+  useEffect(() => { localStorage.setItem("ck_editor_theme", editorTheme); localStorage.setItem("ck_word_wrap", wordWrap); localStorage.setItem("ck_minimap", minimap); localStorage.setItem("ck_line_numbers", lineNumbers); }, [editorTheme, wordWrap, minimap, lineNumbers]);
+  useEffect(() => { localStorage.setItem("ck_editor_left_width", String(leftWidth)); localStorage.setItem("ck_editor_console_height", String(consoleHeight)); }, [leftWidth, consoleHeight]);
+
+  const loadProblem = useCallback(async () => {
+    try {
+      const [list, loaded, samples] = await Promise.all([fetchProblems(), fetchProblem(problemId), fetchTestCases(problemId)]);
+      setProblems(list); setProblem(loaded); setWorkspaceError("");
+      if (samples.length) setCustomCases(samples.map((item) => ({ input: item.input, expected: item.expected })));
+    } catch (error) { setWorkspaceError(error.message || "Could not load the workspace"); }
+  }, [problemId]);
+  useEffect(() => { loadProblem(); }, [loadProblem]);
+  useEffect(() => { const saved = localStorage.getItem(`ck_draft_${problemId}_${language}`); setCode(saved || DEFAULT_CODE[language] || ""); }, [problemId, language]);
+  useEffect(() => { localStorage.setItem(`ck_draft_${problemId}_${language}`, code); }, [code, language, problemId]);
+  const loadSubmissions = useCallback(async () => { try { const { submissions: items } = await fetchMySubmissions(problemId); setSubmissions(items || []); } catch { setSubmissions([]); } }, [problemId]);
+  useEffect(() => { fetchCurrentUser().then(({ user: activeUser }) => { setUser(activeUser); return loadSubmissions(); }).catch(() => { setUser(null); setSubmissions([]); }); }, [loadSubmissions]);
+
+  const run = useCallback(async (mode, cases = null) => {
+    setConsoleOpen(true); setLoading(true); setResults([]); setVerdict(""); setConsoleLines([`Starting ${mode === "submit" ? "submission" : "run"}…`, `Language: ${selectedLanguage.label}`]);
+    try {
+      const response = cases ? await runCustomCases(problemId, code, language, cases) : await submitCode(problemId, code, language, mode);
+      setResults(response.sampleResults || []); setVerdict(response.verdict || ""); setConsoleLines((lines) => [...lines, `Judge verdict: ${response.verdict || "completed"}`]); setConsoleTab("Test Results");
+      if (mode === "submit" && user) loadSubmissions();
+    } catch (error) { setVerdict("Compilation Error"); setConsoleLines((lines) => [...lines, `Error: ${error.message}`]); setConsoleTab("Console"); }
+    finally { setLoading(false); }
+  }, [code, language, loadSubmissions, problemId, selectedLanguage.label, user]);
 
   useEffect(() => {
-    fetchProblem("two-sum").then(setProblem).catch(console.error);
-    fetchTestCases("two-sum").then(setSampleCases).catch(() => setSampleCases([]));
-  }, []);
-
-  // Resize left panel (question) vs right (editor)
-  useEffect(() => {
-    if (!resizingLeft) return;
-    const onMove = (e) => {
-      const el = mainContentRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const deltaPct = ((e.clientX - resizeStartRef.current.x) / rect.width) * 100;
-      const newPct = resizeStartRef.current.pct + deltaPct;
-      setLeftPanelWidthPct(Math.min(70, Math.max(25, newPct)));
+    const shortcut = (event) => {
+      if (!event.ctrlKey && !event.metaKey) return;
+      if (event.key === "'") { event.preventDefault(); run("run"); }
+      if (event.key === "Enter") { event.preventDefault(); run("submit"); }
+      if (event.key.toLowerCase() === "s") { event.preventDefault(); localStorage.setItem(`ck_draft_${problemId}_${language}`, code); setConsoleLines((lines) => [...lines, "Draft saved locally."]); }
+      if (event.shiftKey && event.key.toLowerCase() === "p") { event.preventDefault(); setPaletteOpen(true); }
     };
-    const onUp = () => setResizingLeft(false);
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onUp);
-    document.body.style.cursor = "col-resize";
-    document.body.style.userSelect = "none";
-    return () => {
-      document.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseup", onUp);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-    };
-  }, [resizingLeft]);
+    document.addEventListener("keydown", shortcut); return () => document.removeEventListener("keydown", shortcut);
+  }, [code, language, problemId, run]);
 
-  // Resize test panel height
-  useEffect(() => {
-    if (!resizingPanel) return;
-    const onMove = (e) => {
-      const deltaY = panelResizeStartRef.current.y - e.clientY;
-      const newH = panelResizeStartRef.current.h + deltaY;
-      setTestPanelHeight(Math.min(600, Math.max(120, newH)));
-    };
-    const onUp = () => setResizingPanel(false);
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onUp);
-    document.body.style.cursor = "row-resize";
-    document.body.style.userSelect = "none";
-    return () => {
-      document.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseup", onUp);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-    };
-  }, [resizingPanel]);
+  const onResizeStart = (kind, event) => { resizeRef.current = { kind, x: event.clientX, y: event.clientY, left: leftWidth, console: consoleHeight }; document.body.style.userSelect = "none"; };
+  useEffect(() => { const move = (event) => { if (!resizeRef.current) return; const current = resizeRef.current; if (current.kind === "left" && workspaceRef.current) { const rect = workspaceRef.current.getBoundingClientRect(); setLeftWidth(Math.min(65, Math.max(28, current.left + ((event.clientX - current.x) / rect.width) * 100))); } if (current.kind === "console") setConsoleHeight(Math.min(560, Math.max(170, current.console + current.y - event.clientY))); }; const end = () => { resizeRef.current = null; document.body.style.userSelect = ""; }; document.addEventListener("mousemove", move); document.addEventListener("mouseup", end); return () => { document.removeEventListener("mousemove", move); document.removeEventListener("mouseup", end); }; }, [consoleHeight, leftWidth]);
 
-  // Reflow editor when panel resize ends so it uses new dimensions
-  useEffect(() => {
-    if (!resizingLeft && !resizingPanel) {
-      const t = setTimeout(() => {
-        editorRef.current?.layout?.();
-      }, 0);
-      return () => clearTimeout(t);
-    }
-  }, [resizingLeft, resizingPanel]);
+  function resetCode() { localStorage.removeItem(`ck_draft_${problemId}_${language}`); setCode(DEFAULT_CODE[language] || ""); }
+  function formatCode() { editorRef.current?.getAction("editor.action.formatDocument")?.run(); }
+  function copyCode() { navigator.clipboard.writeText(code); setConsoleLines((lines) => [...lines, "Code copied to clipboard."]); }
+  function downloadCode() { const url = URL.createObjectURL(new Blob([code], { type: "text/plain" })); const link = document.createElement("a"); link.href = url; link.download = `solution.${selectedLanguage.extension}`; link.click(); URL.revokeObjectURL(url); }
+  function uploadCode(event) { const file = event.target.files?.[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => setCode(String(reader.result || "")); reader.readAsText(file); event.target.value = ""; }
 
-
-
-  function switchLang(l) { setLang(l); setCode(DEFAULT_CODE[l]); }
-
-  async function handleSubmit() {
-    setLoading(true);
-    setSubmitted(false);
-    setResults([]);
-    setVerdict(null);
-    setErrorMessage(null);
-
-    const res = await submitCode("two-sum", code, lang, "submit");
-
-    if (res.status === "error") {
-      setErrorMessage(res.message || "Something went wrong");
-      setVerdict(null);
-      setResults([]);
-    } else {
-      setVerdict(res.verdict || null);
-      setErrorMessage(res.verdict === "Compilation Error" ? "Compilation Error" : null);
-      const mapped = (res.sampleResults || []).map(tc => ({
-        status: mapJudgeStatus(tc),
-        output: tc.output,
-        input: tc.input,
-        expected: tc.expected,
-      }));
-      setResults(mapped);
-
-
-
-
-
-    }
-    setSubmitted(true);
-    setLoading(false);
-  }
-
-  async function handleTest() {
-    setLoading(true);
-    setSubmitted(false);
-    setResults([]);
-    setVerdict(null);
-    setErrorMessage(null);
-
-    const res = await submitCode("two-sum", code, lang, "run");
-
-    if (res.status === "error") {
-      setErrorMessage(res.message || "Something went wrong");
-      setVerdict(null);
-      setResults([]);
-    } else {
-      setVerdict(res.verdict || null);
-      setErrorMessage(res.verdict === "Compilation Error" ? "Compilation Error" : null);
-      const mapped = (res.sampleResults || []).map(tc => ({
-        status: mapJudgeStatus(tc),
-        output: tc.output,
-        input: tc.input,
-        expected: tc.expected,
-      }));
-      setResults(mapped);
-    }
-    setSubmitted(true);
-    setLoading(false);
-  }
-
-  if (!problem)
-    return (
-      <div className="h-screen w-screen bg-[#0d0d0f] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin" />
-          <p className="text-white/30 text-sm font-mono">Fetching problem…</p>
+  if (!problem) return <main className="workspace-loader"><div className="loader-ring" /><p>{workspaceError || "Loading coding workspace…"}</p><button onClick={loadProblem}>Retry</button></main>;
+  const commands = [
+    { label: "Run sample tests", key: "Ctrl+'", action: () => run("run") },
+    { label: "Submit solution", key: "Ctrl+Enter", action: () => run("submit") },
+    { label: "Format document", key: "", action: formatCode },
+    { label: "Copy code", key: "", action: copyCode },
+    { label: "Download code", key: "", action: downloadCode },
+    { label: "Upload code", key: "", action: () => uploadRef.current?.click() },
+    { label: "Reset to starter code", key: "", action: resetCode },
+    { label: "Toggle editor theme", key: "", action: () => setEditorTheme((value) => (value === "vs-dark" ? "vs" : "vs-dark")) },
+    { label: "Toggle minimap", key: "", action: () => setMinimap((value) => !value) },
+    { label: "Toggle word wrap", key: "", action: () => setWordWrap((value) => !value) },
+    { label: "Toggle line numbers", key: "", action: () => setLineNumbers((value) => !value) },
+    { label: "Increase font size", key: "", action: () => setFontSize((size) => Math.min(24, size + 1)) },
+    { label: "Decrease font size", key: "", action: () => setFontSize((size) => Math.max(10, size - 1)) },
+  ];
+  return <main className="workspace-shell">
+    <header className="workspace-nav">
+      <div className="nav-left">
+        {onExit ? <button className="workspace-brand" onClick={onExit} aria-label="Return to dashboard"><Icon name="code" size={21} /></button> : <a className="workspace-brand" href="/" aria-label="codekurukshetra home"><Icon name="code" size={21} /></a>}
+        <div className="problem-list-wrap">
+          <button className="icon-btn wide" onClick={() => setProblemMenuOpen((value) => !value)} aria-expanded={problemMenuOpen}><Icon name="list" /><span className="label">Problem List</span></button>
+          {problemMenuOpen && <div className="problem-list-menu" role="menu">{problems.map((item) => <button key={item.id} role="menuitem" className={item.id === problemId ? "active" : ""} onClick={() => { setProblemId(item.id); setProblemMenuOpen(false); }}>{item.title}</button>)}</div>}
         </div>
+        <button className="icon-btn" title="Previous problem" aria-label="Previous problem"><Icon name="left" /></button>
+        <button className="icon-btn" title="Next problem" aria-label="Next problem"><Icon name="right" /></button>
+        <button className="icon-btn" title="Random problem" aria-label="Random problem"><Icon name="shuffle" /></button>
       </div>
-    );
-
-
-
-
-  return (
-    <div
-      className="h-screen w-screen bg-[#0d0d0f] text-white flex flex-col overflow-hidden"
-      style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}
-    >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap');
-        * { box-sizing: border-box; }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #ffffff15; border-radius: 2px; }
-        ::-webkit-scrollbar-thumb:hover { background: #ffffff25; }
-        .run-btn {
-          background: linear-gradient(135deg, #6366f1, #8b5cf6, #6366f1);
-          background-size: 200% auto;
-          transition: all 0.3s ease;
-        }
-        .run-btn:hover:not(:disabled) {
-          background-position: right center;
-          box-shadow: 0 0 20px #6366f140, 0 4px 12px #0004;
-          transform: translateY(-1px);
-        }
-        .run-btn:active:not(:disabled) { transform: translateY(0); }
-        .tab-active   { color: #fff; border-bottom: 2px solid #6366f1; }
-        .tab-inactive { color: rgba(255,255,255,0.3); border-bottom: 2px solid transparent; }
-        .tab-inactive:hover { color: rgba(255,255,255,0.6); }
-      `}</style>
-
-      {/* Nav */}
-      <header className="flex items-center justify-between px-5 h-12 border-b border-white/6 bg-black/30 backdrop-blur-xl shrink-0 z-10">
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-            <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-          </div>
-          <span className="text-white/20 text-xs">|</span>
-          <span style={{ fontFamily: "'Syne', sans-serif" }} className="text-white/80 text-sm font-semibold tracking-wide">
-            code<span className="text-indigo-400">arena</span>
-          </span>
-        </div>
-        <div className="flex items-center gap-4">
-        </div>
-      </header>
-
-      <div ref={mainContentRef} className="flex flex-1 overflow-hidden min-h-0">
-
-        {/* LEFT — Question */}
-        <div
-          className="flex flex-col border-r border-white/6 overflow-hidden shrink-0"
-          style={{ width: `${leftPanelWidthPct}%`, minWidth: 280 }}
-        >
-          <div className="px-6 pt-5 pb-4 border-b border-white/6 shrink-0">
-            <div className="flex items-start justify-between gap-3 mb-3">
-              <div>
-                <p className="text-white/30 text-xs font-mono mb-1">#1 · Two Sum</p>
-                <h1 style={{ fontFamily: "'Syne', sans-serif" }} className="text-xl font-bold text-white leading-tight">{problem.title}</h1>
-              </div>
-              <DifficultyPill level={problem.difficulty || "Easy"} />
-            </div>
-            <div className="flex flex-wrap gap-2 mt-3">
-              {(problem.tags || ["Array", "Hash Table"]).map(t => <Tag key={t}>{t}</Tag>)}
-            </div>
-          </div>
-
-          <div className="flex gap-5 px-6 border-b border-white/6 shrink-0">
-            {["description", "editorial"].map(t => (
-              <button key={t} onClick={() => setActiveTab(t)}
-                className={`py-3 text-xs uppercase tracking-widest font-semibold transition-all ${activeTab === t ? "tab-active" : "tab-inactive"}`}>
-                {t}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-6 py-5 space-y-5">
-            {activeTab === "description" ? (
-              <>
-                <p className="text-white/60 text-sm leading-7 break-words" style={{ overflowWrap: "break-word" }}>{problem.statement}</p>
-                <div className="space-y-3">
-                  <p className="text-xs uppercase tracking-widest text-white/25 font-semibold">Examples</p>
-                  <IOBlock label="Input" value={problem.sampleInput} />
-                  <IOBlock label="Output" value={problem.sampleOutput} />
-                </div>
-                {problem.constraints && (
-                  <div className="rounded-xl border border-white/8 bg-white/3 px-4 py-3">
-                    <p className="text-xs uppercase tracking-widest text-white/25 font-semibold mb-2">Constraints</p>
-                    {problem.constraints.map((c, i) => (
-                      <p key={i} className="text-sm font-mono text-white/50"><span className="text-indigo-400 mr-2">•</span>{c}</p>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="text-white/40 text-sm leading-7 italic">Editorial coming soon…</div>
-            )}
-          </div>
-
-          <div className="px-6 py-3 border-t border-white/6 flex items-center gap-6 shrink-0">
-            {[
-              { label: "Acceptance", value: problem.acceptance || "67.8%" },
-              { label: "Submissions", value: problem.submissions || "12.4M" },
-              { label: "Runtime", value: problem.runtime || "O(n)" },
-            ].map(({ label, value }) => (
-              <div key={label}>
-                <p className="text-white/25 text-[10px] uppercase tracking-widest">{label}</p>
-                <p className="text-white/70 text-xs font-semibold font-mono mt-0.5">{value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Vertical resize handle */}
-        <div
-          role="separator"
-          aria-label="Resize question panel"
-          className="w-1 shrink-0 bg-white/5 hover:bg-indigo-500/30 cursor-col-resize transition-colors group flex items-center justify-center"
-          onMouseDown={(e) => {
-            resizeStartRef.current = { x: e.clientX, pct: leftPanelWidthPct };
-            setResizingLeft(true);
-          }}
-        >
-          <div className="w-0.5 h-8 rounded-full bg-white/20 group-hover:bg-indigo-400/60 transition-colors" />
-        </div>
-
-        {/* RIGHT — Editor + Test panel */}
-        <div className="flex-1 flex flex-col overflow-hidden min-w-[320px]">
-
-          {/* Toolbar */}
-          <div className="flex items-center justify-between px-4 h-11 border-b border-white/6 bg-black/20 shrink-0">
-            <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1">
-              {LANGUAGES.map(l => (
-                <button key={l.id} onClick={() => switchLang(l.id)}
-                  className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${lang === l.id ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20" : "text-white/35 hover:text-white/60"
-                    }`}>
-                  {l.label}
-                </button>
-              ))}
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 text-white/30">
-                <button onClick={() => setFontSize(f => Math.max(10, f - 1))} className="text-xs hover:text-white/60 transition-colors w-5 text-center">A-</button>
-                <span className="text-xs font-mono">{fontSize}px</span>
-                <button onClick={() => setFontSize(f => Math.min(22, f + 1))} className="text-xs hover:text-white/60 transition-colors w-5 text-center">A+</button>
-              </div>
-              <div className="w-px h-4 bg-white/10" />
-              <button onClick={() => setCode(DEFAULT_CODE[lang])} className="text-xs text-white/30 hover:text-white/60 transition-colors">Reset</button>
-            </div>
-          </div>
-
-          {/* Editor */}
-          <div className="flex-1 overflow-hidden min-h-0">
-            <Editor
-              height="100%"
-              language={LANGUAGES.find(l => l.id === lang)?.monacoId || "cpp"}
-              theme="vs-dark"
-              value={code}
-              onChange={setCode}
-              onMount={(editor) => {
-                editorRef.current = editor;
-              }}
-              options={{
-                fontSize,
-                fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-                fontLigatures: true,
-                minimap: { enabled: false },
-                scrollBeyondLastLine: false,
-                lineNumbers: "on",
-                renderLineHighlight: "gutter",
-                smoothScrolling: true,
-                cursorBlinking: "smooth",
-                cursorSmoothCaretAnimation: "on",
-                padding: { top: 16, bottom: 16 },
-                tabSize: 4,
-                bracketPairColorization: { enabled: true },
-                guides: { bracketPairs: true },
-                scrollbar: { vertical: "auto", horizontal: "auto", verticalScrollbarSize: 4, horizontalScrollbarSize: 4 },
-              }}
-            />
-          </div>
-
-          {/* Horizontal resize handle for test panel */}
-          <div
-            role="separator"
-            aria-label="Resize test cases panel"
-            className="h-1.5 shrink-0 bg-white/5 hover:bg-indigo-500/30 cursor-row-resize transition-colors flex items-center justify-center border-t border-white/6"
-            onMouseDown={(e) => {
-              panelResizeStartRef.current = { y: e.clientY, h: testPanelHeight };
-              setResizingPanel(true);
-            }}
-          >
-            <div className="w-12 h-0.5 rounded-full bg-white/20 hover:bg-indigo-400/60 transition-colors" />
-          </div>
-
-          {/* Test Panel */}
-          <TestPanel
-            height={testPanelHeight}
-            loading={loading}
-            results={results}
-            submitted={submitted}
-            sampleCases={sampleCases}
-            verdict={verdict}
-            errorMessage={errorMessage}
-            onSubmit={handleSubmit}
-            onTest={handleTest}
-          />
-        </div>
+      <div className="nav-center">
+        <button className="icon-btn" title="Debug console" aria-label="Debug console" onClick={() => { setConsoleOpen(true); setConsoleTab("Console"); }}><Icon name="terminal" /></button>
+        <button className="icon-btn run-btn" title="Run (Ctrl+')" aria-label="Run" disabled={loading} onClick={() => run("run")}><Icon name="play" /></button>
+        <button className="submit-pill" disabled={loading} onClick={() => run("submit")} title="Submit (Ctrl+Enter)"><Icon name="code" /><span className="label">Submit</span></button>
+        <button className={`icon-btn ${consoleOpen ? "selected" : ""}`} title="Toggle testcase panel" aria-label="Toggle testcase panel" onClick={() => setConsoleOpen((open) => !open)}><Icon name="panel" /></button>
       </div>
+      <div className="nav-right">
+        <button className="icon-btn" title="Layout" aria-label="Layout"><Icon name="grid" /></button>
+        <button className="icon-btn" title="Command palette (Ctrl+Shift+P)" aria-label="Command palette" onClick={() => setPaletteOpen(true)}><Icon name="settings" /></button>
+        <span className="timer-chip" title="Run count">▶ 0</span>
+        <button className="icon-btn" title="Refresh workspace" aria-label="Refresh workspace" onClick={loadProblem}><Icon name="refresh" /></button>
+        <button className="icon-btn" title="Invite" aria-label="Invite"><Icon name="userplus" /></button>
+        {user ? <span className="avatar-circle" title={user.name}>{(user.name || "U").slice(0, 1).toUpperCase()}</span> : <button className="premium-btn">Sign in</button>}
+      </div>
+    </header>
+    <div className="workspace" ref={workspaceRef}>
+      <div className="problem-column" style={{ width: `${leftWidth}%` }}><ProblemPanel problem={problem} tab={problemTab} setTab={setProblemTab} submissions={submissions} /></div>
+      <div className="resize-v" role="separator" aria-label="Resize problem panel" onMouseDown={(event) => onResizeStart("left", event)} />
+      <section className="editor-column">
+        <div className="code-panel-header"><span className="title"><Icon name="code" />Code</span></div>
+        <div className="editor-tabs"><button onClick={() => setActiveFile("solution")} className={activeFile === "solution" ? "active" : ""}><i>⌘</i> solution.{selectedLanguage.extension}<span>×</span></button><button onClick={() => setActiveFile("input.txt")} className={activeFile === "input.txt" ? "active" : ""}>input.txt <span>×</span></button><button onClick={() => setActiveFile("output.txt")} className={activeFile === "output.txt" ? "active" : ""}>output.txt <span>×</span></button></div>
+        <div className="editor-toolbar">
+          <div className="toolbar-group">
+            <select value={language} aria-label="Programming language" onChange={(event) => { const next = LANGUAGES.find((item) => item.id === event.target.value); if (!next?.disabled) setLanguage(event.target.value); }}>{LANGUAGES.map((item) => <option key={item.id} value={item.id} disabled={item.disabled}>{item.label}{item.disabled ? " (coming soon)" : ""}</option>)}</select>
+            <span className="autosave-chip"><span aria-hidden="true">🔒</span>Auto</span>
+          </div>
+          <div className="toolbar-group">
+            <button className="icon-btn" title="Toggle line numbers" aria-label="Toggle line numbers" onClick={() => setLineNumbers((value) => !value)}><Icon name="align" /></button>
+            <button className="icon-btn" title="Copy code" aria-label="Copy code" onClick={copyCode}><Icon name="copy" /></button>
+            <button className="icon-btn" title="Format document" aria-label="Format document" onClick={formatCode}><Icon name="braces" /></button>
+            <button className="icon-btn" title="Reset to starter code" aria-label="Reset to starter code" onClick={resetCode}><Icon name="reset" /></button>
+            <button className="icon-btn" title="Toggle problem panel" aria-label="Toggle problem panel" onClick={() => setLeftWidth((width) => (width < 15 ? 42 : 8))}><Icon name="panelleft" /></button>
+            <input ref={uploadRef} type="file" accept=".cpp,.cc,.cxx,.py,.java,.js,.txt" hidden onChange={uploadCode} />
+          </div>
+        </div>
+        <div className="editor-area">{activeFile === "solution" ? <CodeEditor language={selectedLanguage.monacoId} theme={editorTheme} value={code} onChange={setCode} options={editorOptions} onMount={(editor) => { editorRef.current = editor; editor.onDidChangeCursorPosition((event) => setCursorPos({ line: event.position.lineNumber, column: event.position.column })); }} /> : <pre className="virtual-file">{activeFile === "input.txt" ? (customCases[0]?.input || "") : (results[0]?.output || "Run code to populate output.txt")}</pre>}</div>
+        {consoleOpen && <><div className="resize-h" role="separator" aria-label="Resize console" onMouseDown={(event) => onResizeStart("console", event)} />
+        <ConsolePanel height={consoleHeight} activeTab={consoleTab} setActiveTab={setConsoleTab} customCases={customCases} setCustomCases={setCustomCases} results={results} consoleLines={consoleLines} loading={loading} onRunCustom={() => run("run", customCases)} onRunSamples={() => run("run")} submissions={submissions} /></>}
+        <footer className="editor-footer"><span className="save-status"><StatusPill verdict={verdict} loading={loading} /><span aria-hidden="true">●</span>Saved</span><span className="cursor-pos">Ln {cursorPos.line}, Col {cursorPos.column}</span></footer>
+      </section>
     </div>
-  );
+    <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} commands={commands} />
+  </main>;
 }

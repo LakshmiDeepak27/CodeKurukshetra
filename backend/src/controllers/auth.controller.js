@@ -6,7 +6,7 @@ async function signup(req, res, next) {
     const email = String(req.body.email || "").trim().toLowerCase();
     const password = String(req.body.password || "");
 
-    if (!name || !/^\S+@\S+\.\S+$/.test(email) || password.length < 8) {
+    if (name.length > 120 || !/^\S+@\S+\.\S+$/.test(email) || email.length > 255 || password.length < 8 || password.length > 128) {
       return res.status(400).json({
         message: "Enter a name, valid email, and password of at least 8 characters",
       });

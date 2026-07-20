@@ -96,6 +96,30 @@ async function submitCode({ userId, problemId, code, language = "cpp", mode = "s
   }
 }
 
+async function runCustomCode({ problemId, code, language, testCases }) {
+  const config = await problemsService.getProblemJudgeConfig(problemId);
+  if (!config) {
+    const error = new Error("Problem configuration not found");
+    error.status = 404;
+    throw error;
+  }
+
+  const result = await judgeService.runJudge({
+    language,
+    code,
+    timeLimitMs: config.problem.timeLimitMs,
+    mode: "run",
+    testCases: { sample: testCases, hidden: [] },
+  });
+
+  return {
+    status: "success",
+    verdict: result.verdict,
+    sampleResults: result.sampleResults || [],
+    hiddenSummary: { passed: true },
+  };
+}
+
 async function getSubmissionById(submissionId, userId) {
   const rows = await query(
     `SELECT s.*, p.title AS problem_title
@@ -158,6 +182,7 @@ async function listUserSubmissions(userId, { problemId, limit = 20 } = {}) {
 
 module.exports = {
   submitCode,
+  runCustomCode,
   getSubmissionById,
   listUserSubmissions,
 };

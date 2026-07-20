@@ -8,9 +8,11 @@ const submissionsRoutes = require("./routes/submissions.routes");
 const submissionsController = require("./controllers/submissions.controller");
 const { optionalAuthenticate } = require("./middleware/auth");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
+const { securityHeaders, createRateLimiter } = require("./middleware/security");
 
 function createApp() {
   const app = express();
+  app.disable("x-powered-by");
 
   app.use(
     cors({
@@ -21,6 +23,12 @@ function createApp() {
   );
 
   app.use(express.json({ limit: "1mb" }));
+  app.use(securityHeaders);
+  app.use(createRateLimiter({
+    windowMs: 60 * 1000,
+    max: 120,
+    message: "Too many API requests. Please try again shortly.",
+  }));
 
   app.get("/health", async (_req, res) => {
     try {
@@ -36,7 +44,12 @@ function createApp() {
   app.use("/submissions", submissionsRoutes);
 
   // Backward-compatible alias used by the Editor frontend
-  app.post("/submit", optionalAuthenticate, submissionsController.submit);
+  app.post(
+    "/submit",
+    createRateLimiter({ windowMs: 60 * 1000, max: 12, message: "Too many submissions. Please wait a minute." }),
+    optionalAuthenticate,
+    submissionsController.submit
+  );
 
   app.use(notFound);
   app.use(errorHandler);
