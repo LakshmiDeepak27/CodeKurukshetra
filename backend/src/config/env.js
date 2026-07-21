@@ -5,7 +5,7 @@ const config = {
   nodeEnv: process.env.NODE_ENV || "development",
   authTokenSecret: process.env.AUTH_TOKEN_SECRET || "replace-this-development-secret-before-deploying",
   googleClientId: process.env.GOOGLE_CLIENT_ID || "",
-  corsOrigins: (process.env.CORS_ORIGINS || "http://localhost:5173,http://localhost:5174")
+  corsOrigins: (process.env.CORS_ORIGINS || "http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:5176,http://localhost:5177")
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean),

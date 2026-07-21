@@ -2,7 +2,7 @@
   "name": "code-kurukshetra",
   "private": true,
   "scripts": {
-    "dev": "npm --prefix frontend/Home run dev",
-    "build": "npm --prefix frontend/Home run build"
+    "dev": "node frontend/Home/node_modules/vite/bin/vite.js frontend/Home --config frontend/Home/vite.config.js --port 5173 --strictPort",
+    "build": "node frontend/Home/node_modules/vite/bin/vite.js build frontend/Home --config frontend/Home/vite.config.js"
   }
 }
