@@ -15,5 +15,6 @@ router.post("/signup", authLimiter, authController.signup);
 router.post("/signin", authLimiter, authController.signin);
 router.post("/google", authLimiter, authController.googleAuth);
 router.get("/me", authenticate, authController.me);
+router.get("/online", authController.getOnlineUsers);
 
 module.exports = router;

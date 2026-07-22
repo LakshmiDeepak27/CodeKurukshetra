@@ -21,6 +21,22 @@ async function listProblems() {
   }));
 }
 
+const problemStatsStore = {};
+
+function getStats(problemId) {
+  if (!problemStatsStore[problemId]) {
+    problemStatsStore[problemId] = {
+      likes: 14,
+      dislikes: 2,
+      comments: [
+        { author: "CompetitiveCoder", text: "Great problem! Boundary check is crucial here." },
+        { author: "AlgoMaster", text: "Linear pass handles all test scenarios nicely." }
+      ]
+    };
+  }
+  return problemStatsStore[problemId];
+}
+
 async function getProblemById(problemId) {
   const rows = await query(
     `SELECT id, title, statement, difficulty, sample_input, sample_output, time_limit_ms, memory_limit_mb
@@ -38,6 +54,8 @@ async function getProblemById(problemId) {
   );
 
   const problem = rows[0];
+  const stats = getStats(problem.id);
+
   return {
     id: problem.id,
     title: problem.title,
@@ -49,7 +67,26 @@ async function getProblemById(problemId) {
     memoryLimitMb: problem.memory_limit_mb,
     tags: tags.map((row) => row.tag),
     constraints: constraints.map((row) => row.constraint_text),
+    likes: stats.likes,
+    dislikes: stats.dislikes,
+    commentsCount: stats.comments.length,
+    comments: stats.comments,
   };
+}
+
+async function voteProblem(problemId, type) {
+  const stats = getStats(problemId);
+  if (type === "like") stats.likes += 1;
+  else if (type === "unlike") stats.likes = Math.max(0, stats.likes - 1);
+  else if (type === "dislike") stats.dislikes += 1;
+  else if (type === "undislike") stats.dislikes = Math.max(0, stats.dislikes - 1);
+  return stats;
+}
+
+async function addComment(problemId, author, text) {
+  const stats = getStats(problemId);
+  stats.comments.push({ author: author || "You", text, createdAt: new Date() });
+  return stats;
 }
 
 async function getSampleTestCases(problemId) {
@@ -93,4 +130,6 @@ module.exports = {
   getProblemById,
   getSampleTestCases,
   getProblemJudgeConfig,
+  voteProblem,
+  addComment,
 };

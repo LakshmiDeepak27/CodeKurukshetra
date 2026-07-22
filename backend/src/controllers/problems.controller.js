@@ -34,4 +34,26 @@ async function getTestCases(req, res, next) {
   }
 }
 
-module.exports = { listProblems, getProblem, getTestCases };
+async function voteProblem(req, res, next) {
+  try {
+    const { id } = req.params;
+    const { type } = req.body;
+    const stats = await problemsService.voteProblem(id, type);
+    return res.json(stats);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+async function addComment(req, res, next) {
+  try {
+    const { id } = req.params;
+    const { author, text } = req.body;
+    const stats = await problemsService.addComment(id, author, text);
+    return res.json(stats);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = { listProblems, getProblem, getTestCases, voteProblem, addComment };

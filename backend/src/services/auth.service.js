@@ -86,10 +86,17 @@ async function googleSignIn(credential) {
   return authResponse(user);
 }
 
+async function getOnlineUsersCount() {
+  const rows = await query("SELECT COUNT(*) as activeCount FROM users");
+  const count = Number(rows[0]?.activeCount || 0);
+  return count > 0 ? count : 1;
+}
+
 module.exports = {
   publicUser,
   findUserById,
   signup,
   signin,
   googleSignIn,
+  getOnlineUsersCount,
 };

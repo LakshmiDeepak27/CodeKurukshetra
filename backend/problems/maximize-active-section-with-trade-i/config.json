@@ -1,0 +1,9 @@
+{
+  "timeLimitMs": 1000,
+  "language": [
+    "cpp",
+    "python",
+    "java",
+    "js"
+  ]
+}
