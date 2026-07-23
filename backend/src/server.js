@@ -8,6 +8,17 @@ const server = http.createServer(app);
 
 initSocketServer(server);
 
+// Process-level crash handlers (PDF Item 3.4)
+process.on("uncaughtException", (error) => {
+  console.error("FATAL: Uncaught Exception thrown:", error);
+  // Allow pending logs/cleanup then exit so PM2/Docker can restart cleanly
+  setTimeout(() => process.exit(1), 1000);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("FATAL: Unhandled Promise Rejection at:", promise, "reason:", reason);
+});
+
 server.on("error", (err) => {
   if (err.code === "EADDRINUSE") {
     console.error(`Port ${config.port} is already in use by another process.`);
@@ -35,5 +46,3 @@ function handleShutdown(signal) {
 process.once("SIGUSR2", () => handleShutdown("SIGUSR2"));
 process.on("SIGINT", () => handleShutdown("SIGINT"));
 process.on("SIGTERM", () => handleShutdown("SIGTERM"));
-
-

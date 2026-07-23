@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const config = require("./config/env");
 const { ping } = require("./config/db");
+const { runJudge } = require("./services/judge.service");
 const authRoutes = require("./routes/auth.routes");
 const problemsRoutes = require("./routes/problems.routes");
 const submissionsRoutes = require("./routes/submissions.routes");
@@ -33,13 +34,38 @@ function createApp() {
     message: "Too many API requests. Please try again shortly.",
   }));
 
+  // Extended /health endpoint testing both MySQL database and Judge engine roundtrip (PDF Item 3.5)
   app.get("/health", async (_req, res) => {
+    let dbStatus = "disconnected";
+    let judgeStatus = "unknown";
+
     try {
       await ping();
-      return res.json({ status: "ok", database: "connected" });
+      dbStatus = "connected";
     } catch {
-      return res.status(503).json({ status: "degraded", database: "disconnected" });
+      dbStatus = "disconnected";
     }
+
+    try {
+      const pingPayload = {
+        code: "int main(){return 0;}",
+        language: "cpp",
+        timeLimitMs: 2000,
+        memoryLimitMb: 256,
+        testCases: [{ input: "", expected: "" }],
+      };
+      await runJudge(pingPayload);
+      judgeStatus = "ok";
+    } catch (err) {
+      judgeStatus = err.message || "degraded";
+    }
+
+    const isHealthy = dbStatus === "connected" && judgeStatus === "ok";
+    return res.status(isHealthy ? 200 : 503).json({
+      status: isHealthy ? "ok" : "degraded",
+      database: dbStatus,
+      judge: judgeStatus,
+    });
   });
 
   app.use("/auth", authRoutes);

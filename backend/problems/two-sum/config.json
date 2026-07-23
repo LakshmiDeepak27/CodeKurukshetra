@@ -24,25 +24,25 @@
         "starterCode": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        \n    }\n};\n",
         "inputParser": "string input; cin >> input;",
         "outputFormatter": "cout << answer << '\\n';",
-        "driverTemplate": "#include <bits/stdc++.h>\nusing namespace std;\n\n{{solution}}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    Solution solution;\n    // driver invocation\n    return 0;\n}\n"
+        "driverTemplate": "#include <bits/stdc++.h>\nusing namespace std;\n\n{{solution}}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    string line;\n    if (!getline(cin, line)) return 0;\n    int target = 0;\n    size_t targetPos = line.find(\"target =\");\n    if (targetPos != string::npos) {\n        target = stoi(line.substr(targetPos + 8));\n    }\n    size_t start = line.find('[');\n    size_t end = line.find(']');\n    vector<int> nums;\n    if (start != string::npos && end != string::npos && end > start) {\n        string arrStr = line.substr(start + 1, end - start - 1);\n        stringstream ss(arrStr);\n        string token;\n        while (getline(ss, token, ',')) {\n            if (!token.empty()) nums.push_back(stoi(token));\n        }\n    }\n    Solution solution;\n    vector<int> res = solution.twoSum(nums, target);\n    if (res.empty()) {\n        cout << \"None\" << endl;\n    } else {\n        cout << \"[\" << res[0] << \", \" << res[1] << \"]\" << endl;\n    }\n    cout << flush;\n    return 0;\n}\n"
       },
       "python": {
         "starterCode": "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        pass\n",
         "inputParser": "import sys\ndata = sys.stdin.read()",
         "outputFormatter": "print(answer)",
-        "driverTemplate": "import sys\n\n{{solution}}\n"
+        "driverTemplate": "import sys, re\n\n{{solution}}\n\nif __name__ == '__main__':\n    raw = sys.stdin.read().strip()\n    if raw:\n        target_match = re.search(r'target\\s*=\\s*(-?\\d+)', raw)\n        target = int(target_match.group(1)) if target_match else 0\n        nums_match = re.search(r'\\[([^\\]]*)\\]', raw)\n        nums = [int(x.strip()) for x in nums_match.group(1).split(',') if x.strip()] if nums_match else []\n        sol = Solution()\n        res = sol.twoSum(nums, target)\n        if not res:\n            print('None', flush=True)\n        else:\n            print(f'[{res[0]}, {res[1]}]', flush=True)\n"
       },
       "java": {
         "starterCode": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        return new int[]{};\n    }\n}\n",
         "inputParser": "Scanner scanner = new Scanner(System.in);",
         "outputFormatter": "System.out.println(answer);",
-        "driverTemplate": "import java.util.*;\n\n{{solution}}\n\npublic class Main {\n    public static void main(String[] args) {\n        Solution solution = new Solution();\n    }\n}\n"
+        "driverTemplate": "import java.util.*;\nimport java.util.regex.*;\n\n{{solution}}\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextLine()) return;\n        String line = sc.nextLine();\n        int target = 0;\n        Matcher tm = Pattern.compile(\"target\\\\s*=\\\\s*(-?\\\\d+)\").matcher(line);\n        if (tm.find()) target = Integer.parseInt(tm.group(1));\n        Matcher nm = Pattern.compile(\"\\\\[([^\\\\]]*)\\\\]\").matcher(line);\n        List<Integer> list = new ArrayList<>();\n        if (nm.find() && !nm.group(1).trim().isEmpty()) {\n            for (String s : nm.group(1).split(\",\")) {\n                list.add(Integer.parseInt(s.trim()));\n            }\n        }\n        int[] nums = list.stream().mapToInt(i -> i).toArray();\n        Solution solution = new Solution();\n        int[] res = solution.twoSum(nums, target);\n        if (res == null || res.length < 2) System.out.println(\"None\");\n        else System.out.println(\"[\" + res[0] + \", \" + res[1] + \"]\");\n        System.out.flush();\n    }\n}\n"
       },
       "js": {
         "starterCode": "class Solution {\n  /**\n   * @param {number[]} nums\n   * @param {number} target\n   * @return {number[]}\n   */\n  twoSum(nums, target) {\n    \n  }\n}\n",
         "inputParser": "const input = require('fs').readFileSync(0, 'utf8');",
         "outputFormatter": "console.log(answer);",
-        "driverTemplate": "{{solution}}\n"
+        "driverTemplate": "{{solution}}\n\nconst fs = require('fs');\nconst line = fs.readFileSync(0, 'utf8').trim();\nif (line) {\n  const targetMatch = line.match(/target\\s*=\\s*(-?\\d+)/);\n  const target = targetMatch ? parseInt(targetMatch[1]) : 0;\n  const numsMatch = line.match(/\\[([^\\]]*)\\]/);\n  const nums = numsMatch && numsMatch[1].trim() ? numsMatch[1].split(',').map(s => parseInt(s.trim())) : [];\n  const sol = new Solution();\n  const res = sol.twoSum(nums, target);\n  if (!res || res.length < 2) console.log('None');\n  else console.log(`[${res[0]}, ${res[1]}]`);\n}\n"
       }
     }
   }

@@ -9,8 +9,22 @@ function securityHeaders(_req, res, next) {
 function createRateLimiter({ windowMs, max, message }) {
   const hits = new Map();
 
+  // Periodic memory cleanup timer to evict expired IP entries (PDF Item 3.2)
+  const cleanupInterval = setInterval(() => {
+    const now = Date.now();
+    for (const [key, entry] of hits.entries()) {
+      if (now - entry.startedAt >= windowMs) {
+        hits.delete(key);
+      }
+    }
+  }, Math.max(windowMs, 60000));
+
+  if (typeof cleanupInterval.unref === "function") {
+    cleanupInterval.unref();
+  }
+
   return (req, res, next) => {
-    const key = req.ip || req.socket.remoteAddress || "unknown";
+    const key = req.ip || req.socket?.remoteAddress || "unknown";
     const now = Date.now();
     const current = hits.get(key);
     const active = current && now - current.startedAt < windowMs

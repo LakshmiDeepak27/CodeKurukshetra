@@ -1,0 +1,117 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: codekurukshetra-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: code_kurukshetra
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: codekurukshetra-backend
+    restart: always
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      AUTH_TOKEN_SECRET: a_secure_random_production_secret_32chars_long!!
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: code_kurukshetra
+      CORS_ORIGINS: http://localhost:5173,http://localhost:5174
+      JUDGE_ENGINE: judge0
+      JUDGE0_API_URL: http://judge0-server:2358
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - judge0-server
+
+  # Judge0 API Server
+  judge0-server:
+    image: judge0/judge0:1.13.1
+    container_name: codekurukshetra-judge0-server
+    privileged: true
+    restart: always
+    ports:
+      - "2358:2358"
+    environment:
+      POSTGRES_HOST: judge0-db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: judge0
+      POSTGRES_PASSWORD: judge0password
+      POSTGRES_DB: judge0
+      REDIS_HOST: judge0-redis
+      REDIS_PORT: 6379
+      MAX_CPU_TIME_LIMIT: "20.0"
+      MAX_WALL_TIME_LIMIT: "30.0"
+      MAX_MEMORY_LIMIT: "512000"
+      MAX_SUBMISSION_BATCH_SIZE: "20"
+      ENABLE_PER_PROCESS_AND_THREAD_TIME_LIMIT: "true"
+      ENABLE_PER_PROCESS_AND_THREAD_MEMORY_LIMIT: "true"
+    tmpfs:
+      - /tmp:exec
+    depends_on:
+      - judge0-db
+      - judge0-redis
+
+  # Judge0 Worker Execution Engine
+  judge0-worker:
+    image: judge0/judge0:1.13.1
+    container_name: codekurukshetra-judge0-worker
+    privileged: true
+    restart: always
+    command: ["/api/scripts/workers"]
+    environment:
+      POSTGRES_HOST: judge0-db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: judge0
+      POSTGRES_PASSWORD: judge0password
+      POSTGRES_DB: judge0
+      REDIS_HOST: judge0-redis
+      REDIS_PORT: 6379
+      MAX_CPU_TIME_LIMIT: "20.0"
+      MAX_WALL_TIME_LIMIT: "30.0"
+      MAX_MEMORY_LIMIT: "512000"
+      MAX_SUBMISSION_BATCH_SIZE: "20"
+      ENABLE_PER_PROCESS_AND_THREAD_TIME_LIMIT: "true"
+      ENABLE_PER_PROCESS_AND_THREAD_MEMORY_LIMIT: "true"
+    tmpfs:
+      - /tmp:exec
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    depends_on:
+      - judge0-db
+      - judge0-redis
+
+  judge0-db:
+    image: postgres:13.0-alpine
+    container_name: codekurukshetra-judge0-db
+    restart: always
+    environment:
+      POSTGRES_USER: judge0
+      POSTGRES_PASSWORD: judge0password
+      POSTGRES_DB: judge0
+    volumes:
+      - judge0_db_data:/var/lib/postgresql/data
+
+  judge0-redis:
+    image: redis:6.0-alpine
+    container_name: codekurukshetra-judge0-redis
+    restart: always
+    volumes:
+      - judge0_redis_data:/data
+
+volumes:
+  mysql_data:
+  judge0_db_data:
+  judge0_redis_data:

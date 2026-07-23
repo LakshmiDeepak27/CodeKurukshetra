@@ -369,34 +369,179 @@ function CodeBlock({ label, value }) { return <div className="code-block"><heade
 function EmptyPanel({ title, text }) { return <div className="empty-panel"><strong>{title}</strong><p>{text}</p></div>; }
 function SubmissionList({ submissions }) { return submissions?.length ? <div className="submission-list">{submissions.map((item) => <div key={item.id}><strong>{item.verdict || item.status}</strong><span>{item.language} · {new Date(item.created_at).toLocaleString()}</span></div>)}</div> : <EmptyPanel title="No submissions yet" text="Sign in and submit a solution to build your history." />; }
 
-function ConsolePanel({ height, activeTab, setActiveTab, customCases, setCustomCases, results, verdict, errorMessage, loading, onRunCustom, inputLabel }) {
+function parseInputToParams(inputStr, paramList) {
+  if (!paramList || paramList.length === 0) return [""];
+  if (!inputStr) return paramList.map(() => "");
+
+  const result = new Array(paramList.length).fill("");
+
+  let matchedAny = false;
+  paramList.forEach((param, idx) => {
+    const pName = param.name;
+    if (!pName) return;
+    const regex = new RegExp(`(?:^|\\n|,\\s*)${pName}\\s*=\\s*(.*?)(?=(?:,\\s*[a-zA-Z_]\\w*\\s*=)|\\n|$)`, "i");
+    const match = inputStr.match(regex);
+    if (match) {
+      result[idx] = match[1].trim();
+      matchedAny = true;
+    }
+  });
+
+  if (matchedAny) {
+    return result;
+  }
+
+  const lines = inputStr.split(/\r?\n/).map((l) => l.trim()).filter((l) => l.length > 0);
+  if (lines.length === paramList.length) {
+    return lines.map((line, idx) => {
+      const pName = paramList[idx]?.name;
+      if (pName && line.startsWith(`${pName} =`)) {
+        return line.slice(`${pName} =`.length).trim();
+      }
+      return line;
+    });
+  }
+
+  paramList.forEach((param, idx) => {
+    if (lines[idx] !== undefined) {
+      let val = lines[idx];
+      if (param.name && val.startsWith(`${param.name} =`)) {
+        val = val.slice(`${param.name} =`.length).trim();
+      }
+      result[idx] = val;
+    }
+  });
+
+  return result;
+}
+
+function ConsolePanel({ height, activeTab, setActiveTab, customCases, setCustomCases, results, verdict, errorMessage, loading, onRunCustom, parameters = [] }) {
   const [activeCase, setActiveCase] = useState(0);
   const tabs = ["Testcase", "Test Result"];
   const safeActiveCase = Math.min(activeCase, Math.max(customCases.length - 1, 0));
-  const current = customCases[safeActiveCase] || customCases[0];
-  const assignmentPrefix = inputLabel ? `${inputLabel} = ` : "";
-  const currentInput = current?.input || "";
-  const inputValue = inputLabel && currentInput.startsWith(assignmentPrefix)
-    ? currentInput.slice(assignmentPrefix.length)
-    : currentInput;
-  const updateInput = (value) => setCustomCases((cases) => cases.map((item, index) => index === safeActiveCase
-    ? { ...item, input: inputLabel ? `${assignmentPrefix}${value}` : value }
-    : item));
-  return <section className="console-panel" style={{ height }}>
-    <div className="console-header"><div className="console-tabs" role="tablist">{tabs.map((tab) => <button key={tab} onClick={() => setActiveTab(tab)} className={activeTab === tab ? "active" : ""}>{tab}</button>)}</div></div>
-    <div className="console-content">
-      {activeTab === "Testcase" && <>
-        <div className="case-tabs">{customCases.map((_, index) => <button key={index} onClick={() => setActiveCase(index)} className={safeActiveCase === index ? "active" : ""}>Case {index + 1}</button>)}<button aria-label="Add testcase" onClick={() => { setCustomCases([...customCases, { input: "", expected: "" }]); setActiveCase(customCases.length); }}>+</button></div>
-        <div className="custom-case"><label>{inputLabel ? `${inputLabel} =` : "Input"}<textarea value={inputValue} onChange={(event) => updateInput(event.target.value)} placeholder="Enter input" /></label></div>
-        <div className="console-actions"><button className="subtle-btn" disabled={loading || customCases.length === 1} onClick={() => { setCustomCases(customCases.filter((_, index) => index !== activeCase)); setActiveCase(0); }}>Remove case</button><button className="primary-btn" onClick={onRunCustom} disabled={loading}>Run</button></div>
-      </>}
-      {activeTab === "Test Result" && <ResultList results={results} verdict={verdict} errorMessage={errorMessage} loading={loading} />}
-    </div>
-  </section>;
+  const currentCase = customCases[safeActiveCase] || { input: "", expected: "" };
+
+  const paramList = useMemo(() => {
+    if (parameters && parameters.length > 0) {
+      return parameters.map((p) => (typeof p === "string" ? { name: p } : p));
+    }
+    return [{ name: "input" }];
+  }, [parameters]);
+
+  const paramValues = parseInputToParams(currentCase.input, paramList);
+
+  const handleParamChange = (paramIdx, newValue) => {
+    const newValues = [...paramValues];
+    newValues[paramIdx] = newValue;
+    const joinedInput = newValues.join("\n");
+
+    setCustomCases((cases) =>
+      cases.map((c, i) => (i === safeActiveCase ? { ...c, input: joinedInput } : c))
+    );
+  };
+
+  const handleAddCase = () => {
+    const emptyInput = paramList.map(() => "").join("\n");
+    setCustomCases((prev) => [...prev, { input: emptyInput, expected: "" }]);
+    setActiveCase(customCases.length);
+  };
+
+  const handleRemoveCase = (idxToRemove, e) => {
+    e.stopPropagation();
+    if (customCases.length <= 1) return;
+    const updated = customCases.filter((_, i) => i !== idxToRemove);
+    setCustomCases(updated);
+    setActiveCase((prev) => Math.min(prev, updated.length - 1));
+  };
+
+  return (
+    <section className="console-panel" style={{ height }}>
+      <div className="console-header">
+        <div className="console-tabs" role="tablist">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={activeTab === tab ? "active" : ""}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="console-content">
+        {activeTab === "Testcase" && (
+          <div className="lc-testcase-wrapper">
+            <div className="lc-case-tabs">
+              {customCases.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveCase(index)}
+                  className={`lc-case-tab ${safeActiveCase === index ? "active" : ""}`}
+                >
+                  Case {index + 1}
+                  {customCases.length > 1 && (
+                    <span
+                      className="lc-tab-remove"
+                      onClick={(e) => handleRemoveCase(index, e)}
+                      title="Remove testcase"
+                    >
+                      ×
+                    </span>
+                  )}
+                </button>
+              ))}
+              <button
+                className="lc-add-case-btn"
+                aria-label="Add testcase"
+                title="Add test case"
+                onClick={handleAddCase}
+              >
+                +
+              </button>
+            </div>
+
+            <div className="lc-param-fields">
+              {paramList.map((param, pIdx) => (
+                <div key={param.name || pIdx} className="lc-param-group">
+                  <div className="lc-param-label">{param.name} =</div>
+                  <textarea
+                    className="lc-param-input"
+                    value={paramValues[pIdx] || ""}
+                    onChange={(e) => handleParamChange(pIdx, e.target.value)}
+                    placeholder={`Enter ${param.name} value`}
+                    rows={Math.max(1, (paramValues[pIdx] || "").split("\n").length)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "Test Result" && (
+          <ResultList
+            results={results}
+            verdict={verdict}
+            errorMessage={errorMessage}
+            loading={loading}
+            parameters={parameters}
+          />
+        )}
+      </div>
+    </section>
+  );
 }
 
-function ResultList({ results, verdict, errorMessage, loading }) {
+function ResultList({ results, verdict, errorMessage, loading, parameters = [] }) {
   const [selectedCase, setSelectedCase] = useState(0);
+
+  const paramList = useMemo(() => {
+    if (parameters && parameters.length > 0) {
+      return parameters.map((p) => (typeof p === "string" ? { name: p } : p));
+    }
+    return [{ name: "input" }];
+  }, [parameters]);
+
   if (loading) return <EmptyPanel title="Running testcases…" text="Your solution is being compiled and evaluated." />;
   if (errorMessage) {
     return <div className="judge-error-result"><strong>{mapStatus(verdict) || "Judge Error"}</strong><pre>{errorMessage}</pre></div>;
@@ -404,6 +549,7 @@ function ResultList({ results, verdict, errorMessage, loading }) {
   if (!results?.length) {
     return <EmptyPanel title="No results yet" text="Run a sample or custom testcase to see the result here." />;
   }
+
   const safeIndex = Math.min(selectedCase, results.length - 1);
   const currentResult = results[safeIndex] || results[0];
   const passedCount = results.filter((r) => r.status === "PASS" || r.status === "Accepted").length;
@@ -411,30 +557,73 @@ function ResultList({ results, verdict, errorMessage, loading }) {
   const isPass = overallStatus === "Accepted" || overallStatus === "PASS";
   const statusColor = isPass ? "#2db55d" : "#ef4444";
 
+  const parsedInputParams = parseInputToParams(currentResult.input || "", paramList);
+
   return (
     <div className="results-container">
-      <div className="results-summary-header">
-        <span style={{ color: statusColor }}>{mapStatus(overallStatus)}</span>
-        <span>Runtime: {currentResult.runtimeMs || 0} ms</span>
+      <div className="lc-result-summary-header">
+        <span className="lc-result-status" style={{ color: statusColor }}>
+          {mapStatus(overallStatus)}
+        </span>
+        <span className="lc-result-runtime">
+          Runtime: {currentResult.runtimeMs || 0} ms
+        </span>
       </div>
 
-      <div className="case-tabs results-case-tabs">
-        {results.map((r, i) => (
-          <button
-            key={i}
-            onClick={() => setSelectedCase(i)}
-            className={safeIndex === i ? "active" : ""}
-          >
-            <span className={r.status === "PASS" || r.status === "Accepted" ? "case-status pass" : "case-status fail"}>{r.status === "PASS" || r.status === "Accepted" ? "✓" : "×"}</span>
-            Case {i + 1}
-          </button>
-        ))}
+      <div className="lc-result-case-tabs">
+        {results.map((r, i) => {
+          const passed = r.status === "PASS" || r.status === "Accepted";
+          return (
+            <button
+              key={i}
+              onClick={() => setSelectedCase(i)}
+              className={`lc-result-case-tab ${safeIndex === i ? "active" : ""}`}
+            >
+              <span className={`lc-case-check ${passed ? "pass" : "fail"}`}>
+                {passed ? "✓" : "×"}
+              </span>
+              Case {i + 1}
+            </button>
+          );
+        })}
       </div>
 
-      <div className="case-detail-card">
-        <div><b>Input</b><pre>{currentResult.input || "—"}</pre></div>
-        <div><b>Output</b><pre>{currentResult.output || (currentResult.status === "TLE" ? "Time Limit Exceeded" : currentResult.status === "MLE" ? "Memory Limit Exceeded" : currentResult.status === "RE" ? "Runtime Error" : "—")}</pre></div>
-        <div><b>Expected</b><pre>{currentResult.expected || "—"}</pre></div>
+      <div className="lc-result-details">
+        <div className="lc-result-block">
+          <div className="lc-block-title">Input</div>
+          <div className="lc-param-fields">
+            {paramList.map((param, pIdx) => (
+              <div key={param.name || pIdx} className="lc-param-display-group">
+                {param.name && param.name !== "input" && (
+                  <div className="lc-param-label">{param.name} =</div>
+                )}
+                <div className="lc-param-display-box">
+                  {parsedInputParams[pIdx] || currentResult.input || "—"}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="lc-result-block">
+          <div className="lc-block-title">Output</div>
+          <div className="lc-param-display-box">
+            {currentResult.output || (currentResult.status === "TLE" ? "Time Limit Exceeded" : currentResult.status === "MLE" ? "Memory Limit Exceeded" : currentResult.status === "RE" ? "Runtime Error" : "—")}
+          </div>
+        </div>
+
+        {currentResult.expected && (
+          <div className="lc-result-block">
+            <div className="lc-block-title">Expected</div>
+            <div className="lc-param-display-box">
+              {currentResult.expected}
+            </div>
+          </div>
+        )}
+
+        <div className="lc-contribute-link">
+          <span>♡</span> Contribute a testcase
+        </div>
       </div>
     </div>
   );
@@ -999,7 +1188,7 @@ export default function App({ onExit, overrideProblemId, onSubmitOverride }) {
         </div>
         <div className="editor-area">{activeFile === "solution" ? <CodeEditor language={selectedLanguage.monacoId} theme={editorTheme} value={code} onChange={setCode} options={editorOptions} onMount={(editor) => { editorRef.current = editor; editor.onDidChangeCursorPosition((event) => setCursorPos({ line: event.position.lineNumber, column: event.position.column })); }} /> : <pre className="virtual-file">{activeFile === "input.txt" ? (customCases[0]?.input || "") : (results[0]?.output || "Run code to populate output.txt")}</pre>}</div>
         {consoleOpen && <><div className="resize-h" role="separator" aria-label="Resize console" onMouseDown={(event) => onResizeStart("console", event)} />
-          <ConsolePanel height={consoleHeight} activeTab={consoleTab} setActiveTab={setConsoleTab} customCases={customCases} setCustomCases={setCustomCases} results={results} verdict={verdict} errorMessage={judgeError} loading={loading} onRunCustom={() => run("run", customCases)} inputLabel={(problem.functionWrapper?.parameters || []).length === 1 ? problem.functionWrapper.parameters[0].name : ""} /></>}
+          <ConsolePanel height={consoleHeight} activeTab={consoleTab} setActiveTab={setConsoleTab} customCases={customCases} setCustomCases={setCustomCases} results={results} verdict={verdict} errorMessage={judgeError} loading={loading} onRunCustom={() => run("run", customCases)} parameters={problem?.functionWrapper?.parameters || problem?.parameters || []} /></>}
 
         <footer className="editor-footer-leetcode">
           {user ? (

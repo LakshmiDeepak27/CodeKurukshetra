@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "node --test tests/error-remap.test.js",
+    "test": "node --test tests/*.test.js",
     "db:migrate": "node src/db/migrate.js",
     "db:seed": "node src/db/seed.js",
     "db:import-legacy-users": "node src/db/import-legacy-users.js",

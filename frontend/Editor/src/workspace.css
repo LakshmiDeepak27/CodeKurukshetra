@@ -1543,3 +1543,257 @@ input:focus-visible {
   background: rgba(239, 68, 68, 0.12);
   color: #f87171;
 }
+
+/* ---------- LeetCode Multi-Testcase Console Styling ---------- */
+.lc-testcase-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px 0;
+}
+
+.lc-case-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.lc-case-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: transparent;
+  color: #8c8c8c;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lc-case-tab:hover {
+  color: #d1d5db;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lc-case-tab.active {
+  background: #343438;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.lc-tab-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 14px;
+  color: #8c8c8c;
+  line-height: 1;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.lc-tab-remove:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.16);
+}
+
+.lc-add-case-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  background: transparent;
+  color: #8c8c8c;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.lc-add-case-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.lc-param-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lc-param-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lc-param-label {
+  color: #8c8c8c;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.lc-param-input {
+  width: 100%;
+  background: #2a2a2e;
+  border: 1px solid #38383a;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.lc-param-input:focus {
+  border-color: #ffa116;
+  box-shadow: 0 0 0 2px rgba(255, 161, 22, 0.15);
+}
+
+/* ---------- LeetCode Test Result Tab Styling (Matching Image 2) ---------- */
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px 0;
+}
+
+.lc-result-summary-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.lc-result-status {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.lc-result-runtime {
+  color: #9a9a9a;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.lc-result-case-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lc-result-case-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: transparent;
+  color: #8c8c8c;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lc-result-case-tab:hover {
+  color: #d1d5db;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lc-result-case-tab.active {
+  background: #343438;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.lc-case-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.lc-case-check.pass {
+  background: rgba(44, 187, 93, 0.2);
+  color: #2cbb5d;
+}
+
+.lc-case-check.fail {
+  background: rgba(239, 71, 67, 0.2);
+  color: #ef4743;
+}
+
+.lc-result-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lc-result-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lc-block-title {
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.lc-param-display-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lc-param-display-box {
+  width: 100%;
+  background: #2a2a2e;
+  border: 1px solid #38383a;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.lc-contribute-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #8c8c8c;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: color 0.15s ease;
+}
+
+.lc-contribute-link:hover {
+  color: #d1d5db;
+}
+
