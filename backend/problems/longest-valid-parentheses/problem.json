@@ -1,0 +1,44 @@
+{
+  "id": "longest-valid-parentheses",
+  "title": "Longest Valid Parentheses",
+  "statement": "Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed) parentheses substring.\n \nExample 1:\n\nInput: s = \"(()\"\nOutput: 2\nExplanation: The longest valid parentheses substring is \"()\".\n\nExample 2:\n\nInput: s = \")()())\"\nOutput: 4\nExplanation: The longest valid parentheses substring is \"()()\".\n\nExample 3:\n\nInput: s = \"\"\nOutput: 0\n\n \nConstraints:\n\n0 <= s.length <= 3 * 104\ns[i] is '(', or ')'.",
+  "difficulty": "Hard",
+  "sampleInput": "s = \"(()())\"",
+  "sampleOutput": "6",
+  "tags": [
+    "Stack",
+    "String",
+    "Dynamic Programming"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def longestValidParentheses(self, s: str) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int longestValidParentheses(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int longestValidParentheses(String s) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {number}\n   */\n  longestValidParentheses(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

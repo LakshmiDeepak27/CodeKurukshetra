@@ -1,0 +1,43 @@
+{
+  "id": "find-minimum-in-rotated-sorted-array",
+  "title": "Find Minimum In Rotated Sorted Array",
+  "statement": "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:\n\n[4,5,6,7,0,1,2] if it was rotated 4 times.\n[0,1,2,4,5,6,7] if it was rotated 7 times.\n\nNotice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].\nGiven the sorted rotated array nums of unique elements, return the minimum element of this array.\nYou must write an algorithm that runs in O(log n) time.\n \nExample 1:\n\nInput: nums = [3,4,5,1,2]\nOutput: 1\nExplanation: The original array was [1,2,3,4,5] rotated 3 times.\n\nExample 2:\n\nInput: nums = [4,5,6,7,0,1,2]\nOutput: 0\nExplanation: The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.\n\nExample 3:\n\nInput: nums = [11,13,15,17]\nOutput: 11\nExplanation: The original array was [11,13,15,17] and it was rotated 4 times. \n\n \nConstraints:\n\nn == nums.length\n1 <= n <= 5000\n-5000 <= nums[i] <= 5000\nAll the integers of nums are unique.\nnums is sorted and rotated between 1 and n times.",
+  "difficulty": "Medium",
+  "sampleInput": "nums = [4,5,6,7,0,1,2]",
+  "sampleOutput": "0",
+  "tags": [
+    "Array",
+    "Binary Search"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def findMin(self, nums: List[int]) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int findMin(vector<int>& nums) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int findMin(int[] nums) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[]} nums\n   * @return {number}\n   */\n  findMin(nums) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

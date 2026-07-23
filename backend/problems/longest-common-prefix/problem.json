@@ -1,0 +1,43 @@
+{
+  "id": "longest-common-prefix",
+  "title": "Longest Common Prefix",
+  "statement": "Write a function to find the longest common prefix string amongst an array of strings.\nIf there is no common prefix, return an empty string \"\".\n \nExample 1:\n\nInput: strs = [\"flower\",\"flow\",\"flight\"]\nOutput: \"fl\"\n\nExample 2:\n\nInput: strs = [\"dog\",\"racecar\",\"car\"]\nOutput: \"\"\nExplanation: There is no common prefix among the input strings.\n\n \nConstraints:\n\n1 <= strs.length <= 200\n0 <= strs[i].length <= 200\nstrs[i] consists of only lowercase English letters if it is non-empty.",
+  "difficulty": "Easy",
+  "sampleInput": "strs = [\"hello\",\"helium\",\"helper\"]",
+  "sampleOutput": "hel",
+  "tags": [
+    "Trie",
+    "String"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def longestCommonPrefix(self, strs: List[str]) -> str:\n        ",
+    "cpp": "class Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String longestCommonPrefix(String[] strs) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string[]} strs\n   * @return {string}\n   */\n  longestCommonPrefix(strs) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

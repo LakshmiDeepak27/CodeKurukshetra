@@ -1,0 +1,46 @@
+{
+  "id": "surrounded-regions",
+  "title": "Surrounded Regions",
+  "statement": "You are given an m x n matrix board containing letters 'X' and 'O', capture regions that are surrounded:\n\nConnect: A cell is connected to adjacent cells horizontally or vertically.\nRegion: To form a region connect every 'O' cell.\nSurround: The region is surrounded with 'X' cells if you can connect the region with 'X' cells and none of the region cells are on the edge of the board.\n\nTo capture a surrounded region, replace all 'O's with 'X's in-place within the original board. You do not need to return anything.\n \nExample 1:\n\nInput: board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]\nOutput: [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]\nExplanation:\n\nIn the above diagram, the bottom region is not captured because it is on the edge of the board and cannot be surrounded.\n\nExample 2:\n\nInput: board = [[\"X\"]]\nOutput: [[\"X\"]]\n\n \nConstraints:\n\nm == board.length\nn == board[i].length\n1 <= m, n <= 200\nboard[i][j] is 'X' or 'O'.",
+  "difficulty": "Medium",
+  "sampleInput": "board = [[\"X\",\"X\",\"X\",\"O\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]",
+  "sampleOutput": "None",
+  "tags": [
+    "Depth-First Search",
+    "Breadth-First Search",
+    "Union Find",
+    "Array",
+    "Matrix"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def solve(self, board: List[List[str]]) -> None:\n        \"\"\"\n        Do not return anything, modify board in-place instead.\n        \"\"\"\n        ",
+    "cpp": "class Solution {\npublic:\n    void solve(vector<vector<string>>& board) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public void solve(String[][] board) {\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string[][]} board\n   * @return {void}\n   */\n  solve(board) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

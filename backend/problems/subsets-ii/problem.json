@@ -1,0 +1,44 @@
+{
+  "id": "subsets-ii",
+  "title": "Subsets Ii",
+  "statement": "Given an integer array nums that may contain duplicates, return all possible subsets (the power set).\nThe solution set must not contain duplicate subsets. Return the solution in any order.\n \nExample 1:\nInput: nums = [1,2,2]\nOutput: [[],[1],[1,2],[1,2,2],[2],[2,2]]\nExample 2:\nInput: nums = [0]\nOutput: [[],[0]]\n\n \nConstraints:\n\n1 <= nums.length <= 10\n-10 <= nums[i] <= 10",
+  "difficulty": "Medium",
+  "sampleInput": "nums = [-1,1,-1,1]",
+  "sampleOutput": "[[-1, -1, 1, 1], [-1, -1, 1], [-1, -1], [-1, 1, 1], [-1, 1], [-1], [1, 1], [1], []]",
+  "tags": [
+    "Bit Manipulation",
+    "Array",
+    "Backtracking"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:\n        ",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> subsetsWithDup(vector<int>& nums) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int[][] subsetsWithDup(int[] nums) {\n        return new int[][]{};\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[]} nums\n   * @return {number[][]}\n   */\n  subsetsWithDup(nums) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

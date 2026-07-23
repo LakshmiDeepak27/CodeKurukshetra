@@ -7,6 +7,9 @@ Verdict decideVerdict(ExecStatus status, bool outputMatch) {
   if (status == ExecStatus::RE)
     return Verdict::RE;
 
+  if (status == ExecStatus::MLE)
+    return Verdict::MLE;
+
   if (!outputMatch)
     return Verdict::WA;
 
@@ -31,6 +34,8 @@ const char *verdictToString(Verdict v) {
     return "Wrong Answer";
   case Verdict::TLE:
     return "Time Limit Exceeded";
+  case Verdict::MLE:
+    return "Memory Limit Exceeded";
   case Verdict::RE:
     return "Runtime Error";
   case Verdict::CE:

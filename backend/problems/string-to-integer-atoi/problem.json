@@ -1,0 +1,42 @@
+{
+  "id": "string-to-integer-atoi",
+  "title": "String To Integer Atoi",
+  "statement": "Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer.\nThe algorithm for myAtoi(string s) is as follows:\n\nWhitespace: Ignore any leading whitespace (\" \").\nSignedness: Determine the sign by checking if the next character is '-' or '+', assuming positivity if neither present.\nConversion: Read the integer by skipping leading zeros until a non-digit character is encountered or the end of the string is reached. If no digits were read, then the result is 0.\nRounding: If the integer is out of the 32-bit signed integer range [-231, 231 - 1], then round the integer to remain in the range. Specifically, integers less than -231 should be rounded to -231, and integers greater than 231 - 1 should be rounded to 231 - 1.\n\nReturn the integer as the final result.\n \nExample 1:\n\nInput: s = \"42\"\nOutput: 42\nExplanation:\n\nThe underlined characters are what is read in and the caret is the current reader position.\nStep 1: \"42\" (no characters read because there is no leading whitespace)\n         ^\nStep 2: \"42\" (no characters read because there is neither a '-' nor '+')\n         ^\nStep 3: \"42\" (\"42\" is read in)\n           ^\n\n\nExample 2:\n\nInput: s = \" -042\"\nOutput: -42\nExplanation:\n\nStep 1: \"   -042\" (leading whitespace is read and ignored)\n            ^\nStep 2: \"   -042\" ('-' is read, so the result should be negative)\n             ^\nStep 3: \"   -042\" (\"042\" is read in, leading zeros ignored in the result)\n               ^\n\n\nExample 3:\n\nInput: s = \"1337c0d3\"\nOutput: 1337\nExplanation:\n\nStep 1: \"1337c0d3\" (no characters read because there is no leading whitespace)\n         ^\nStep 2: \"1337c0d3\" (no characters read because there is neither a '-' nor '+')\n         ^\nStep 3: \"1337c0d3\" (\"1337\" is read in; reading stops because the next character is a non-digit)\n             ^\n\n\nExample 4:\n\nInput: s = \"0-1\"\nOutput: 0\nExplanation:\n\nStep 1: \"0-1\" (no characters read because there is no leading whitespace)\n         ^\nStep 2: \"0-1\" (no characters read because there is neither a '-' nor '+')\n         ^\nStep 3: \"0-1\" (\"0\" is read in; reading stops because the next character is a non-digit)\n          ^\n\n\nExample 5:\n\nInput: s = \"words and 987\"\nOutput: 0\nExplanation:\nReading stops at the first non-digit character 'w'.\n\n \nConstraints:\n\n0 <= s.length <= 200\ns consists of English letters (lower-case and upper-case), digits (0-9), ' ', '+', '-', and '.'.",
+  "difficulty": "Medium",
+  "sampleInput": "s = \"2147483647\"",
+  "sampleOutput": "2147483647",
+  "tags": [
+    "String"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def myAtoi(self, s: str) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int myAtoi(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int myAtoi(String s) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {number}\n   */\n  myAtoi(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

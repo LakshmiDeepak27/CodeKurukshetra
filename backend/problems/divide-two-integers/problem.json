@@ -1,0 +1,43 @@
+{
+  "id": "divide-two-integers",
+  "title": "Divide Two Integers",
+  "statement": "Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.\nThe integer division should truncate toward zero, which means losing its fractional part. For example, 8.345 would be truncated to 8, and -2.7335 would be truncated to -2.\nReturn the quotient after dividing dividend by divisor.\nNote: Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−231, 231 − 1]. For this problem, if the quotient is strictly greater than 231 - 1, then return 231 - 1, and if the quotient is strictly less than -231, then return -231.\n \nExample 1:\n\nInput: dividend = 10, divisor = 3\nOutput: 3\nExplanation: 10/3 = 3.33333.. which is truncated to 3.\n\nExample 2:\n\nInput: dividend = 7, divisor = -3\nOutput: -2\nExplanation: 7/-3 = -2.33333.. which is truncated to -2.\n\n \nConstraints:\n\n-231 <= dividend, divisor <= 231 - 1\ndivisor != 0",
+  "difficulty": "Medium",
+  "sampleInput": "dividend = 10, divisor = 3",
+  "sampleOutput": "3",
+  "tags": [
+    "Bit Manipulation",
+    "Math"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def divide(self, dividend: int, divisor: int) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int divide(int dividend, int divisor) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int divide(int dividend, int divisor) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} dividend\n   * @param {number} divisor\n   * @return {number}\n   */\n  divide(dividend, divisor) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

@@ -1,0 +1,842 @@
+{
+  "sample": [
+    {
+      "input": "s = \"abcde\", p = \"ab*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*\"",
+      "expected": "True"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"mississippi\", p = \"m??*ss*?i*pi\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"aa\", p = \"a\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"?bcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*b*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"cb\", p = \"?a\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcabczzzde\", p = \"*abc***de*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"abc?de\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"\", p = \"\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"b*c*d*e*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a?c*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abefcdgiescdfimde\", p = \"*a*b*ef*cd*ei*de*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*****e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aa\", p = \"*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*de\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"adceb\", p = \"*a*b\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*****\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*****\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"acdcb\", p = \"a*c?b\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"a\", p = \"?\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m*iss*iss*pp*i*pi\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a?c?e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*e?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*b?e\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*b*c*d*e*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*a*bc*e*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*b*c*d*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*b*c*d*e*f\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abefcdgiescdfimde\", p = \"ab*ef*cd*ei*de\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"abc*def\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*bcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"abcd*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"hoop\", p = \"hoop*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m??*ss*?si*pp*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"aaaa\", p = \"***a\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"abc??\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*b*c*d*e*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"bba\", p = \"?*a**\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*b*c*d*e?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"\", p = \"*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"abcd?\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*a*b*c*d*e*f\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"a\", p = \"*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"\", p = \"?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"abc*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*a*b*c*d*e*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abefcdgiescdfimde\", p = \"ab*ef*cd*de\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abefcdgiescdfimde\", p = \"ab*cd?i*de\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*b*c*d*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"abcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaa\", p = \"a*a*a*a*a\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdef\", p = \"a*b*c*d*e*f\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", p = \"a*d\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyxzyxytxzyxy\", p = \"x*y*z*x*y*z*x*y*z\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"xyxxyxyxyx\", p = \"x*yx*yx*yx*yx\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcxyz\", p = \"*xyz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"a*bc*a*bc*a*bc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*c*e*g*i*j\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*bc*de*fgh*i*j\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"ababababab\", p = \"a*b*a*b*a*b*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyz\", p = \"*x*y*z*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"zxyxzy\", p = \"z*xy*z*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"hellohellohello\", p = \"he*lo*he*lo*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyz\", p = \"*z\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyxzyzyx\", p = \"x*y*x*y*x\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"ababababa\", p = \"a*b*a*b*a\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*?*c*?*e*?*g*?*i*?*j\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abefcdgiescdfimdeeeiad\", p = \"ab*cd?i*de\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"ababababab\", p = \"a*b*a*b*a*b*a*b*a*b\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbccdd\", p = \"aab?cc?d*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abc\", p = \"*?*?*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"?????????\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"abc*abc*abc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*b*d*f*h*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyzxyzxyz\", p = \"xyz*xyz*xyz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaa\", p = \"?*?*?*?*?*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", p = \"?b*d\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xxyyzz\", p = \"x*y*z\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabcabcabcabc\", p = \"abcabc*abcabc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdabcd\", p = \"ab*cd*ab*cd*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m??*ss*?\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j?*k*?*l*?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abababab\", p = \"a?b?*b?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m*is*p*i*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*d*f?j\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j?*k*?*l*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", p = \"a*b*c*d*e*f*g*h*i*j*k*l*m*n*o*p*q*r*s*t*u*v*w*x*y*z*z*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*?*?*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdabcdabcd\", p = \"*a*b*c*d*a*b*c*d*a*b*c*d*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"abc*abc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"patternmatching\", p = \"pa*?t*?n*?m*?a*?t*?c*?h*?i*?n*?g\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*?*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*k*?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*k?*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"*abc*abc*abc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdabcdabcd\", p = \"a*d*d*bc*bc*bc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"a*bc*bc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*a*b*c*d*e*f*g*h*i*j*?*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*?*?*?*?*?*?*?*?\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j?*k*?*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefg\", p = \"a*d?e?*g\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefg\", p = \"abc*def*ghi\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j?*k*?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefg\", p = \"a?c*f?g\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j????\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*a*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m??*ss*?i*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"a*b*c*a*b*c*a*b*c\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaabbbbbcccc\", p = \"a*b*c*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j?*k*?*l\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"aabbccddeeff\", p = \"a*b*c*d*e*f*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", p = \"a*b*c*d*e*f*g*h*i*j*k*l*m*n*o*p*q*r*s*t*u*v*w*x*y*z*z*z*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*bcd*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*a*b*c*d*e*f*g*h*i*j*k\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", p = \"a*?c*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m??*ss*ip*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyzxyzxyz\", p = \"*xyzxyzxyz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"hello\", p = \"h?ll*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdexyz\", p = \"*d*xyz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaabbbbb\", p = \"a*b*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"hello\", p = \"he*o\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdabcd\", p = \"a*b*c*d*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefg\", p = \"a?c*e?g\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abxyzz\", p = \"ab*zz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyzabc\", p = \"*abc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"a*?*?*b*c*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyzzxyzzxyzz\", p = \"*z*z*z\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcxyz\", p = \"abc*xyz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*a????b????c????d????e????f????g????h????i????j*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*k*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j?*k\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j?*k?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"zazbzczdz\", p = \"z*a*z*b*z*c*z*d*z\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*a*b*c*d*e*f*g*h*i*j*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*a*b*c*d*e*f*g*h*i*j\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"mi*is*ip*pi\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaa\", p = \"a?a?a?a?a?a\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*a*b*c*d*e*f*g*h*i*j*k*?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*k\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"xyzzaz\", p = \"*x?z*a*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*abc?e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdabcd\", p = \"a*a*a*a*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abc\", p = \"a*c\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyz\", p = \"?yz*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"hello_world\", p = \"he*o?wo*rld\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefg\", p = \"a*c*e*g\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*d*g*j\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdexyz\", p = \"a*?d*x*yz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbccddeeffgg\", p = \"*b*c*d*e*f*g*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*e*i*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyxxyxyxyx\", p = \"x*y*x*y*x*y*x\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", p = \"*d\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdexyz\", p = \"abcd*xyz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m*iss*ss*ip*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m??*iss*ippi\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*b*d*f*h*j\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abc\", p = \"***\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbccdd\", p = \"a*bb*cc*dd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"*abcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaabbbccc\", p = \"a*bbb*c*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", p = \"abcde*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyzabc\", p = \"x*y?*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbaabb\", p = \"a*bb*a*bb\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdedef\", p = \"ab*?de*?\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"pattern_matching\", p = \"p*a*t*t*e*r_*m*a*t*c*h*i*n*g\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"worldwide\", p = \"wo*d*i*e\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbcc\", p = \"a*bb*c*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefg\", p = \"*cde*fg\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbcc\", p = \"a*b*c*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyyxxyyxxyy\", p = \"x*y*x*y*x*y*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"abc*abc*abc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbababab\", p = \"a*b*a*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdexyz\", p = \"a*b?c*?d*x?y*z*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefgh\", p = \"a*gh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*?*k*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"zzzzzzzzzz\", p = \"z*z*z*z*z*z*z*z*z*z\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabcabc\", p = \"a*b*c*a*b*c*a*b*c\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*d*f*h*j\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*b*c*d*e*f*g*h*i*j*?*?\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"????a*b*c*d*e*f*g*h*i*j\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"ababab\", p = \"a*b*a*b*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"abc*a*bc*a*bc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*a*b*c*d*e*f*g*h*i*j*j*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcabcabcabc\", p = \"abc*abc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"*ef*gh*ij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbccddeeff\", p = \"a*bb*c*dd*ee*f*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*d*f*h*j*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdef\", p = \"*?*?*?*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"abcabcabc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", p = \"*?c*d*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", p = \"a*d?g*j\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"*b*a*b*c*a*b*c*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", p = \"m??*ss*?si*pp*i*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"aabb\", p = \"*b\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabcabc\", p = \"*abcabc*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"examplepattern\", p = \"e*ample?attern\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"nested_matching\", p = \"n*es*t*e*d_*m*a*t*c*h*i*n*g\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcabcabc\", p = \"*a*b*c*a*b*c*a*b*c*\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"teststring\", p = \"t*st*ng\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbcc\", p = \"a*a*a*c*c*\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdef\", p = \"*abc?ef\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaabaaaab\", p = \"a*a*ba*a*b\"",
+      "expected": "True"
+    }
+  ]
+}

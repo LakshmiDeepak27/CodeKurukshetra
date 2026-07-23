@@ -21,8 +21,23 @@ async function seedProblemFromFiles(problemId) {
     return;
   }
 
-  const cases = Array.isArray(testcases) ? testcases : [...(testcases.sample || []), ...(testcases.hidden || [])];
-  const sampleCount = Array.isArray(testcases) ? testcases.length : (testcases.sample || []).length;
+  // Require the explicit {sample, hidden} shape -- fail loudly instead of
+  // silently treating every case as visible.
+  if (Array.isArray(testcases)) {
+    throw new Error(
+      `${problemId}/testcases.json must be { "sample": [...], "hidden": [...] }, ` +
+      `not a flat array -- a flat array marks every case as visible and disables hidden testing.`
+    );
+  }
+
+  const sampleCases = testcases.sample || [];
+  const hiddenCases = testcases.hidden || [];
+  if (hiddenCases.length === 0) {
+    console.warn(`Warning: ${problemId} has zero hidden test cases -- judge can be cheated.`);
+  }
+
+  const cases = [...sampleCases, ...hiddenCases];
+  const sampleCount = sampleCases.length;
 
   await pool.execute(
     `INSERT INTO problems (id, title, statement, difficulty, sample_input, sample_output, time_limit_ms)
@@ -82,6 +97,31 @@ async function seedProblemFromFiles(problemId) {
         sortOrder: i,
       }
     );
+  }
+
+  if (config.functionWrapper) {
+    const wrapper = config.functionWrapper;
+    await pool.execute(
+      `INSERT INTO problem_function_metadata
+       (problem_id, function_name, return_type, parameters_json, languages_json)
+       VALUES (:problemId, :functionName, :returnType, :parameters, :languages)
+       ON DUPLICATE KEY UPDATE
+         function_name = VALUES(function_name),
+         return_type = VALUES(return_type),
+         parameters_json = VALUES(parameters_json),
+         languages_json = VALUES(languages_json)`,
+      {
+        problemId: problem.id || problemId,
+        functionName: wrapper.functionName,
+        returnType: wrapper.returnType,
+        parameters: JSON.stringify(wrapper.parameters),
+        languages: JSON.stringify(wrapper.languages),
+      }
+    );
+  } else {
+    await pool.execute("DELETE FROM problem_function_metadata WHERE problem_id = :problemId", {
+      problemId: problem.id || problemId,
+    });
   }
 
   console.log(`Seeded problem "${problemId}"`);

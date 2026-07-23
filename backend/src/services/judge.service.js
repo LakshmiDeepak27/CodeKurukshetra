@@ -4,12 +4,15 @@ const config = require("../config/env");
 
 function defaultJudgeCommand() {
   if (process.platform === "win32") {
+    const workspacePath = path.resolve(__dirname, "..", "..", "..");
+    const linuxPath = workspacePath.replace(/\\/g, "/").replace(/^([A-Za-z]):/, (_, drive) => `/mnt/${drive.toLowerCase()}`);
     return {
       command: "wsl.exe",
       args: [
+        ...(config.judgeWslDistro ? ["-d", config.judgeWslDistro] : []),
         "bash",
         "-lc",
-        `cd ${path.resolve(__dirname, "..", "..", "..").replace(/\\/g, "/").replace(/^([A-Za-z]):/, (_, drive) => `/mnt/${drive.toLowerCase()}`)} && ./judge`,
+        `cd '${linuxPath}' && ./judge`,
       ],
     };
   }
@@ -31,9 +34,16 @@ function runJudge(payload) {
     let stdout = "";
     let stderr = "";
 
-    judge.on("error", reject);
+    judge.on("error", (error) => {
+      if (process.platform === "win32" && error.code === "UNKNOWN") {
+        reject(new Error("The bundled Windows judge is incompatible. Install or register a WSL Linux distribution, then restart the backend."));
+        return;
+      }
+      reject(error);
+    });
     judge.stdin.write(JSON.stringify(payload));
     judge.stdin.end();
+
     judge.stdout.on("data", (chunk) => {
       stdout += chunk.toString();
     });
@@ -42,19 +52,19 @@ function runJudge(payload) {
     });
 
     judge.on("close", (code) => {
+      if (stdout.trim()) {
+        try {
+          const parsed = JSON.parse(stdout);
+          return resolve(parsed);
+        } catch { }
+      }
       if (code !== 0 || stderr) {
-        reject(new Error(stderr || "Judge execution failed"));
-        return;
+        const missingDistro = /no installed distributions|no distributions are installed/i.test(stderr);
+        return reject(new Error(missingDistro
+          ? "No WSL Linux distribution is registered for this Windows user. Install or import Ubuntu/Debian, then restart the backend."
+          : stderr || "Judge execution failed"));
       }
-      if (!stdout.trim()) {
-        reject(new Error("Judge returned empty output"));
-        return;
-      }
-      try {
-        resolve(JSON.parse(stdout));
-      } catch {
-        reject(new Error("Invalid judge response"));
-      }
+      return reject(new Error("Judge returned empty output"));
     });
   });
 }

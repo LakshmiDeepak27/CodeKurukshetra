@@ -1,0 +1,44 @@
+{
+  "id": "find-the-index-of-the-first-occurrence-in-a-string",
+  "title": "Find The Index Of The First Occurrence In A String",
+  "statement": "Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.\n \nExample 1:\n\nInput: haystack = \"sadbutsad\", needle = \"sad\"\nOutput: 0\nExplanation: \"sad\" occurs at index 0 and 6.\nThe first occurrence is at index 0, so we return 0.\n\nExample 2:\n\nInput: haystack = \"leetcode\", needle = \"leeto\"\nOutput: -1\nExplanation: \"leeto\" did not occur in \"leetcode\", so we return -1.\n\n \nConstraints:\n\n1 <= haystack.length, needle.length <= 104\nhaystack and needle consist of only lowercase English characters.",
+  "difficulty": "Easy",
+  "sampleInput": "haystack = \"ababcabcabababd\", needle = \"ababd\"",
+  "sampleOutput": "10",
+  "tags": [
+    "Two Pointers",
+    "String",
+    "String Matching"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def strStr(self, haystack: str, needle: str) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int strStr(string& haystack, string& needle) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int strStr(String haystack, String needle) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} haystack\n   * @param {string} needle\n   * @return {number}\n   */\n  strStr(haystack, needle) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

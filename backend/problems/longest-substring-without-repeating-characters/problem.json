@@ -1,0 +1,44 @@
+{
+  "id": "longest-substring-without-repeating-characters",
+  "title": "Longest Substring Without Repeating Characters",
+  "statement": "Given a string s, find the length of the longest substring without repeating characters.\n \nExample 1:\n\nInput: s = \"abcabcbb\"\nOutput: 3\nExplanation: The answer is \"abc\", with the length of 3.\n\nExample 2:\n\nInput: s = \"bbbbb\"\nOutput: 1\nExplanation: The answer is \"b\", with the length of 1.\n\nExample 3:\n\nInput: s = \"pwwkew\"\nOutput: 3\nExplanation: The answer is \"wke\", with the length of 3.\nNotice that the answer must be a substring, \"pwke\" is a subsequence and not a substring.\n\n \nConstraints:\n\n0 <= s.length <= 5 * 104\ns consists of English letters, digits, symbols and spaces.",
+  "difficulty": "Medium",
+  "sampleInput": "s = \"abcabcbb\"",
+  "sampleOutput": "3",
+  "tags": [
+    "Hash Table",
+    "String",
+    "Sliding Window"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:",
+    "cpp": "class Solution {\npublic:\n    int lengthOfLongestSubstring(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {number}\n   */\n  lengthOfLongestSubstring(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

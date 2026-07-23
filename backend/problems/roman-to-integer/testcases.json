@@ -1,0 +1,382 @@
+{
+  "sample": [
+    {
+      "input": "s = \"XCIX\"",
+      "expected": "99"
+    },
+    {
+      "input": "s = \"MMCMXCIX\"",
+      "expected": "2999"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"MMMCMXCIX\"",
+      "expected": "3999"
+    },
+    {
+      "input": "s = \"DCXXI\"",
+      "expected": "621"
+    },
+    {
+      "input": "s = \"XC\"",
+      "expected": "90"
+    },
+    {
+      "input": "s = \"VIII\"",
+      "expected": "8"
+    },
+    {
+      "input": "s = \"XV\"",
+      "expected": "15"
+    },
+    {
+      "input": "s = \"XXVII\"",
+      "expected": "27"
+    },
+    {
+      "input": "s = \"IX\"",
+      "expected": "9"
+    },
+    {
+      "input": "s = \"DCCLXXIX\"",
+      "expected": "779"
+    },
+    {
+      "input": "s = \"XX\"",
+      "expected": "20"
+    },
+    {
+      "input": "s = \"CDXLIV\"",
+      "expected": "444"
+    },
+    {
+      "input": "s = \"LVIII\"",
+      "expected": "58"
+    },
+    {
+      "input": "s = \"CM\"",
+      "expected": "900"
+    },
+    {
+      "input": "s = \"D\"",
+      "expected": "500"
+    },
+    {
+      "input": "s = \"X\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"IV\"",
+      "expected": "4"
+    },
+    {
+      "input": "s = \"XXV\"",
+      "expected": "25"
+    },
+    {
+      "input": "s = \"XXX\"",
+      "expected": "30"
+    },
+    {
+      "input": "s = \"XL\"",
+      "expected": "40"
+    },
+    {
+      "input": "s = \"MMMDCCCLXXXVIII\"",
+      "expected": "3888"
+    },
+    {
+      "input": "s = \"XXXIX\"",
+      "expected": "39"
+    },
+    {
+      "input": "s = \"XLIV\"",
+      "expected": "44"
+    },
+    {
+      "input": "s = \"CCCXCIX\"",
+      "expected": "399"
+    },
+    {
+      "input": "s = \"CD\"",
+      "expected": "400"
+    },
+    {
+      "input": "s = \"LXX\"",
+      "expected": "70"
+    },
+    {
+      "input": "s = \"CCC\"",
+      "expected": "300"
+    },
+    {
+      "input": "s = \"MMM\"",
+      "expected": "3000"
+    },
+    {
+      "input": "s = \"MCMXCIV\"",
+      "expected": "1994"
+    },
+    {
+      "input": "s = \"III\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"MDCCCLXXIV\"",
+      "expected": "1874"
+    },
+    {
+      "input": "s = \"CMXCIX\"",
+      "expected": "999"
+    },
+    {
+      "input": "s = \"MMCDXCIX\"",
+      "expected": "2499"
+    },
+    {
+      "input": "s = \"M\"",
+      "expected": "1000"
+    },
+    {
+      "input": "s = \"CCXLVI\"",
+      "expected": "246"
+    },
+    {
+      "input": "s = \"CC\"",
+      "expected": "200"
+    },
+    {
+      "input": "s = \"DCCLXXIV\"",
+      "expected": "774"
+    },
+    {
+      "input": "s = \"MCCCLXXXIX\"",
+      "expected": "1389"
+    },
+    {
+      "input": "s = \"CMLXXXVII\"",
+      "expected": "987"
+    },
+    {
+      "input": "s = \"XCIV\"",
+      "expected": "94"
+    },
+    {
+      "input": "s = \"MDCCLXXVI\"",
+      "expected": "1776"
+    },
+    {
+      "input": "s = \"DCCLXXVI\"",
+      "expected": "776"
+    },
+    {
+      "input": "s = \"CMXLVII\"",
+      "expected": "947"
+    },
+    {
+      "input": "s = \"MMMCMLXXIV\"",
+      "expected": "3974"
+    },
+    {
+      "input": "s = \"MDCCCLXXI\"",
+      "expected": "1871"
+    },
+    {
+      "input": "s = \"MMMDCCCLXXVII\"",
+      "expected": "3877"
+    },
+    {
+      "input": "s = \"MMMCMXCXCIX\"",
+      "expected": "4089"
+    },
+    {
+      "input": "s = \"MMMLXXVIII\"",
+      "expected": "3078"
+    },
+    {
+      "input": "s = \"CCCLXXIV\"",
+      "expected": "374"
+    },
+    {
+      "input": "s = \"MCMXLIV\"",
+      "expected": "1944"
+    },
+    {
+      "input": "s = \"MMCDLXXI\"",
+      "expected": "2471"
+    },
+    {
+      "input": "s = \"DCCCLXXXVIII\"",
+      "expected": "888"
+    },
+    {
+      "input": "s = \"MMDCCCLXXIV\"",
+      "expected": "2874"
+    },
+    {
+      "input": "s = \"MMCDXLIV\"",
+      "expected": "2444"
+    },
+    {
+      "input": "s = \"MMDCCCLXXVII\"",
+      "expected": "2877"
+    },
+    {
+      "input": "s = \"MMMDCCCXCIX\"",
+      "expected": "3899"
+    },
+    {
+      "input": "s = \"LXXXIX\"",
+      "expected": "89"
+    },
+    {
+      "input": "s = \"DCCCLXXVIII\"",
+      "expected": "878"
+    },
+    {
+      "input": "s = \"MMXXIII\"",
+      "expected": "2023"
+    },
+    {
+      "input": "s = \"LXXXVII\"",
+      "expected": "87"
+    },
+    {
+      "input": "s = \"MMMCMXCXC\"",
+      "expected": "4080"
+    },
+    {
+      "input": "s = \"DCCCXC\"",
+      "expected": "890"
+    },
+    {
+      "input": "s = \"MMCMCCXCIX\"",
+      "expected": "3199"
+    },
+    {
+      "input": "s = \"MMMDCCCLXXX\"",
+      "expected": "3880"
+    },
+    {
+      "input": "s = \"MDCCCCLXXV\"",
+      "expected": "1975"
+    },
+    {
+      "input": "s = \"MCMXCMLXXIX\"",
+      "expected": "2869"
+    },
+    {
+      "input": "s = \"MMMDCCCLXXIX\"",
+      "expected": "3879"
+    },
+    {
+      "input": "s = \"CDXC\"",
+      "expected": "490"
+    },
+    {
+      "input": "s = \"MCMLXXI\"",
+      "expected": "1971"
+    },
+    {
+      "input": "s = \"MCMLIV\"",
+      "expected": "1954"
+    },
+    {
+      "input": "s = \"MMDCCCXCIX\"",
+      "expected": "2899"
+    },
+    {
+      "input": "s = \"CCXCIX\"",
+      "expected": "299"
+    },
+    {
+      "input": "s = \"MMMCMXCCLXXVIII\"",
+      "expected": "4168"
+    },
+    {
+      "input": "s = \"CDXCIX\"",
+      "expected": "499"
+    },
+    {
+      "input": "s = \"MMMCMLXXIX\"",
+      "expected": "3979"
+    },
+    {
+      "input": "s = \"DCCLXXVIII\"",
+      "expected": "778"
+    },
+    {
+      "input": "s = \"MDCCCLXXVIII\"",
+      "expected": "1878"
+    },
+    {
+      "input": "s = \"MMDCCCLXXXVIII\"",
+      "expected": "2888"
+    },
+    {
+      "input": "s = \"MCMXLVII\"",
+      "expected": "1947"
+    },
+    {
+      "input": "s = \"DCXXVIII\"",
+      "expected": "628"
+    },
+    {
+      "input": "s = \"CCXLVIII\"",
+      "expected": "248"
+    },
+    {
+      "input": "s = \"MMMCDXLIV\"",
+      "expected": "3444"
+    },
+    {
+      "input": "s = \"DCCCXCIX\"",
+      "expected": "899"
+    },
+    {
+      "input": "s = \"DCCCXCIV\"",
+      "expected": "894"
+    },
+    {
+      "input": "s = \"DCCCLXXIV\"",
+      "expected": "874"
+    },
+    {
+      "input": "s = \"MCMLXXIII\"",
+      "expected": "1973"
+    },
+    {
+      "input": "s = \"MMMCDXCIX\"",
+      "expected": "3499"
+    },
+    {
+      "input": "s = \"MMCDLXXVIII\"",
+      "expected": "2478"
+    },
+    {
+      "input": "s = \"LVIV\"",
+      "expected": "59"
+    },
+    {
+      "input": "s = \"MMCDXXI\"",
+      "expected": "2421"
+    },
+    {
+      "input": "s = \"MDCCCLXXVII\"",
+      "expected": "1877"
+    },
+    {
+      "input": "s = \"LXXXIV\"",
+      "expected": "84"
+    },
+    {
+      "input": "s = \"CMXLIV\"",
+      "expected": "944"
+    },
+    {
+      "input": "s = \"MCMLXXXIV\"",
+      "expected": "1984"
+    }
+  ]
+}

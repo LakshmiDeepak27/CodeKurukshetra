@@ -1,0 +1,44 @@
+{
+  "id": "longest-substring-with-at-most-two-distinct-characters",
+  "title": "Longest Substring With At Most Two Distinct Characters",
+  "statement": "Given a string s, return the length of the longest substring that contains at most two distinct characters.\n \nExample 1:\n\nInput: s = \"eceba\"\nOutput: 3\nExplanation: The substring is \"ece\" which its length is 3.\n\nExample 2:\n\nInput: s = \"ccaabbb\"\nOutput: 5\nExplanation: The substring is \"aabbb\" which its length is 5.\n\n \nConstraints:\n\n1 <= s.length <= 105\ns consists of English letters.",
+  "difficulty": "Medium",
+  "sampleInput": "s = \"abcdefghijklmnopqrstuvwxyz\"",
+  "sampleOutput": "2",
+  "tags": [
+    "Hash Table",
+    "String",
+    "Sliding Window"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int lengthOfLongestSubstringTwoDistinct(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int lengthOfLongestSubstringTwoDistinct(String s) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {number}\n   */\n  lengthOfLongestSubstringTwoDistinct(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

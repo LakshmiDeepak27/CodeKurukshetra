@@ -47,6 +47,15 @@ function me(req, res) {
   return res.json({ user: authService.publicUser(req.user) });
 }
 
+async function updateProfile(req, res, next) {
+  try {
+    const user = await authService.updateUserProfile(req.user.id, req.body);
+    return res.json({ user });
+  } catch (error) {
+    return next(error);
+  }
+}
+
 async function getOnlineUsers(req, res, next) {
   try {
     const count = await authService.getOnlineUsersCount();
@@ -56,4 +65,4 @@ async function getOnlineUsers(req, res, next) {
   }
 }
 
-module.exports = { signup, signin, googleAuth, me, getOnlineUsers };
+module.exports = { signup, signin, googleAuth, me, updateProfile, getOnlineUsers };

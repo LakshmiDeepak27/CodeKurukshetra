@@ -1,0 +1,45 @@
+{
+  "id": "wildcard-matching",
+  "title": "Wildcard Matching",
+  "statement": "Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*' where:\n\n'?' Matches any single character.\n'*' Matches any sequence of characters (including the empty sequence).\n\nThe matching should cover the entire input string (not partial).\n \nExample 1:\n\nInput: s = \"aa\", p = \"a\"\nOutput: false\nExplanation: \"a\" does not match the entire string \"aa\".\n\nExample 2:\n\nInput: s = \"aa\", p = \"*\"\nOutput: true\nExplanation: '*' matches any sequence.\n\nExample 3:\n\nInput: s = \"cb\", p = \"?a\"\nOutput: false\nExplanation: '?' matches 'c', but the second letter is 'a', which does not match 'b'.\n\n \nConstraints:\n\n0 <= s.length, p.length <= 2000\ns contains only lowercase English letters.\np contains only lowercase English letters, '?' or '*'.",
+  "difficulty": "Hard",
+  "sampleInput": "s = \"abcde\", p = \"ab*e\"",
+  "sampleOutput": "True",
+  "tags": [
+    "Greedy",
+    "Recursion",
+    "String",
+    "Dynamic Programming"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        ",
+    "cpp": "class Solution {\npublic:\n    bool isMatch(string& s, string& p) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public boolean isMatch(String s, String p) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @param {string} p\n   * @return {boolean}\n   */\n  isMatch(s, p) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

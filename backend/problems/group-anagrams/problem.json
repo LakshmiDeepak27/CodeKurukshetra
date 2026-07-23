@@ -1,0 +1,45 @@
+{
+  "id": "group-anagrams",
+  "title": "Group Anagrams",
+  "statement": "Given an array of strings strs, group the anagrams together. You can return the answer in any order.\n \nExample 1:\n\nInput: strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]\nOutput: [[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]\nExplanation:\n\nThere is no string in strs that can be rearranged to form \"bat\".\nThe strings \"nat\" and \"tan\" are anagrams as they can be rearranged to form each other.\nThe strings \"ate\", \"eat\", and \"tea\" are anagrams as they can be rearranged to form each other.\n\n\nExample 2:\n\nInput: strs = [\"\"]\nOutput: [[\"\"]]\n\nExample 3:\n\nInput: strs = [\"a\"]\nOutput: [[\"a\"]]\n\n \nConstraints:\n\n1 <= strs.length <= 104\n0 <= strs[i].length <= 100\nstrs[i] consists of lowercase English letters.",
+  "difficulty": "Medium",
+  "sampleInput": "strs = [\"a\",\"b\",\"c\",\"d\",\"e\"]",
+  "sampleOutput": "[['a'], ['b'], ['c'], ['d'], ['e']]",
+  "tags": [
+    "Array",
+    "Hash Table",
+    "String",
+    "Sorting"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\n        ",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String[][] groupAnagrams(String[] strs) {\n        return new String[][]{};\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string[]} strs\n   * @return {string[][]}\n   */\n  groupAnagrams(strs) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

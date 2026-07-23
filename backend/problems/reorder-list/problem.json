@@ -1,0 +1,45 @@
+{
+  "id": "reorder-list",
+  "title": "Reorder List",
+  "statement": "You are given the head of a singly linked-list. The list can be represented as:\n\nL0 → L1 → … → Ln - 1 → Ln\n\nReorder the list to be on the following form:\n\nL0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …\n\nYou may not modify the values in the list's nodes. Only nodes themselves may be changed.\n \nExample 1:\n\n\nInput: head = [1,2,3,4]\nOutput: [1,4,2,3]\n\nExample 2:\n\n\nInput: head = [1,2,3,4,5]\nOutput: [1,5,2,4,3]\n\n \nConstraints:\n\nThe number of nodes in the list is in the range [1, 5 * 104].\n1 <= Node.val <= 1000",
+  "difficulty": "Medium",
+  "sampleInput": "head = [1,2,3]",
+  "sampleOutput": "None",
+  "tags": [
+    "Stack",
+    "Recursion",
+    "Linked List",
+    "Two Pointers"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reorderList(self, head: Optional[ListNode]) -> None:\n        \"\"\"\n        Do not return anything, modify head in-place instead.\n        \"\"\"\n        ",
+    "cpp": "class Solution {\npublic:\n    int reorderList(int val=0, int next=None) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int reorderList(int val=0, int next=None) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} next=None\n   * @return {number}\n   */\n  reorderList(val=0, next=None) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

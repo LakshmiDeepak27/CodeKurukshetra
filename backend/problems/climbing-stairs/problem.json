@@ -1,0 +1,44 @@
+{
+  "id": "climbing-stairs",
+  "title": "Climbing Stairs",
+  "statement": "You are climbing a staircase. It takes n steps to reach the top.\nEach time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?\n \nExample 1:\n\nInput: n = 2\nOutput: 2\nExplanation: There are two ways to climb to the top.\n1. 1 step + 1 step\n2. 2 steps\n\nExample 2:\n\nInput: n = 3\nOutput: 3\nExplanation: There are three ways to climb to the top.\n1. 1 step + 1 step + 1 step\n2. 1 step + 2 steps\n3. 2 steps + 1 step\n\n \nConstraints:\n\n1 <= n <= 45",
+  "difficulty": "Easy",
+  "sampleInput": "n = 3",
+  "sampleOutput": "3",
+  "tags": [
+    "Memoization",
+    "Math",
+    "Dynamic Programming"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def climbStairs(self, n: int) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int climbStairs(int n) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int climbStairs(int n) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} n\n   * @return {number}\n   */\n  climbStairs(n) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

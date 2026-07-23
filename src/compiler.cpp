@@ -1,7 +1,67 @@
 #include "compiler.h"
 
-#include <fcntl.h> // open
 #include <fstream>
+
+#ifdef _WIN32
+
+#include <cstdlib>
+
+CompileResult compileCpp(const std::string &workspacePath) {
+  std::string sourceFile = workspacePath + "/main.cpp";
+  std::string outputFile = workspacePath + "/program.exe";
+  std::string errorFile = workspacePath + "/compile.err";
+
+  std::string cmd = "g++ -std=c++17 -O2 \"" + sourceFile + "\" -o \"" + outputFile + "\" 2> \"" + errorFile + "\"";
+  int status = std::system(cmd.c_str());
+
+  if (status == 0) {
+    return {true, ""};
+  }
+
+  std::ifstream err(errorFile);
+  std::string msg((std::istreambuf_iterator<char>(err)),
+                  std::istreambuf_iterator<char>());
+
+  if (msg.empty()) {
+    msg = "Compilation failed (g++ compiler error or g++ not found in PATH).";
+  }
+  return {false, msg};
+}
+
+CompileResult compileCode(const std::string &workspacePath, const std::string &language) {
+  if (language == "cpp") {
+    return compileCpp(workspacePath);
+  } else if (language == "java") {
+    std::string sourceFile = workspacePath + "/Main.java";
+    std::string errorFile = workspacePath + "/compile.err";
+
+    std::string cmd = "javac \"" + sourceFile + "\" 2> \"" + errorFile + "\"";
+    int status = std::system(cmd.c_str());
+
+    if (status == 0) {
+      return {true, ""};
+    }
+
+    std::ifstream err(errorFile);
+    std::string msg((std::istreambuf_iterator<char>(err)),
+                    std::istreambuf_iterator<char>());
+
+    if (msg.empty()) {
+      msg = "Compilation failed (javac compiler error or javac not found in PATH).";
+    }
+    return {false, msg};
+  }
+
+  if (language == "python" || language == "js") {
+    return {true, ""};
+  }
+
+  return {false, "Unsupported language: " + language};
+}
+
+#else
+
+#include <fcntl.h> // open
 #include <sys/wait.h> // waitpid
 #include <unistd.h>   // fork, exec
 
@@ -41,6 +101,9 @@ CompileResult compileCpp(const std::string &workspacePath) {
   std::string msg((std::istreambuf_iterator<char>(err)),
                   std::istreambuf_iterator<char>());
 
+  if (msg.empty()) {
+    msg = "Compilation failed (g++ compiler error or g++ not found in PATH).";
+  }
   return {false, msg};
 }
 
@@ -79,6 +142,12 @@ CompileResult compileCode(const std::string &workspacePath, const std::string &l
     return {false, msg};
   }
 
-  // Python and JavaScript don't require compilation
-  return {true, ""};
+  // Python and JavaScript don't require compilation.
+  if (language == "python" || language == "js") {
+    return {true, ""};
+  }
+
+  return {false, "Unsupported language: " + language};
 }
+
+#endif

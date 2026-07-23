@@ -1,0 +1,42 @@
+{
+  "id": "reverse-linked-list-ii",
+  "title": "Reverse Linked List Ii",
+  "statement": "Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.\n \nExample 1:\n\n\nInput: head = [1,2,3,4,5], left = 2, right = 4\nOutput: [1,4,3,2,5]\n\nExample 2:\n\nInput: head = [5], left = 1, right = 1\nOutput: [5]\n\n \nConstraints:\n\nThe number of nodes in the list is n.\n1 <= n <= 500\n-500 <= Node.val <= 500\n1 <= left <= right <= n\n\n \nFollow up: Could you do it in one pass?",
+  "difficulty": "Medium",
+  "sampleInput": "head = [1,2,3,4,5], left = 3, right = 4",
+  "sampleOutput": "[1, 2, 4, 3, 5]",
+  "tags": [
+    "Linked List"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:\n        ",
+    "cpp": "class Solution {\npublic:\n    int reverseBetween(int val=0, int next=None) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int reverseBetween(int val=0, int next=None) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} next=None\n   * @return {number}\n   */\n  reverseBetween(val=0, next=None) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

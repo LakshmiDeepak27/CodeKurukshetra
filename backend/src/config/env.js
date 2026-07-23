@@ -11,6 +11,7 @@ const config = {
     .filter(Boolean),
   judgeCommand: process.env.JUDGE_COMMAND || "",
   judgeArgs: (process.env.JUDGE_ARGS || "").split(" ").filter(Boolean),
+  judgeWslDistro: process.env.JUDGE_WSL_DISTRO || "",
   db: {
     host: process.env.DB_HOST || "localhost",
     port: Number(process.env.DB_PORT) || 3306,

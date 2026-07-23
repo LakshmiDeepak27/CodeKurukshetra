@@ -1,0 +1,534 @@
+{
+  "sample": [
+    {
+      "input": "s1 = \"abc\", s2 = \"abc\", s3 = \"aabbcc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"a\", s3 = \"a\"",
+      "expected": "True"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s1 = \"\", s2 = \"b\", s3 = \"b\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"a\", s2 = \"\", s3 = \"a\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"\", s3 = \"abc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aab\", s2 = \"dbbc\", s3 = \"aadbbcbc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbbaccc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"defabc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"a\", s2 = \"a\", s3 = \"aa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aaaa\", s2 = \"bbbb\", s3 = \"abababab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"abcdef\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"abcfde\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"abc\", s3 = \"abc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"a\", s2 = \"b\", s3 = \"ba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"a\", s2 = \"a\", s3 = \"ab\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbcbcac\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"ab\", s2 = \"cd\", s3 = \"abcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"adbcef\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"ddeeff\", s3 = \"aaddbbccceedeff\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"ddeeff\", s3 = \"aabbccddeeff\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"a\", s2 = \"b\", s3 = \"ab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"def\", s3 = \"def\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"\", s3 = \"\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"cabdef\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"ddeeff\", s3 = \"aadddbbbeeffcc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"abcdef\", s3 = \"abcdef\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"klmnopqrstu\", s3 = \"ackbgdenfphiojqmrstnu\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"defghijkl\", s3 = \"adbecfghijkl\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aaa\", s2 = \"bb\", s3 = \"aaabb\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"xy\", s2 = \"xxyy\", s3 = \"xxxyyy\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcde\", s2 = \"xyz\", s3 = \"axbyczde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdef\", s2 = \"ghijkl\", s3 = \"aghbciidfjkel\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefgh\", s2 = \"hgfedcba\", s3 = \"ahbgcfeddaehbgcfecba\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"efgh\", s3 = \"aebfcgdh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aaa\", s2 = \"bbb\", s3 = \"ababab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"mississippi\", s2 = \"pwwkew\", s3 = \"mpiswimppwisikew\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"efgh\", s3 = \"aebcfdgh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aaa\", s2 = \"bbb\", s3 = \"aababbab\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"a\", s2 = \"ababababab\", s3 = \"abababababa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcabc\", s2 = \"defdef\", s3 = \"abcdefabcdef\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"zzzz\", s2 = \"zzzz\", s3 = \"zzzzzzzz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghijklmnopqrstuvwxyz\", s2 = \"zyxwvutsrqponmlkjihgfedcba\", s3 = \"azbycxdwevfugthvisjrkqlpmqonnpmojniklhgfeidchbegaf\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aaabbb\", s2 = \"aaabbb\", s3 = \"aaabbaabbb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"klmnopqrst\", s3 = \"akblcfdmengoqhpristj\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcabcabc\", s2 = \"bcdbcd\", s3 = \"abcbcadbcabc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"klmnopqrst\", s3 = \"akblcmfdgnheijopqrst\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabb\", s2 = \"ccdd\", s3 = \"accbbd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"klm\", s3 = \"akbclmdefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefg\", s2 = \"hijklmn\", s3 = \"haijbckldemfnfg\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabb\", s2 = \"bbcc\", s3 = \"aabbccbb\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabbaa\", s2 = \"bbccbb\", s3 = \"aabbabbbccba\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabbccddeeff\", s2 = \"gghhiijjkkllmm\", s3 = \"agbhchdijejfkflglhlimkmjmmnnoopp\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"ddeeff\", s3 = \"aaddbbeeffcc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcde\", s2 = \"fghij\", s3 = \"afbgchidiej\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"xxxx\", s2 = \"yyyy\", s3 = \"xxyxyyxxyy\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"klmnopqrst\", s3 = \"akbldmconepfqgrhtisj\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"abcd\", s3 = \"abcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"\", s3 = \"abcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcde\", s2 = \"fghij\", s3 = \"afbgchdije\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aab\", s2 = \"bc\", s3 = \"aabbcc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"xyz\", s2 = \"uvw\", s3 = \"xuzyvw\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabb\", s2 = \"ccdd\", s3 = \"accdbdb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"abc\", s3 = \"aabbbc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"efgh\", s3 = \"aebfcdgh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aaaaaa\", s2 = \"bbbbbb\", s3 = \"abababababab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabb\", s2 = \"ccdd\", s3 = \"acbdcbad\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"xyz\", s2 = \"abc\", s3 = \"xyzabc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aaa\", s2 = \"bbb\", s3 = \"aaabbb\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefg\", s2 = \"hijklmn\", s3 = \"ahbicdjekflgmn\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"defg\", s3 = \"adbcefeg\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"zzz\", s2 = \"zzz\", s3 = \"zzzzzzz\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"aabbccddeeff\", s3 = \"aabbccddeeff\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcabcabc\", s2 = \"abcabcabc\", s3 = \"aabbaabbaabbaabcabc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"abcde\", s3 = \"abcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"aabb\", s3 = \"aabaabdc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"ababab\", s2 = \"bababa\", s3 = \"babababababa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"\", s3 = \"acb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefgh\", s2 = \"ijklmnop\", s3 = \"aicfbjdhekgmlonp\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"ef\", s3 = \"aebcfed\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdef\", s2 = \"ghijkl\", s3 = \"agbhicjkldfe\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabbccddeeff\", s2 = \"zzzxxx\", s3 = \"azzbzxcxzddeeff\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdexyz\", s2 = \"mnopqr\", s3 = \"ambonpdqcrxezy\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcabc\", s2 = \"xyzxyz\", s3 = \"axbyczaxbycz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aab\", s2 = \"dbb\", s3 = \"aadbb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"ddeeff\", s3 = \"addbeeffcc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"abdc\", s3 = \"aabbbdcc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", s3 = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"efgh\", s3 = \"abcdghfe\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aab\", s2 = \"cdd\", s3 = \"aadbb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abababab\", s2 = \"babababa\", s3 = \"abbabababaabab\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abacabadabacaba\", s2 = \"cdcdcdc\", s3 = \"acbacabaacbadabacaba\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"abcdefg\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"\", s2 = \"z\", s3 = \"z\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"ab\", s2 = \"cd\", s3 = \"cabd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdef\", s2 = \"\", s3 = \"abcdef\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aaabbb\", s2 = \"ccdddd\", s3 = \"aaacbbbddddd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"xxyy\", s2 = \"aabb\", s3 = \"xaayybb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"ab\", s2 = \"cd\", s3 = \"cadb\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"abdecf\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"ddeeff\", s3 = \"adabdbcecefef\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aa\", s2 = \"aa\", s3 = \"aaaa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"abc\", s3 = \"abacbc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"klmnopqrst\", s3 = \"akblcmndfoegphiqjrst\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcde\", s2 = \"fghij\", s3 = \"afbgchdeij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", s2 = \"\", s3 = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"zzzz\", s2 = \"zzz\", s3 = \"zzzzzzz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"efgh\", s3 = \"abcdefghe\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"abcd\", s3 = \"abcabcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabbccddeeff\", s2 = \"\", s3 = \"aabbccddeeff\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghijk\", s2 = \"lmnopqrstuvwxyz\", s3 = \"abcdefghijklmnoqrstuvwxyz\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"abc\", s3 = \"abccba\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"dabcef\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcde\", s2 = \"\", s3 = \"abcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdef\", s2 = \"ghijkl\", s3 = \"aghbidejfkfl\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"z\", s2 = \"\", s3 = \"z\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"zxy\", s2 = \"xzy\", s3 = \"zxzyxy\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"klmnopqrst\", s3 = \"akblcmnodpefqgrstihj\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aab\", s2 = \"acc\", s3 = \"aaabcac\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabbaabbaabb\", s2 = \"bbccbbccbbcc\", s3 = \"aabbaabbccbaabbccbaabbccbb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"xxxx\", s2 = \"yyyy\", s3 = \"xyxxyxyyxyyx\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"ddeeff\", s3 = \"aadbbccddeeff\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"ababab\", s2 = \"bababa\", s3 = \"abababababab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabb\", s2 = \"ccdd\", s3 = \"acabcd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabb\", s2 = \"ccdd\", s3 = \"acbdad\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aaaaa\", s2 = \"bbbbb\", s3 = \"ababababab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabbccddeeff\", s2 = \"gg hh ii jj kk ll\", s3 = \"aaggbbccddhhffeeggiijjkkl\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcabcabc\", s2 = \"xyzxyzxyz\", s3 = \"axbyczaxbyczaxbycz\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbcbcacd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"aabb\", s2 = \"ccdd\", s3 = \"acabcdbd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"def\", s3 = \"dabecf\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcde\", s2 = \"fghij\", s3 = \"abcdefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcabcabc\", s2 = \"xyzxyzxyz\", s3 = \"axbxcyzaybzcyzabc\"",
+      "expected": "False"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "triangle",
+  "title": "Triangle",
+  "statement": "Given a triangle array, return the minimum path sum from top to bottom.\nFor each step, you may move to an adjacent number of the row below. More formally, if you are on index i on the current row, you may move to either index i or index i + 1 on the next row.\n \nExample 1:\n\nInput: triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]\nOutput: 11\nExplanation: The triangle looks like:\n   2\n  3 4\n 6 5 7\n4 1 8 3\nThe minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).\n\nExample 2:\n\nInput: triangle = [[-10]]\nOutput: -10\n\n \nConstraints:\n\n1 <= triangle.length <= 200\ntriangle[0].length == 1\ntriangle[i].length == triangle[i - 1].length + 1\n-104 <= triangle[i][j] <= 104\n\n \nFollow up: Could you do this using only O(n) extra space, where n is the total number of rows in the triangle?",
+  "difficulty": "Medium",
+  "sampleInput": "triangle = [[-10]]",
+  "sampleOutput": "-10",
+  "tags": [
+    "Array",
+    "Dynamic Programming"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def minimumTotal(self, triangle: List[List[int]]) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int minimumTotal(vector<vector<int>>& triangle) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int minimumTotal(int[][] triangle) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[][]} triangle\n   * @return {number}\n   */\n  minimumTotal(triangle) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

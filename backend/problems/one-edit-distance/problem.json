@@ -1,0 +1,43 @@
+{
+  "id": "one-edit-distance",
+  "title": "One Edit Distance",
+  "statement": "Given two strings s and t, return true if they are both one edit distance apart, otherwise return false.\nA string s is said to be one distance apart from a string t if you can:\n\nInsert exactly one character into s to get t.\nDelete exactly one character from s to get t.\nReplace exactly one character of s with a different character to get t.\n\n \nExample 1:\n\nInput: s = \"ab\", t = \"acb\"\nOutput: true\nExplanation: We can insert 'c' into s to get t.\n\nExample 2:\n\nInput: s = \"\", t = \"\"\nOutput: false\nExplanation: We cannot get t from s by only one step.\n\n \nConstraints:\n\n0 <= s.length, t.length <= 104\ns and t consist of lowercase letters, uppercase letters, and digits.",
+  "difficulty": "Medium",
+  "sampleInput": "s = \"123\", t = \"1234\"",
+  "sampleOutput": "True",
+  "tags": [
+    "Two Pointers",
+    "String"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def isOneEditDistance(self, s: str, t: str) -> bool:\n        ",
+    "cpp": "class Solution {\npublic:\n    bool isOneEditDistance(string& s, string& t) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public boolean isOneEditDistance(String s, String t) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @param {string} t\n   * @return {boolean}\n   */\n  isOneEditDistance(s, t) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

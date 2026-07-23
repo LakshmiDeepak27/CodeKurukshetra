@@ -1,0 +1,44 @@
+{
+  "id": "binary-tree-upside-down",
+  "title": "Binary Tree Upside Down",
+  "statement": "Given the root of a binary tree, turn the tree upside down and return the new root.\nYou can turn a binary tree upside down with the following steps:\n\nThe original left child becomes the new root.\nThe original root becomes the new right child.\nThe original right child becomes the new left child.\n\n\nThe mentioned steps are done level by level. It is guaranteed that every right node has a sibling (a left node with the same parent) and has no children.\n \nExample 1:\n\n\nInput: root = [1,2,3,4,5]\nOutput: [4,5,2,null,null,3,1]\n\nExample 2:\n\nInput: root = []\nOutput: []\n\nExample 3:\n\nInput: root = [1]\nOutput: [1]\n\n \nConstraints:\n\nThe number of nodes in the tree will be in the range [0, 10].\n1 <= Node.val <= 10\nEvery right node in the tree has a sibling (a left node that shares the same parent).\nEvery right node in the tree has no children.",
+  "difficulty": "Medium",
+  "sampleInput": "root = [1,2,3,4,5,6,7]",
+  "sampleOutput": "[4, 5, 2, None, None, 3, 1, 6, 7]",
+  "tags": [
+    "Tree",
+    "Depth-First Search",
+    "Binary Tree"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def upsideDownBinaryTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        ",
+    "cpp": "class Solution {\npublic:\n    int upsideDownBinaryTree(int val=0, int left=None, int right=None) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int upsideDownBinaryTree(int val=0, int left=None, int right=None) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} left=None\n   * @param {number} right=None\n   * @return {number}\n   */\n  upsideDownBinaryTree(val=0, left=None, right=None) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

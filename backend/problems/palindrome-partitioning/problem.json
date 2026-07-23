@@ -1,0 +1,44 @@
+{
+  "id": "palindrome-partitioning",
+  "title": "Palindrome Partitioning",
+  "statement": "Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.\n \nExample 1:\nInput: s = \"aab\"\nOutput: [[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]]\nExample 2:\nInput: s = \"a\"\nOutput: [[\"a\"]]\n\n \nConstraints:\n\n1 <= s.length <= 16\ns contains only lowercase English letters.",
+  "difficulty": "Medium",
+  "sampleInput": "s = \"madam\"",
+  "sampleOutput": "[['m', 'a', 'd', 'a', 'm'], ['m', 'ada', 'm'], ['madam']]",
+  "tags": [
+    "String",
+    "Dynamic Programming",
+    "Backtracking"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def partition(self, s: str) -> List[List[str]]:\n        ",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> partition(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String[][] partition(String s) {\n        return new String[][]{};\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {string[][]}\n   */\n  partition(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

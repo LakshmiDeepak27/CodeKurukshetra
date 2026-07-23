@@ -3,7 +3,7 @@
 
 #include "executor.h"
 
-enum class Verdict { AC, WA, TLE, RE, CE };
+enum class Verdict { AC, WA, TLE, MLE, RE, CE };
 
 // Per-test verdict (already correct)
 Verdict decideVerdict(ExecStatus execStatus, bool outputMatch);

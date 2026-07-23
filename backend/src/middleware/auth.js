@@ -14,6 +14,7 @@ async function authenticate(req, res, next) {
       return res.status(401).json({ message: "Invalid session" });
     }
     req.user = user;
+    authService.updateUserLastSeen(user.id);
     return next();
   } catch {
     return res.status(401).json({ message: "Invalid session" });
@@ -27,11 +28,21 @@ async function optionalAuthenticate(req, _res, next) {
   try {
     const userId = verifyToken(token);
     const user = await authService.findUserById(userId);
-    if (user) req.user = user;
+    if (user) {
+      req.user = user;
+      authService.updateUserLastSeen(user.id);
+    }
   } catch {
     // Ignore invalid tokens for optional auth
   }
   return next();
 }
 
-module.exports = { authenticate, optionalAuthenticate };
+function requireAdmin(req, res, next) {
+  if (!req.user || req.user.role !== "admin") {
+    return res.status(403).json({ message: "Admin privileges required" });
+  }
+  return next();
+}
+
+module.exports = { authenticate, optionalAuthenticate, requireAdmin };

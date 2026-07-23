@@ -3,6 +3,10 @@ import { createRoot } from "react-dom/client";
 import "./style.css";
 import EditorWorkspace from "../../Editor/src/App.jsx";
 import "../../Editor/src/index.css";
+import { initBattleSocket } from "./battleApi.js";
+import { BattleLobby } from "./BattleLobby.jsx";
+import { BattleRoom } from "./BattleRoom.jsx";
+import { BattleResultModal } from "./BattleResultModal.jsx";
 
 const API = import.meta.env.VITE_API_URL || "/api";
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -53,7 +57,7 @@ function App() {
   if (page === "dashboard") return <Dashboard user={user} onSignOut={signOut} theme={theme} onToggleTheme={() => setTheme(theme === "light" ? "dark" : "light")} onOpenEditor={(probId) => { if (probId) localStorage.setItem("ck_last_problem", probId); navigate("editor"); }} onOpenBattle={() => navigate("battle")} onOpenProfile={() => navigate("profile")} />;
   if (page === "editor") return <EditorWorkspace onExit={() => navigate("dashboard")} />;
   if (page === "battle") return <Battle user={user} onBack={() => navigate("dashboard")} />;
-  if (page === "profile") return <Profile user={user} theme={theme} onBack={() => navigate("dashboard")} />;  return (
+  if (page === "profile") return <Profile user={user} theme={theme} onBack={() => navigate("dashboard")} />; return (
     <main>
       <nav className="nav">
         <a className="brand" href="#top">CODE <span>KURUKSHETRA</span></a>
@@ -181,7 +185,7 @@ function Step2Animation() {
   return (
     <div className="step-animation-box">
       <div className="step-code-header">
-        <div className="step-code-dots"><span/><span/><span/></div>
+        <div className="step-code-dots"><span /><span /><span /></div>
         <span>solution.cpp</span>
       </div>
       <div style={{ font: "11px 'DM Mono', monospace", color: "var(--ink)", marginBottom: "6px" }}>
@@ -375,7 +379,7 @@ function Input({ label, type = "text", value, onChange, autoComplete, hint }) {
 }
 
 function mapStatus(status) {
-  return ({ PASS: "Accepted", WA: "Wrong Answer", TLE: "Time Limit Exceeded", RE: "Runtime Error" })[status] || status || "Pending";
+  return ({ PASS: "Accepted", WA: "Wrong Answer", TLE: "Time Limit Exceeded", MLE: "Memory Limit Exceeded", RE: "Runtime Error" })[status] || status || "Pending";
 }
 
 function calculateStreak(submissions) {
@@ -398,6 +402,8 @@ function Dashboard({ user, onSignOut, theme, onToggleTheme, onOpenEditor, onOpen
   const [submissions, setSubmissions] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDiff, setSelectedDiff] = useState("all");
+  const [activeSection, setActiveSection] = useState("dashboard");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef(null);
   const initials = (user?.name || "Coder").split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
@@ -473,10 +479,20 @@ function Dashboard({ user, onSignOut, theme, onToggleTheme, onOpenEditor, onOpen
     onOpenEditor();
   };
 
+  const selectSection = (section) => {
+    setActiveSection(section);
+    setMenuOpen(false);
+  };
+
   return (
     <main className={`dashboard-shell dashboard-${theme}`}>
       <nav className="dashboard-nav">
-        <a className="brand" href="#dashboard">CODE <span>KURUKSHETRA</span></a>
+        <div className="dashboard-brand-group">
+          <button className="hamburger-button" onClick={() => setMenuOpen((open) => !open)} aria-label="Open dashboard navigation" aria-expanded={menuOpen}>
+            <i /><i /><i />
+          </button>
+          <a className="brand" href="#dashboard" onClick={() => selectSection("dashboard")}>CODE <span>KURUKSHETRA</span></a>
+        </div>
         <div className="dashboard-nav-actions">
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <div className="profile-wrap" ref={profileRef}>
@@ -505,7 +521,19 @@ function Dashboard({ user, onSignOut, theme, onToggleTheme, onOpenEditor, onOpen
         </div>
       </nav>
 
-      <section id="dashboard" className="dashboard-hero">
+      {menuOpen && <div className="dashboard-menu-backdrop" onClick={() => setMenuOpen(false)}>
+        <aside className="dashboard-menu" aria-label="Dashboard sections" onClick={(event) => event.stopPropagation()}>
+          <p className="eyebrow">Navigate</p>
+          <button className={activeSection === "dashboard" ? "active" : ""} onClick={() => selectSection("dashboard")}><span>⌂</span> Dashboard</button>
+          <button className={activeSection === "problems" ? "active" : ""} onClick={() => selectSection("problems")}><span>&lt;/&gt;</span> Problems <em>{problems.length}</em></button>
+          <button className={activeSection === "submissions" ? "active" : ""} onClick={() => selectSection("submissions")}><span>✓</span> Submissions <em>{submissions.length}</em></button>
+          <button onClick={() => { setMenuOpen(false); onOpenProfile(); }}><span>◉</span> My profile</button>
+          <button onClick={() => { setMenuOpen(false); onOpenBattle(); }}><span>1v1</span> Battle arena</button>
+          <div className="dashboard-menu-footer"><button onClick={() => { setMenuOpen(false); onSignOut(); }}>↪ Sign out</button></div>
+        </aside>
+      </div>}
+
+      {activeSection === "dashboard" && <><section id="dashboard" className="dashboard-hero">
         <div className="dashboard-hero-copy">
           <p className="eyebrow">Command centre / 2026</p>
           <h1>WELCOME BACK,<br />{(user?.name || "CODER").toUpperCase()}.</h1>
@@ -525,11 +553,23 @@ function Dashboard({ user, onSignOut, theme, onToggleTheme, onOpenEditor, onOpen
         </aside>
       </section>
 
-      <section style={{ maxWidth: "1280px", margin: "32px auto", padding: "0 24px" }}>
+        <section className="dashboard-grid" aria-label="Platform options">
+          <article className="dashboard-card featured">
+            <span className="dashboard-index">01</span>
+            <div className="dashboard-icon">&lt;/&gt;</div>
+            <h2>Problems</h2>
+            <p>Browse challenges, run sample cases, and submit a solution from the integrated workspace.</p>
+            <div className="dashboard-card-footer"><span>{problems.length} available</span><button onClick={() => selectSection("problems")}>Browse problems <Arrow /></button></div>
+          </article>
+          <article className="dashboard-card"><span className="dashboard-index">02</span><div className="dashboard-icon">✓</div><h2>Submissions</h2><p>Review every attempt and track your acceptance rate over time.</p><div className="dashboard-card-footer"><span>{submissions.length} total</span><button onClick={() => selectSection("submissions")}>View activity <Arrow /></button></div></article>
+          <article className="dashboard-card"><span className="dashboard-index">03</span><div className="dashboard-icon">1v1</div><h2>Battle Arena</h2><p>Challenge another programmer to solve the same problem under pressure.</p><div className="dashboard-card-footer"><span>Coming soon</span><button onClick={onOpenBattle}>View arena <Arrow /></button></div></article>
+        </section></>}
+
+      {activeSection === "problems" && <section className="dashboard-section-page" aria-labelledby="problems-heading">
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px", marginBottom: "20px" }}>
           <div>
             <p className="eyebrow" style={{ color: "var(--dash-accent)", margin: 0 }}>Practice Library</p>
-            <h2 style={{ fontSize: "28px", margin: "4px 0 0", letterSpacing: "-0.04em", color: "var(--dash-text)" }}>CHALLENGE CATALOGUE</h2>
+            <h2 id="problems-heading" style={{ fontSize: "28px", margin: "4px 0 0", letterSpacing: "-0.04em", color: "var(--dash-text)" }}>CHALLENGE CATALOGUE</h2>
           </div>
           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
             <input
@@ -632,46 +672,13 @@ function Dashboard({ user, onSignOut, theme, onToggleTheme, onOpenEditor, onOpen
             </tbody>
           </table>
         </div>
-      </section>
+      </section>}
 
-      <section className="dashboard-grid" aria-label="Platform options">
-        <article className="dashboard-card featured">
-          <span className="dashboard-index">01</span>
-          <div className="dashboard-icon">&lt;/&gt;</div>
-          <h2>Problems</h2>
-          <p>Open the challenge library, run sample cases, and submit a solution from the integrated workspace.</p>
-          <div className="dashboard-card-footer">
-            <span>{problems.length} available</span>
-            <button onClick={() => onOpenEditor()}>Solve problems <Arrow /></button>
-          </div>
-        </article>
-        <article className="dashboard-card">
-          <span className="dashboard-index">02</span>
-          <div className="dashboard-icon">1v1</div>
-          <h2>Battle Arena</h2>
-          <p>Challenge another programmer to solve the same problem under pressure.</p>
-          <div className="dashboard-card-footer">
-            <span>Coming soon</span>
-            <button onClick={onOpenBattle}>View arena <Arrow /></button>
-          </div>
-        </article>
-        <article className="dashboard-card">
-          <span className="dashboard-index">03</span>
-          <div className="dashboard-icon">{`{ }`}</div>
-          <h2>Code Editor</h2>
-          <p>Jump directly into the full-screen editor with your saved draft and test cases.</p>
-          <div className="dashboard-card-footer">
-            <span>Autosave enabled</span>
-            <button onClick={() => onOpenEditor()}>Open editor <Arrow /></button>
-          </div>
-        </article>
-      </section>
-
-      <section style={{ maxWidth: "1280px", margin: "40px auto 60px", padding: "0 24px" }}>
+      {activeSection === "submissions" && <section className="dashboard-section-page" aria-labelledby="submissions-heading">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "16px" }}>
           <div>
             <p className="eyebrow" style={{ color: "var(--dash-accent)", margin: 0 }}>Activity Log</p>
-            <h3 style={{ fontSize: "22px", margin: "4px 0 0", color: "var(--dash-text)" }}>RECENT SUBMISSIONS</h3>
+            <h3 id="submissions-heading" style={{ fontSize: "22px", margin: "4px 0 0", color: "var(--dash-text)" }}>RECENT SUBMISSIONS</h3>
           </div>
           <button onClick={onOpenProfile} style={{ background: "none", border: "none", color: "var(--dash-accent)", cursor: "pointer", fontSize: "13px", fontWeight: "600" }}>
             View Full Profile →
@@ -715,13 +722,68 @@ function Dashboard({ user, onSignOut, theme, onToggleTheme, onOpenEditor, onOpen
             </div>
           )}
         </div>
-      </section>
+      </section>}
     </main>
   );
 }
 
 function Battle({ user, onBack }) {
-  return <main className="battle-shell"><header><button className="back" onClick={onBack}>← Dashboard</button><span className="eyebrow">1v1 battle arena</span></header><section><p className="eyebrow">{user?.name || "Coder"} / Battle mode</p><h1>THE ARENA<br />IS WARMING UP.</h1><p>Head-to-head challenges are next. Your coding workspace is ready in the meantime.</p><button className="solid-button" onClick={onBack}>Back to dashboard <Arrow /></button></section></main>;
+  const [activeBattleId, setActiveBattleId] = useState(null);
+  const [resultState, setResultState] = useState(null);
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const s = initBattleSocket();
+    setSocket(s);
+    return () => {
+      s.disconnect();
+    };
+  }, []);
+
+  const handleStartBattle = (battleId) => {
+    setActiveBattleId(battleId);
+    setResultState(null);
+  };
+
+  const handleExitBattle = () => {
+    setActiveBattleId(null);
+    setResultState(null);
+  };
+
+  const handleBattleEnd = ({ battleState }) => {
+    setResultState(battleState);
+  };
+
+  if (activeBattleId) {
+    return (
+      <>
+        <BattleRoom
+          user={user}
+          battleId={activeBattleId}
+          onExit={handleExitBattle}
+          socket={socket}
+          onBattleEnd={handleBattleEnd}
+        />
+        {resultState && (
+          <BattleResultModal
+            user={user}
+            battleState={resultState}
+            eloDelta={resultState.eloDeltas}
+            onPlayAgain={() => {
+              setResultState(null);
+              setActiveBattleId(null);
+            }}
+            onBackToLobby={() => {
+              setResultState(null);
+              setActiveBattleId(null);
+            }}
+          />
+        )}
+      </>
+    );
+  }
+
+  return <BattleLobby user={user} onBack={onBack} onStartBattle={handleStartBattle} socket={socket} />;
 }
 
 function Profile({ user, theme, onBack }) {

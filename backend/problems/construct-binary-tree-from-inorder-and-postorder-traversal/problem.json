@@ -1,0 +1,46 @@
+{
+  "id": "construct-binary-tree-from-inorder-and-postorder-traversal",
+  "title": "Construct Binary Tree From Inorder And Postorder Traversal",
+  "statement": "Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.\n \nExample 1:\n\n\nInput: inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]\nOutput: [3,9,20,null,null,15,7]\n\nExample 2:\n\nInput: inorder = [-1], postorder = [-1]\nOutput: [-1]\n\n \nConstraints:\n\n1 <= inorder.length <= 3000\npostorder.length == inorder.length\n-3000 <= inorder[i], postorder[i] <= 3000\ninorder and postorder consist of unique values.\nEach value of postorder also appears in inorder.\ninorder is guaranteed to be the inorder traversal of the tree.\npostorder is guaranteed to be the postorder traversal of the tree.",
+  "difficulty": "Medium",
+  "sampleInput": "inorder = [-1], postorder = [-1]",
+  "sampleOutput": "[-1]",
+  "tags": [
+    "Tree",
+    "Array",
+    "Hash Table",
+    "Divide and Conquer",
+    "Binary Tree"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:\n        ",
+    "cpp": "class Solution {\npublic:\n    int buildTree(int val=0, int left=None, int right=None) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int buildTree(int val=0, int left=None, int right=None) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} left=None\n   * @param {number} right=None\n   * @return {number}\n   */\n  buildTree(val=0, left=None, right=None) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Editor, { loader } from "@monaco-editor/react";
-import { fetchCurrentUser, fetchMySubmissions, fetchProblem, fetchProblems, fetchTestCases, runCustomCases, submitCode } from "./api";
+import { addComment, fetchCurrentUser, fetchMySubmissions, fetchOnlineCount, fetchProblem, fetchProblems, fetchTestCases, runCustomCases, submitCode, voteProblem } from "./api";
 
 loader.config({ paths: { vs: "/monaco/vs" } });
 
@@ -15,10 +15,10 @@ const LANGUAGES = [
 ];
 
 const DEFAULT_CODE = {
-  cpp: `#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    // Write your solution here\n\n    return 0;\n}`,
-  python: `import sys\n\ndef solve():\n    # Write your solution here\n    s = sys.stdin.readline().strip()\n    if s:\n        print(0)\n\nif __name__ == "__main__":\n    solve()`,
-  java: `import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        if (scanner.hasNext()) {\n            String s = scanner.next();\n            // Write your solution here\n            System.out.println(0);\n        }\n    }\n}`,
-  js: `const input = require("fs").readFileSync(0, "utf8").trim();\nif (input) {\n    // Write your solution here\n    console.log(0);\n}`,
+  cpp: `class Solution {\npublic:\n    int solve() {\n        // Write your solution here\n        return 0;\n    }\n};\n`,
+  python: `class Solution:\n    def solve(self):\n        # Write your solution here\n        pass\n`,
+  java: `class Solution {\n    public int solve() {\n        // Write your solution here\n        return 0;\n    }\n}\n`,
+  js: `class Solution {\n  solve() {\n    // Write your solution here\n    return 0;\n  }\n}\n`,
 };
 
 const CodeEditor = memo(function CodeEditor({ language, theme, value, onChange, options, onMount }) {
@@ -38,7 +38,7 @@ const ICON_PATHS = {
 function Icon({ name, size = 16 }) { return <svg className="ui-icon" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{ICON_PATHS[name]}</svg>; }
 
 function mapStatus(status) {
-  return ({ PASS: "Accepted", WA: "Wrong Answer", TLE: "Time Limit Exceeded", RE: "Runtime Error" })[status] || status || "Pending";
+  return ({ PASS: "Accepted", WA: "Wrong Answer", TLE: "Time Limit Exceeded", MLE: "Memory Limit Exceeded", RE: "Runtime Error" })[status] || status || "Pending";
 }
 
 function StatusPill({ verdict, loading }) {
@@ -51,6 +51,69 @@ function StatusPill({ verdict, loading }) {
 
 function Difficulty({ level = "Easy" }) {
   return <span className={`difficulty-pill ${(level || "Easy").toLowerCase()}`}>{level}</span>;
+}
+
+function parseFormattedInline(text) {
+  if (!text) return text;
+  const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\$[^\$]+\$)/g);
+  return parts.map((part, idx) => {
+    if (part.startsWith("`") && part.endsWith("`")) {
+      return <code key={idx} style={{ background: "var(--panel-alt)", color: "#3bdcff", padding: "2px 6px", borderRadius: "4px", fontFamily: "var(--font-mono)", fontSize: "12px" }}>{part.slice(1, -1)}</code>;
+    }
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={idx} style={{ color: "#fff", fontWeight: "600" }}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("$") && part.endsWith("$")) {
+      return <span key={idx} style={{ fontFamily: "var(--font-mono)", color: "#ffa116", background: "rgba(255,161,22,0.1)", padding: "1px 5px", borderRadius: "3px" }}>{part.slice(1, -1)}</span>;
+    }
+    return part;
+  });
+}
+
+function renderMarkdown(text) {
+  if (!text) return null;
+  const lines = text.split("\n");
+  const elements = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.startsWith("### ")) {
+      elements.push(<h3 key={i} style={{ color: "#ffa116", fontSize: "15px", marginTop: "16px", marginBottom: "8px", fontWeight: "600" }}>{line.slice(4)}</h3>);
+      continue;
+    }
+    if (line.startsWith("## ")) {
+      elements.push(<h2 key={i} style={{ color: "#fff", fontSize: "17px", marginTop: "18px", marginBottom: "10px", fontWeight: "600" }}>{line.slice(3)}</h2>);
+      continue;
+    }
+    if (line.startsWith("# ")) {
+      elements.push(<h1 key={i} style={{ color: "#fff", fontSize: "19px", marginTop: "20px", marginBottom: "12px", fontWeight: "700" }}>{line.slice(2)}</h1>);
+      continue;
+    }
+
+    if (line.trim().startsWith("- ") || line.trim().startsWith("* ")) {
+      const content = line.trim().slice(2);
+      elements.push(
+        <li key={i} style={{ marginLeft: "18px", marginBottom: "4px", color: "#d1d5db" }}>
+          {parseFormattedInline(content)}
+        </li>
+      );
+      continue;
+    }
+
+    if (line.trim() === "") {
+      elements.push(<div key={i} style={{ height: "6px" }} />);
+      continue;
+    }
+
+    elements.push(
+      <p key={i} style={{ margin: "4px 0", color: "#e5e7eb" }}>
+        {parseFormattedInline(line)}
+      </p>
+    );
+  }
+
+  return <div>{elements}</div>;
 }
 
 const TAB_ICONS = { Description: "list", Editorial: "code", Submissions: "refresh", Solutions: "braces" };
@@ -85,17 +148,17 @@ function ProblemPanel({ problem, tab, setTab, submissions, onlineCount, onOpenCo
       setLikes(prev => Math.max(0, prev - 1));
       setLiked(false);
       localStorage.removeItem(`ck_liked_${problem?.id}`);
-      fetch(`/api/problems/${problem?.id}/vote`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "unlike" }) }).catch(() => { });
+      voteProblem(problem?.id, "unlike").catch(() => { });
     } else {
       setLikes(prev => prev + 1);
       setLiked(true);
       localStorage.setItem(`ck_liked_${problem?.id}`, "true");
-      fetch(`/api/problems/${problem?.id}/vote`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "like" }) }).catch(() => { });
+      voteProblem(problem?.id, "like").catch(() => { });
       if (disliked) {
         setDislikes(prev => Math.max(0, prev - 1));
         setDisliked(false);
         localStorage.removeItem(`ck_disliked_${problem?.id}`);
-        fetch(`/api/problems/${problem?.id}/vote`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "undislike" }) }).catch(() => { });
+        voteProblem(problem?.id, "undislike").catch(() => { });
       }
     }
   };
@@ -105,17 +168,17 @@ function ProblemPanel({ problem, tab, setTab, submissions, onlineCount, onOpenCo
       setDislikes(prev => Math.max(0, prev - 1));
       setDisliked(false);
       localStorage.removeItem(`ck_disliked_${problem?.id}`);
-      fetch(`/api/problems/${problem?.id}/vote`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "undislike" }) }).catch(() => { });
+      voteProblem(problem?.id, "undislike").catch(() => { });
     } else {
       setDislikes(prev => prev + 1);
       setDisliked(true);
       localStorage.setItem(`ck_disliked_${problem?.id}`, "true");
-      fetch(`/api/problems/${problem?.id}/vote`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "dislike" }) }).catch(() => { });
+      voteProblem(problem?.id, "dislike").catch(() => { });
       if (liked) {
         setLikes(prev => Math.max(0, prev - 1));
         setLiked(false);
         localStorage.removeItem(`ck_liked_${problem?.id}`);
-        fetch(`/api/problems/${problem?.id}/vote`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "unlike" }) }).catch(() => { });
+        voteProblem(problem?.id, "unlike").catch(() => { });
       }
     }
   };
@@ -147,11 +210,7 @@ function ProblemPanel({ problem, tab, setTab, submissions, onlineCount, onOpenCo
     setCommentsList(prev => [...prev, { author, text, createdAt: new Date() }]);
     setCommentsCount(prev => prev + 1);
     setNewComment("");
-    fetch(`/api/problems/${problem?.id}/comments`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ author, text })
-    }).catch(() => { });
+    addComment(problem?.id, author, text).catch(() => { });
   };
 
   const tabs = ["Description", "Editorial", "Submissions", "Solutions"];
@@ -177,22 +236,44 @@ function ProblemPanel({ problem, tab, setTab, submissions, onlineCount, onOpenCo
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM5 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" /></svg>
             Topics
           </button>
-          <button className="meta-pill" title="View targeted companies" onClick={onOpenCompanies}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-            Companies
-          </button>
+          {problem.companies && problem.companies.length > 0 && (
+            <button className="meta-pill" title="View targeted companies" onClick={onOpenCompanies}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+              Companies
+            </button>
+          )}
           <button className={`meta-pill ${hintOpen ? "active" : ""}`} onClick={() => setHintOpen((value) => !value)} aria-expanded={hintOpen} title="Show problem hint">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 21h6a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1zm3-19C7.58 2 4 5.58 4 10c0 2.76 1.38 5.2 3.5 6.67V19a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-2.33c2.12-1.47 3.5-3.91 3.5-6.67 0-4.42-3.58-8-8-8z" /></svg>
             Hint
           </button>
         </div>
-        {topicsOpen && <div className="tag-row">{(problem.tags || ["Arrays", "Greedy", "String Manipulation"]).map((tag) => <span key={tag}>{tag}</span>)}</div>}
-        {hintOpen && <p className="hint">Treat boundaries carefully by analyzing consecutive zero/one block segments before performing the trade operation.</p>}
+        {topicsOpen && <div className="tag-row">{(problem.tags || []).map((tag) => <span key={tag}>{tag}</span>)}</div>}
+        {hintOpen && (
+          <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "6px" }}>
+            {(problem.hints || ["Break the problem down into smaller sub-problems."]).map((h, i) => (
+              <p key={i} className="hint"><strong>Hint {i + 1}:</strong> {h}</p>
+            ))}
+          </div>
+        )}
       </div>
       {tab === "Description" && <>
         <p className="statement" style={{ whiteSpace: 'pre-wrap' }}>{problem.statement}</p>
-        <Section title="Examples"><div className="example-grid"><CodeBlock label="Example 1" value={`Input: s = "${problem.sampleInput || "01"}"\nOutput: ${problem.sampleOutput || "1"}`} /></div></Section>
-        <Section title="Constraints"><ul>{(problem.constraints || ["1 <= s.length <= 10^5", "s consists only of '0' and '1' characters."]).map((item) => <li key={item}>{item}</li>)}</ul></Section>
+        
+        {problem.functionWrapper && (
+          <div className="function-signature-card" style={{ background: "var(--panel-alt)", border: "1px solid var(--border)", borderRadius: "8px", padding: "12px", margin: "16px 0", fontSize: "13px" }}>
+            <div style={{ color: "#85858d", fontSize: "11px", fontWeight: "600", textTransform: "uppercase", marginBottom: "6px" }}>Function Signature</div>
+            <div style={{ fontFamily: "var(--font-mono)", color: "#ffa116" }}>
+              <strong>{problem.functionWrapper.functionName}</strong>
+              <span style={{ color: "#d1d5db" }}>
+                ({(problem.functionWrapper.parameters || []).map(p => `${p.name}: ${p.type}`).join(", ")})
+              </span>
+              <span style={{ color: "#3bdcff", marginLeft: "8px" }}>➔ {problem.functionWrapper.returnType}</span>
+            </div>
+          </div>
+        )}
+
+        <Section title="Examples"><div className="example-grid"><CodeBlock label="Sample Input / Output" value={`Input: ${problem.sampleInput || "—"}\nOutput: ${problem.sampleOutput || "—"}`} /></div></Section>
+        {problem.constraints?.length > 0 && <Section title="Constraints"><ul>{problem.constraints.map((item) => <li key={item}>{item}</li>)}</ul></Section>}
 
         {showComments && (
           <div className="comments-section" style={{ marginTop: '24px', borderTop: '1px solid var(--border)', paddingTop: '16px' }}>
@@ -220,59 +301,32 @@ function ProblemPanel({ problem, tab, setTab, submissions, onlineCount, onOpenCo
       </>}
       {tab === "Editorial" && (
         <div className="editorial-content" style={{ color: "#e5e7eb", lineHeight: "1.7", fontSize: "14px" }}>
-          <h3 style={{ fontSize: "16px", color: "#fff", marginBottom: "8px", fontWeight: "600" }}>Solution & Algorithmic Breakdown</h3>
-          <p style={{ color: "#9ca3af", marginBottom: "16px" }}>
-            This problem requires analyzing contiguous segments or binary blocks. Below is the detailed algorithmic approach.
-          </p>
-          <h4 style={{ color: "var(--accent)", fontSize: "14px", marginBottom: "6px", fontWeight: "600" }}>Approach 1: Greedy Linear Scan</h4>
-          <p style={{ margin: "0 0 12px" }}>
-            Traverse the input string or array sequentially. Evaluate trade section boundaries to maximize total active elements.
-          </p>
-          <div style={{ background: "var(--panel-soft)", padding: "12px", borderRadius: "8px", margin: "14px 0", fontFamily: "var(--font-mono)", fontSize: "12px" }}>
-            <strong>Algorithm Steps:</strong><br />
-            1. Initialize <code>max_val = 0</code> and <code>curr = 0</code>.<br />
-            2. Iterate through each element in the input sequence.<br />
-            3. Compute local section trade bounds.<br />
-            4. Return the global maximum score.
-          </div>
-          <h4 style={{ color: "var(--accent)", fontSize: "14px", margin: "16px 0 6px", fontWeight: "600" }}>Complexity Analysis</h4>
-          <ul style={{ paddingLeft: "20px", margin: 0 }}>
-            <li><strong>Time Complexity:</strong> \(O(N)\) — Single scan through input sequence of length \(N\).</li>
-            <li><strong>Space Complexity:</strong> \(O(1)\) — Constant additional space.</li>
-          </ul>
+          {problem.editorial ? (
+            renderMarkdown(problem.editorial)
+          ) : (
+            <p style={{ color: "#9ca3af" }}>No editorial breakdown published yet.</p>
+          )}
         </div>
       )}
       {tab === "Solutions" && (
         <div className="solutions-content">
           <h3 style={{ fontSize: "15px", color: "#fff", marginBottom: "12px", fontWeight: "600" }}>Official Multi-Language Solutions</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            <div>
-              <header style={{ display: "flex", justifyContent: "space-between", color: "#ffa116", fontWeight: "600", fontSize: "13px", marginBottom: "6px" }}>
-                <span>C++17 Solution (Optimal O(N))</span>
-                <button className="subtle-btn" style={{ fontSize: "10px", padding: "2px 8px" }} onClick={() => { navigator.clipboard.writeText(`int solve(string s) {\n    int n = s.length(), maxScore = 0;\n    for(int i = 0; i < n; i++) {\n        if(s[i] == '1') maxScore++;\n    }\n    return maxScore;\n}`); setToastMessage("C++ Solution copied!"); setTimeout(() => setToastMessage(""), 2000); }}>Copy</button>
-              </header>
-              <pre style={{ background: "var(--panel-soft)", padding: "12px", borderRadius: "6px", fontFamily: "var(--font-mono)", fontSize: "12px", color: "#d1d5db", margin: 0, whiteSpace: "pre-wrap" }}>
-                {`int solve(string s) {
-    int n = s.length(), maxScore = 0;
-    for(int i = 0; i < n; i++) {
-        if(s[i] == '1') maxScore++;
-    }
-    return maxScore;
-}`}
-              </pre>
-            </div>
-
-            <div>
-              <header style={{ display: "flex", justifyContent: "space-between", color: "#3bdcff", fontWeight: "600", fontSize: "13px", marginBottom: "6px" }}>
-                <span>Python 3 Solution</span>
-                <button className="subtle-btn" style={{ fontSize: "10px", padding: "2px 8px" }} onClick={() => { navigator.clipboard.writeText(`class Solution:\n    def solve(self, s: str) -> int:\n        return s.count('1')`); setToastMessage("Python Solution copied!"); setTimeout(() => setToastMessage(""), 2000); }}>Copy</button>
-              </header>
-              <pre style={{ background: "var(--panel-soft)", padding: "12px", borderRadius: "6px", fontFamily: "var(--font-mono)", fontSize: "12px", color: "#d1d5db", margin: 0, whiteSpace: "pre-wrap" }}>
-                {`class Solution:
-    def solve(self, s: str) -> int:
-        return s.count('1')`}
-              </pre>
-            </div>
+            {Object.keys(problem.solutions || {}).length ? (
+              Object.entries(problem.solutions).map(([langKey, codeSnippet]) => (
+                <div key={langKey}>
+                  <header style={{ display: "flex", justifyContent: "space-between", color: "#ffa116", fontWeight: "600", fontSize: "13px", marginBottom: "6px" }}>
+                    <span style={{ textTransform: "uppercase" }}>{langKey} Solution</span>
+                    <button className="subtle-btn" style={{ fontSize: "10px", padding: "2px 8px" }} onClick={() => { navigator.clipboard.writeText(codeSnippet); setToastMessage(`${langKey.toUpperCase()} Solution copied!`); setTimeout(() => setToastMessage(""), 2000); }}>Copy</button>
+                  </header>
+                  <pre style={{ background: "var(--panel-soft)", padding: "12px", borderRadius: "6px", fontFamily: "var(--font-mono)", fontSize: "12px", color: "#d1d5db", margin: 0, whiteSpace: "pre-wrap" }}>
+                    {codeSnippet}
+                  </pre>
+                </div>
+              ))
+            ) : (
+              <p style={{ color: "#9ca3af" }}>No official solution snippets uploaded yet.</p>
+            )}
           </div>
         </div>
       )}
@@ -315,29 +369,76 @@ function CodeBlock({ label, value }) { return <div className="code-block"><heade
 function EmptyPanel({ title, text }) { return <div className="empty-panel"><strong>{title}</strong><p>{text}</p></div>; }
 function SubmissionList({ submissions }) { return submissions?.length ? <div className="submission-list">{submissions.map((item) => <div key={item.id}><strong>{item.verdict || item.status}</strong><span>{item.language} · {new Date(item.created_at).toLocaleString()}</span></div>)}</div> : <EmptyPanel title="No submissions yet" text="Sign in and submit a solution to build your history." />; }
 
-function ConsolePanel({ height, activeTab, setActiveTab, customCases, setCustomCases, results, consoleLines, loading, onRunCustom, onRunSamples, submissions }) {
+function ConsolePanel({ height, activeTab, setActiveTab, customCases, setCustomCases, results, verdict, errorMessage, loading, onRunCustom, inputLabel }) {
   const [activeCase, setActiveCase] = useState(0);
-  const tabs = ["Testcase", "Test Results", "Console", "Output", "Submissions"];
+  const tabs = ["Testcase", "Test Result"];
   const safeActiveCase = Math.min(activeCase, Math.max(customCases.length - 1, 0));
   const current = customCases[safeActiveCase] || customCases[0];
-  const updateCase = (field, value) => setCustomCases((cases) => cases.map((item, index) => index === safeActiveCase ? { ...item, [field]: value } : item));
+  const assignmentPrefix = inputLabel ? `${inputLabel} = ` : "";
+  const currentInput = current?.input || "";
+  const inputValue = inputLabel && currentInput.startsWith(assignmentPrefix)
+    ? currentInput.slice(assignmentPrefix.length)
+    : currentInput;
+  const updateInput = (value) => setCustomCases((cases) => cases.map((item, index) => index === safeActiveCase
+    ? { ...item, input: inputLabel ? `${assignmentPrefix}${value}` : value }
+    : item));
   return <section className="console-panel" style={{ height }}>
-    <div className="console-header"><div className="console-tabs" role="tablist">{tabs.map((tab) => <button key={tab} onClick={() => setActiveTab(tab)} className={activeTab === tab ? "active" : ""}>{tab}</button>)}</div><StatusPill loading={loading} /></div>
+    <div className="console-header"><div className="console-tabs" role="tablist">{tabs.map((tab) => <button key={tab} onClick={() => setActiveTab(tab)} className={activeTab === tab ? "active" : ""}>{tab}</button>)}</div></div>
     <div className="console-content">
       {activeTab === "Testcase" && <>
         <div className="case-tabs">{customCases.map((_, index) => <button key={index} onClick={() => setActiveCase(index)} className={safeActiveCase === index ? "active" : ""}>Case {index + 1}</button>)}<button aria-label="Add testcase" onClick={() => { setCustomCases([...customCases, { input: "", expected: "" }]); setActiveCase(customCases.length); }}>+</button></div>
-        <div className="custom-case"><label>Input<textarea value={current?.input || ""} onChange={(event) => updateCase("input", event.target.value)} placeholder="Custom input" /></label><label>Expected output<textarea value={current?.expected || ""} onChange={(event) => updateCase("expected", event.target.value)} placeholder="Expected output" /></label></div>
-        <div className="console-actions"><button className="subtle-btn" disabled={loading || customCases.length === 1} onClick={() => { setCustomCases(customCases.filter((_, index) => index !== activeCase)); setActiveCase(0); }}>Remove case</button><button className="primary-btn" onClick={onRunCustom} disabled={loading}>Run custom cases</button><button className="subtle-btn" onClick={onRunSamples} disabled={loading}>Run sample cases</button></div>
+        <div className="custom-case"><label>{inputLabel ? `${inputLabel} =` : "Input"}<textarea value={inputValue} onChange={(event) => updateInput(event.target.value)} placeholder="Enter input" /></label></div>
+        <div className="console-actions"><button className="subtle-btn" disabled={loading || customCases.length === 1} onClick={() => { setCustomCases(customCases.filter((_, index) => index !== activeCase)); setActiveCase(0); }}>Remove case</button><button className="primary-btn" onClick={onRunCustom} disabled={loading}>Run</button></div>
       </>}
-      {activeTab === "Test Results" && <ResultList results={results} />}
-      {activeTab === "Console" && <pre className="console-log">{consoleLines.length ? consoleLines.join("\n") : "Ready. Run code to see judge activity."}</pre>}
-      {activeTab === "Output" && <ResultList results={results} showOutput />}
-      {activeTab === "Submissions" && <SubmissionList submissions={submissions} />}
+      {activeTab === "Test Result" && <ResultList results={results} verdict={verdict} errorMessage={errorMessage} loading={loading} />}
     </div>
   </section>;
 }
 
-function ResultList({ results, showOutput = false }) { return results?.length ? <div className="results-list">{results.map((result, index) => <article key={index} className={result.status === "PASS" ? "pass" : "fail"}><header><strong>Case {index + 1}</strong><span>{mapStatus(result.status)}</span></header><div><b>Input</b><pre>{result.input}</pre></div>{!showOutput && <div><b>Expected</b><pre>{result.expected}</pre></div>}<div><b>Your output</b><pre>{result.output || (result.status === "TLE" ? "Time Limit Exceeded" : result.status === "RE" ? "Runtime Error" : "—")}</pre></div></article>)}</div> : <EmptyPanel title="No results yet" text="Run a sample or custom testcase to see the result here." />; }
+function ResultList({ results, verdict, errorMessage, loading }) {
+  const [selectedCase, setSelectedCase] = useState(0);
+  if (loading) return <EmptyPanel title="Running testcases…" text="Your solution is being compiled and evaluated." />;
+  if (errorMessage) {
+    return <div className="judge-error-result"><strong>{mapStatus(verdict) || "Judge Error"}</strong><pre>{errorMessage}</pre></div>;
+  }
+  if (!results?.length) {
+    return <EmptyPanel title="No results yet" text="Run a sample or custom testcase to see the result here." />;
+  }
+  const safeIndex = Math.min(selectedCase, results.length - 1);
+  const currentResult = results[safeIndex] || results[0];
+  const passedCount = results.filter((r) => r.status === "PASS" || r.status === "Accepted").length;
+  const overallStatus = verdict || (passedCount === results.length ? "Accepted" : "Wrong Answer");
+  const isPass = overallStatus === "Accepted" || overallStatus === "PASS";
+  const statusColor = isPass ? "#2db55d" : "#ef4444";
+
+  return (
+    <div className="results-container">
+      <div className="results-summary-header">
+        <span style={{ color: statusColor }}>{mapStatus(overallStatus)}</span>
+        <span>Runtime: {currentResult.runtimeMs || 0} ms</span>
+      </div>
+
+      <div className="case-tabs results-case-tabs">
+        {results.map((r, i) => (
+          <button
+            key={i}
+            onClick={() => setSelectedCase(i)}
+            className={safeIndex === i ? "active" : ""}
+          >
+            <span className={r.status === "PASS" || r.status === "Accepted" ? "case-status pass" : "case-status fail"}>{r.status === "PASS" || r.status === "Accepted" ? "✓" : "×"}</span>
+            Case {i + 1}
+          </button>
+        ))}
+      </div>
+
+      <div className="case-detail-card">
+        <div><b>Input</b><pre>{currentResult.input || "—"}</pre></div>
+        <div><b>Output</b><pre>{currentResult.output || (currentResult.status === "TLE" ? "Time Limit Exceeded" : currentResult.status === "MLE" ? "Memory Limit Exceeded" : currentResult.status === "RE" ? "Runtime Error" : "—")}</pre></div>
+        <div><b>Expected</b><pre>{currentResult.expected || "—"}</pre></div>
+      </div>
+    </div>
+  );
+}
 
 function CommandPalette({ open, onClose, commands }) {
   const [query, setQuery] = useState("");
@@ -348,8 +449,8 @@ function CommandPalette({ open, onClose, commands }) {
   return <div className="palette-backdrop" role="presentation" onMouseDown={onClose}><section className="command-palette" role="dialog" aria-label="Command palette" onMouseDown={(event) => event.stopPropagation()}><input ref={inputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Type a command" aria-label="Filter commands" />{visible.map((command) => <button key={command.label} onClick={() => { command.action(); onClose(); }}><span>{command.label}</span><kbd>{command.key}</kbd></button>)}</section></div>;
 }
 
-export default function App({ onExit }) {
-  const [problemId, setProblemId] = useState(() => localStorage.getItem("ck_last_problem") || "maximize-active-section-with-trade-i");
+export default function App({ onExit, overrideProblemId, onSubmitOverride }) {
+  const [problemId, setProblemId] = useState(() => overrideProblemId || localStorage.getItem("ck_last_problem") || "maximize-active-section-with-trade-i");
   const [problem, setProblem] = useState(null);
   const [problems, setProblems] = useState([]);
   const [language, setLanguage] = useState("cpp");
@@ -364,10 +465,10 @@ export default function App({ onExit }) {
   const [consoleOpen, setConsoleOpen] = useState(false);
   const [problemTab, setProblemTab] = useState("Description");
   const [consoleTab, setConsoleTab] = useState("Testcase");
-  const [customCases, setCustomCases] = useState([{ input: "01", expected: "1" }]);
+  const [customCases, setCustomCases] = useState([{ input: "", expected: "" }]);
   const [results, setResults] = useState([]);
   const [verdict, setVerdict] = useState("");
-  const [consoleLines, setConsoleLines] = useState([]);
+  const [judgeError, setJudgeError] = useState("");
   const [loading, setLoading] = useState(false);
   const [workspaceError, setWorkspaceError] = useState("");
   const [user, setUser] = useState(null);
@@ -385,7 +486,7 @@ export default function App({ onExit }) {
   const [cursorPos, setCursorPos] = useState({ line: 1, column: 1 });
   const [layoutPresetIndex, setLayoutPresetIndex] = useState(0);
 
-  // Timer states - initialized to false so user manually starts timer
+  // Timer states
   const [time, setTime] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -396,7 +497,6 @@ export default function App({ onExit }) {
     setTimeout(() => setGlobalToast(""), 2200);
   };
 
-  // Online count state
   const [onlineCount, setOnlineCount] = useState(1);
 
   const editorRef = useRef(null);
@@ -405,12 +505,31 @@ export default function App({ onExit }) {
   const resizeRef = useRef(null);
 
   const selectedLanguage = LANGUAGES.find((item) => item.id === language) || LANGUAGES[0];
-  const editorOptions = useMemo(() => ({ fontSize, fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontLigatures: true, minimap: { enabled: minimap }, wordWrap: wordWrap ? "on" : "off", lineNumbers: lineNumbers ? "on" : "off", scrollBeyondLastLine: false, renderLineHighlight: "gutter", smoothScrolling: true, cursorBlinking: "smooth", padding: { top: 16, bottom: 16 }, tabSize: 4, bracketPairColorization: { enabled: true }, guides: { bracketPairs: true }, folding: true, automaticLayout: true }), [fontSize, lineNumbers, minimap, wordWrap]);
+  const editorOptions = useMemo(() => ({
+    fontSize,
+    fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+    fontLigatures: true,
+    minimap: { enabled: minimap },
+    wordWrap: wordWrap ? "on" : "off",
+    lineNumbers: lineNumbers ? "on" : "off",
+    scrollBeyondLastLine: false,
+    renderLineHighlight: "gutter",
+    smoothScrolling: true,
+    cursorBlinking: "smooth",
+    padding: { top: 16, bottom: 16 },
+    tabSize: 4,
+    bracketPairColorization: { enabled: true },
+    guides: { bracketPairs: true },
+    folding: true,
+    automaticLayout: true,
+    autoClosingBrackets: "always",
+    autoClosingQuotes: "always",
+    formatOnPaste: true,
+  }), [fontSize, lineNumbers, minimap, wordWrap]);
 
   useEffect(() => { localStorage.setItem("ck_editor_theme", editorTheme); localStorage.setItem("ck_word_wrap", wordWrap); localStorage.setItem("ck_minimap", minimap); localStorage.setItem("ck_line_numbers", lineNumbers); }, [editorTheme, wordWrap, minimap, lineNumbers]);
   useEffect(() => { localStorage.setItem("ck_editor_left_width", String(leftWidth)); localStorage.setItem("ck_editor_console_height", String(consoleHeight)); }, [leftWidth, consoleHeight]);
 
-  // Stopwatch timer interval
   useEffect(() => {
     let interval = null;
     if (timerRunning) {
@@ -423,11 +542,9 @@ export default function App({ onExit }) {
     return () => clearInterval(interval);
   }, [timerRunning]);
 
-  // Online count poller - Real backend data
   useEffect(() => {
     const getCount = () => {
-      fetch("/api/auth/online")
-        .then((res) => res.ok ? res.json() : Promise.reject())
+      fetchOnlineCount()
         .then((data) => {
           if (typeof data.count === "number") setOnlineCount(data.count);
         })
@@ -466,13 +583,42 @@ export default function App({ onExit }) {
     try {
       const [list, loaded, samples] = await Promise.all([fetchProblems(), fetchProblem(problemId), fetchTestCases(problemId)]);
       setProblems(list); setProblem(loaded); setWorkspaceError("");
-      if (samples.length) setCustomCases(samples.map((item) => ({ input: item.input, expected: item.expected })));
+      if (samples.length) {
+        setCustomCases(samples.map((item) => ({ input: item.input, expected: item.expected })));
+      } else if (loaded?.sampleInput) {
+        setCustomCases([{ input: loaded.sampleInput, expected: loaded.sampleOutput || "" }]);
+      }
     } catch (error) { setWorkspaceError(error.message || "Could not load the workspace"); }
   }, [problemId]);
 
   useEffect(() => { loadProblem(); }, [loadProblem]);
-  useEffect(() => { const saved = localStorage.getItem(`ck_draft_${problemId}_${language}`); setCode(saved || DEFAULT_CODE[language] || ""); }, [problemId, language]);
-  useEffect(() => { localStorage.setItem(`ck_draft_${problemId}_${language}`, code); }, [code, language, problemId]);
+  const draftKey = `ck_draft_v3_${problemId}_${language}`;
+  const starterCode = problem?.functionWrapper?.languages?.[language]?.starterCode || DEFAULT_CODE[language] || "";
+  const expectedFuncName = problem?.functionWrapper?.functionName;
+
+  useEffect(() => {
+    const saved = localStorage.getItem(draftKey);
+    const isValidDraft = saved &&
+      !saved.includes("int main()") &&
+      !saved.includes("sys.stdin") &&
+      !saved.includes("public static void main") &&
+      (!expectedFuncName || saved.includes(expectedFuncName));
+
+    if (isValidDraft) {
+      setCode(saved);
+    } else if (starterCode) {
+      if (saved && expectedFuncName && !saved.includes(expectedFuncName)) {
+        localStorage.removeItem(draftKey);
+      }
+      setCode(starterCode);
+    }
+  }, [draftKey, starterCode, expectedFuncName]);
+  useEffect(() => {
+    if (code) {
+      localStorage.setItem(draftKey, code);
+    }
+  }, [code, draftKey]);
+
   const loadSubmissions = useCallback(async () => { try { const { submissions: items } = await fetchMySubmissions(problemId); setSubmissions(items || []); } catch { setSubmissions([]); } }, [problemId]);
   useEffect(() => {
     fetchCurrentUser().then(({ user: activeUser }) => {
@@ -508,39 +654,46 @@ export default function App({ onExit }) {
     localStorage.setItem("ck_last_problem", nextId);
   };
 
-  const handleRandomProblem = () => {
-    if (!problems.length) return;
-    const randomIdx = Math.floor(Math.random() * problems.length);
-    const nextId = problems[randomIdx].id;
-    setProblemId(nextId);
-    localStorage.setItem("ck_last_problem", nextId);
-  };
-
   const run = useCallback(async (mode, cases = null) => {
-    setConsoleOpen(true); setLoading(true); setResults([]); setVerdict(""); setConsoleLines([`Starting ${mode === "submit" ? "submission" : "run"}…`, `Language: ${selectedLanguage.label}`]);
+    setConsoleOpen(true); setLoading(true); setResults([]); setVerdict(""); setJudgeError("");
     try {
-      const response = cases ? await runCustomCases(problemId, code, language, cases) : await submitCode(problemId, code, language, mode);
-      setResults(response.sampleResults || []); setVerdict(response.verdict || ""); setConsoleLines((lines) => [...lines, `Judge verdict: ${response.verdict || "completed"}`]); setConsoleTab("Test Results");
+      const response = cases
+        ? await runCustomCases(problemId, code, language, cases)
+        : (onSubmitOverride && mode === "submit")
+          ? await onSubmitOverride(mode, code, language)
+          : await submitCode(problemId, code, language, mode);
+      setResults(response.sampleResults || []);
+      setVerdict(response.verdict || "");
+      if (response.verdict === "Compilation Error" || response.errorMessage) {
+        setJudgeError(response.errorMessage || response.verdict || "Judge execution failed.");
+        setConsoleTab("Test Result");
+      } else {
+        setConsoleTab("Test Result");
+      }
       if (mode === "submit" && user) loadSubmissions();
-    } catch (error) { setVerdict("Compilation Error"); setConsoleLines((lines) => [...lines, `Error: ${error.message}`]); setConsoleTab("Console"); }
+    } catch (error) {
+      setVerdict("Compilation Error");
+      setJudgeError(error.message || "Judge execution failed.");
+      setConsoleTab("Test Result");
+    }
     finally { setLoading(false); }
-  }, [code, language, loadSubmissions, problemId, selectedLanguage.label, user]);
+  }, [code, language, loadSubmissions, problemId, user]);
 
   useEffect(() => {
     const shortcut = (event) => {
       if (!event.ctrlKey && !event.metaKey) return;
       if (event.key === "'") { event.preventDefault(); run("run"); }
       if (event.key === "Enter") { event.preventDefault(); run("submit"); }
-      if (event.key.toLowerCase() === "s") { event.preventDefault(); localStorage.setItem(`ck_draft_${problemId}_${language}`, code); setConsoleLines((lines) => [...lines, "Draft saved locally."]); }
+      if (event.key.toLowerCase() === "s") { event.preventDefault(); localStorage.setItem(draftKey, code); showToast("Draft saved locally."); }
       if (event.shiftKey && event.key.toLowerCase() === "p") { event.preventDefault(); setPaletteOpen(true); }
     };
     document.addEventListener("keydown", shortcut); return () => document.removeEventListener("keydown", shortcut);
-  }, [code, language, problemId, run]);
+  }, [code, draftKey, run]);
 
   const onResizeStart = (kind, event) => { resizeRef.current = { kind, x: event.clientX, y: event.clientY, left: leftWidth, console: consoleHeight }; document.body.style.userSelect = "none"; };
   useEffect(() => { const move = (event) => { if (!resizeRef.current) return; const current = resizeRef.current; if (current.kind === "left" && workspaceRef.current) { const rect = workspaceRef.current.getBoundingClientRect(); setLeftWidth(Math.min(75, Math.max(8, current.left + ((event.clientX - current.x) / rect.width) * 100))); } if (current.kind === "console") setConsoleHeight(Math.min(560, Math.max(170, current.console + current.y - event.clientY))); }; const end = () => { resizeRef.current = null; document.body.style.userSelect = ""; }; document.addEventListener("mousemove", move); document.addEventListener("mouseup", end); return () => { document.removeEventListener("mousemove", move); document.removeEventListener("mouseup", end); }; }, [consoleHeight, leftWidth]);
 
-  function resetCode() { localStorage.removeItem(`ck_draft_${problemId}_${language}`); setCode(DEFAULT_CODE[language] || ""); showToast("Code reset to starter template!"); }
+  function resetCode() { localStorage.removeItem(draftKey); setCode(starterCode); showToast("Code reset to starter template!"); }
   function formatCode() { editorRef.current?.getAction("editor.action.formatDocument")?.run(); showToast("Code document formatted!"); }
   function copyCode() { navigator.clipboard.writeText(code); showToast("Code copied to clipboard!"); }
   function downloadCode() { const url = URL.createObjectURL(new Blob([code], { type: "text/plain" })); const link = document.createElement("a"); link.href = url; link.download = `solution.${selectedLanguage.extension}`; link.click(); URL.revokeObjectURL(url); showToast(`Downloaded solution.${selectedLanguage.extension}`); }
@@ -587,15 +740,14 @@ export default function App({ onExit }) {
             <button onClick={() => setAiOpen(false)} style={{ background: "none", border: "none", color: "#aaa", fontSize: "20px", cursor: "pointer" }}>×</button>
           </div>
           <p style={{ color: "#d1d5db", fontSize: "13px", lineHeight: "1.6" }}>
-            Need help solving <strong>{problem.title}</strong>? Here are targeted hints and algorithmic guidance:
+            Need help solving <strong>{problem.title}</strong>? Here are dynamic hints and algorithmic guidance:
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "12px" }}>
-            <div style={{ background: "rgba(168, 85, 247, 0.1)", border: "1px solid rgba(168, 85, 247, 0.25)", padding: "10px 12px", borderRadius: "8px", fontSize: "12px", color: "#e9d5ff" }}>
-              <strong>Hint 1:</strong> Identify contiguous zero and one sequences. Notice how boundary trades modify total sequence values.
-            </div>
-            <div style={{ background: "rgba(168, 85, 247, 0.1)", border: "1px solid rgba(168, 85, 247, 0.25)", padding: "10px 12px", borderRadius: "8px", fontSize: "12px", color: "#e9d5ff" }}>
-              <strong>Optimal Complexity:</strong> Time Complexity: \(O(N)\), Auxiliary Space: \(O(1)\).
-            </div>
+            {(problem.hints || ["Analyze problem bounds and input constraints."]).map((h, i) => (
+              <div key={i} style={{ background: "rgba(168, 85, 247, 0.1)", border: "1px solid rgba(168, 85, 247, 0.25)", padding: "10px 12px", borderRadius: "8px", fontSize: "12px", color: "#e9d5ff" }}>
+                <strong>Hint {i + 1}:</strong> {h}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -614,21 +766,20 @@ export default function App({ onExit }) {
           <p style={{ color: "#9ca3af", fontSize: "13px", marginBottom: "14px" }}>
             Companies that frequently ask <strong>{problem.title}</strong> in technical interviews:
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px" }}>
-            {[
-              { name: "Google", freq: "High (88%)", color: "#4285F4" },
-              { name: "Amazon", freq: "Very High (94%)", color: "#FF9900" },
-              { name: "Meta", freq: "Medium (76%)", color: "#0668E1" },
-              { name: "Microsoft", freq: "High (82%)", color: "#00A4EF" },
-              { name: "Uber", freq: "High (80%)", color: "#000000" },
-              { name: "Flipkart", freq: "Very High (91%)", color: "#2874F0" },
-            ].map((comp) => (
-              <div key={comp.name} style={{ background: "var(--panel-alt)", border: "1px solid var(--border)", padding: "10px 12px", borderRadius: "8px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontWeight: "600", fontSize: "13px", color: "#fff" }}>{comp.name}</span>
-                <span style={{ fontSize: "11px", color: "#37c55f", background: "rgba(55, 197, 95, 0.12)", padding: "2px 8px", borderRadius: "12px", fontWeight: "500" }}>{comp.freq}</span>
-              </div>
-            ))}
-          </div>
+          {(problem.companies || []).length > 0 ? (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px" }}>
+              {(problem.companies || []).map((comp) => (
+                <div key={comp.name} style={{ background: "var(--panel-alt)", border: "1px solid var(--border)", padding: "10px 12px", borderRadius: "8px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontWeight: "600", fontSize: "13px", color: "#fff" }}>{comp.name}</span>
+                  <span style={{ fontSize: "11px", color: "#37c55f", background: "rgba(55, 197, 95, 0.12)", padding: "2px 8px", borderRadius: "12px", fontWeight: "500" }}>{comp.freq}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p style={{ color: "#6b7280", fontSize: "13px", fontStyle: "italic" }}>
+              No company frequency data available for this problem yet.
+            </p>
+          )}
         </div>
       </div>
     )}
@@ -848,7 +999,7 @@ export default function App({ onExit }) {
         </div>
         <div className="editor-area">{activeFile === "solution" ? <CodeEditor language={selectedLanguage.monacoId} theme={editorTheme} value={code} onChange={setCode} options={editorOptions} onMount={(editor) => { editorRef.current = editor; editor.onDidChangeCursorPosition((event) => setCursorPos({ line: event.position.lineNumber, column: event.position.column })); }} /> : <pre className="virtual-file">{activeFile === "input.txt" ? (customCases[0]?.input || "") : (results[0]?.output || "Run code to populate output.txt")}</pre>}</div>
         {consoleOpen && <><div className="resize-h" role="separator" aria-label="Resize console" onMouseDown={(event) => onResizeStart("console", event)} />
-          <ConsolePanel height={consoleHeight} activeTab={consoleTab} setActiveTab={setConsoleTab} customCases={customCases} setCustomCases={setCustomCases} results={results} consoleLines={consoleLines} loading={loading} onRunCustom={() => run("run", customCases)} onRunSamples={() => run("run")} submissions={submissions} /></>}
+          <ConsolePanel height={consoleHeight} activeTab={consoleTab} setActiveTab={setConsoleTab} customCases={customCases} setCustomCases={setCustomCases} results={results} verdict={verdict} errorMessage={judgeError} loading={loading} onRunCustom={() => run("run", customCases)} inputLabel={(problem.functionWrapper?.parameters || []).length === 1 ? problem.functionWrapper.parameters[0].name : ""} /></>}
 
         <footer className="editor-footer-leetcode">
           {user ? (

@@ -4,14 +4,15 @@
 
 JudgeResult judgeSampleCases(const std::string &workspacePath,
                              const std::vector<TestCase> &cases,
-                             int timeLimitMs,
+                             int timeLimitMs, int memoryLimitMb,
                              const std::string &language) {
   json results = json::array();
   bool allPassed = true;
+  ExecStatus failureStatus = ExecStatus::PASS;
 
   int idx = 1;
   for (const auto &tc : cases) {
-    ExecResult exec = executeProgram(workspacePath, tc.input, timeLimitMs, language);
+    ExecResult exec = executeProgram(workspacePath, tc.input, timeLimitMs, memoryLimitMb, language);
 
     bool passed = false;
     std::string statusStr;
@@ -25,11 +26,18 @@ JudgeResult judgeSampleCases(const std::string &workspacePath,
     case ExecStatus::TLE:
       statusStr = "TLE";
       allPassed = false;
+      if (failureStatus == ExecStatus::PASS) failureStatus = ExecStatus::TLE;
       break;
 
     case ExecStatus::RE:
       statusStr = "RE";
       allPassed = false;
+      if (failureStatus == ExecStatus::PASS) failureStatus = ExecStatus::RE;
+      break;
+    case ExecStatus::MLE:
+      statusStr = "MLE";
+      allPassed = false;
+      if (failureStatus == ExecStatus::PASS) failureStatus = ExecStatus::MLE;
       break;
     }
 
@@ -42,6 +50,8 @@ JudgeResult judgeSampleCases(const std::string &workspacePath,
       status = "TLE";
     else if (exec.status == ExecStatus::RE)
       status = "RE";
+    else if (exec.status == ExecStatus::MLE)
+      status = "MLE";
     else if (!passed)
       status = "WA";
     else
@@ -55,20 +65,20 @@ JudgeResult judgeSampleCases(const std::string &workspacePath,
                        {"status", status}});
   }
 
-  return {allPassed, results};
+  return {allPassed, results, failureStatus};
 }
 
-bool judgeHiddenCases(const std::string &workspacePath,
-                      const std::vector<TestCase> &cases, int timeLimitMs,
+ExecStatus judgeHiddenCases(const std::string &workspacePath,
+                      const std::vector<TestCase> &cases, int timeLimitMs, int memoryLimitMb,
                       const std::string &language) {
   for (const auto &tc : cases) {
-    ExecResult exec = executeProgram(workspacePath, tc.input, timeLimitMs, language);
+    ExecResult exec = executeProgram(workspacePath, tc.input, timeLimitMs, memoryLimitMb, language);
 
     if (exec.status != ExecStatus::PASS)
-      return false;
+      return exec.status;
 
     if (!compareOutput(exec.output, tc.expected))
-      return false;
+      return ExecStatus::WA;
   }
-  return true;
+  return ExecStatus::PASS;
 }

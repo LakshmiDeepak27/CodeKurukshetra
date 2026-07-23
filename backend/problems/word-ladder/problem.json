@@ -1,0 +1,44 @@
+{
+  "id": "word-ladder",
+  "title": "Word Ladder",
+  "statement": "A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:\n\nEvery adjacent pair of words differs by a single letter.\nEvery si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.\nsk == endWord\n\nGiven two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.\n \nExample 1:\n\nInput: beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]\nOutput: 5\nExplanation: One shortest transformation sequence is \"hit\" -> \"hot\" -> \"dot\" -> \"dog\" -> cog\", which is 5 words long.\n\nExample 2:\n\nInput: beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]\nOutput: 0\nExplanation: The endWord \"cog\" is not in wordList, therefore there is no valid transformation sequence.\n\n \nConstraints:\n\n1 <= beginWord.length <= 10\nendWord.length == beginWord.length\n1 <= wordList.length <= 5000\nwordList[i].length == beginWord.length\nbeginWord, endWord, and wordList[i] consist of lowercase English letters.\nbeginWord != endWord\nAll the words in wordList are unique.",
+  "difficulty": "Hard",
+  "sampleInput": "beginWord = \"leet\", endWord = \"code\", wordList = [\"lest\",\"leet\",\"lose\",\"code\",\"lode\",\"robe\",\"home\",\"dote\",\"cake\"]",
+  "sampleOutput": "0",
+  "tags": [
+    "Breadth-First Search",
+    "Hash Table",
+    "String"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int ladderLength(string& beginWord, string& endWord, vector<string>& wordList) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int ladderLength(String beginWord, String endWord, String[] wordList) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} beginWord\n   * @param {string} endWord\n   * @param {string[]} wordList\n   * @return {number}\n   */\n  ladderLength(beginWord, endWord, wordList) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

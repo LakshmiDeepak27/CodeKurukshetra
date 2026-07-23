@@ -1,0 +1,43 @@
+{
+  "id": "permutation-sequence",
+  "title": "Permutation Sequence",
+  "statement": "The set [1, 2, 3, ..., n] contains a total of n! unique permutations.\nBy listing and labeling all of the permutations in order, we get the following sequence for n = 3:\n\n\"123\"\n\"132\"\n\"213\"\n\"231\"\n\"312\"\n\"321\"\n\nGiven n and k, return the kth permutation sequence.\n \nExample 1:\nInput: n = 3, k = 3\nOutput: \"213\"\nExample 2:\nInput: n = 4, k = 9\nOutput: \"2314\"\nExample 3:\nInput: n = 3, k = 1\nOutput: \"123\"\n\n \nConstraints:\n\n1 <= n <= 9\n1 <= k <= n!",
+  "difficulty": "Hard",
+  "sampleInput": "n = 3, k = 1",
+  "sampleOutput": "123",
+  "tags": [
+    "Recursion",
+    "Math"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def getPermutation(self, n: int, k: int) -> str:\n        ",
+    "cpp": "class Solution {\npublic:\n    string getPermutation(int n, int k) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String getPermutation(int n, int k) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} n\n   * @param {number} k\n   * @return {string}\n   */\n  getPermutation(n, k) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

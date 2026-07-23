@@ -1,0 +1,44 @@
+{
+  "id": "unique-paths-ii",
+  "title": "Unique Paths Ii",
+  "statement": "You are given an m x n integer array grid. There is a robot initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.\nAn obstacle and space are marked as 1 or 0 respectively in grid. A path that the robot takes cannot include any square that is an obstacle.\nReturn the number of possible unique paths that the robot can take to reach the bottom-right corner.\nThe testcases are generated so that the answer will be less than or equal to 2 * 109.\n \nExample 1:\n\n\nInput: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]\nOutput: 2\nExplanation: There is one obstacle in the middle of the 3x3 grid above.\nThere are two ways to reach the bottom-right corner:\n1. Right -> Right -> Down -> Down\n2. Down -> Down -> Right -> Right\n\nExample 2:\n\n\nInput: obstacleGrid = [[0,1],[0,0]]\nOutput: 1\n\n \nConstraints:\n\nm == obstacleGrid.length\nn == obstacleGrid[i].length\n1 <= m, n <= 100\nobstacleGrid[i][j] is 0 or 1.",
+  "difficulty": "Medium",
+  "sampleInput": "obstacleGrid = [[1,0],[0,0]]",
+  "sampleOutput": "0",
+  "tags": [
+    "Array",
+    "Dynamic Programming",
+    "Matrix"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int uniquePathsWithObstacles(int[][] obstacleGrid) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[][]} obstacleGrid\n   * @return {number}\n   */\n  uniquePathsWithObstacles(obstacleGrid) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

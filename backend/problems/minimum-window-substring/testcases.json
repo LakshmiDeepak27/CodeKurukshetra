@@ -1,0 +1,302 @@
+{
+  "sample": [
+    {
+      "input": "s = \"acbbaca\", t = \"aba\"",
+      "expected": "baca"
+    },
+    {
+      "input": "s = \"aabbcc\", t = \"abc\"",
+      "expected": "abbc"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"aaaaaaa\", t = \"aa\"",
+      "expected": "aa"
+    },
+    {
+      "input": "s = \"abcd\", t = \"bd\"",
+      "expected": "bcd"
+    },
+    {
+      "input": "s = \"ab\", t = \"b\"",
+      "expected": "b"
+    },
+    {
+      "input": "s = \"aa\", t = \"aa\"",
+      "expected": "aa"
+    },
+    {
+      "input": "s = \"ADOBECODEBANC\", t = \"ABC\"",
+      "expected": "BANC"
+    },
+    {
+      "input": "s = \"fgrheahtfeqcrha\", t = \"harf\"",
+      "expected": "fgrhea"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaabbbbbcdd\", t = \"abcdd\"",
+      "expected": "abbbbbcdd"
+    },
+    {
+      "input": "s = \"ab\", t = \"a\"",
+      "expected": "a"
+    },
+    {
+      "input": "s = \"abababab\", t = \"abab\"",
+      "expected": "abab"
+    },
+    {
+      "input": "s = \"a\", t = \"a\"",
+      "expected": "a"
+    },
+    {
+      "input": "s = \"aafffrbb\", t = \"ffab\"",
+      "expected": "afffrb"
+    },
+    {
+      "input": "s = \"bba\", t = \"ab\"",
+      "expected": "ba"
+    },
+    {
+      "input": "s = \"cbbbaaaaabbbcccccbbaa\", t = \"aaabbbccc\"",
+      "expected": "aaabbbccc"
+    },
+    {
+      "input": "s = \"abcabcabc\", t = \"abc\"",
+      "expected": "abc"
+    },
+    {
+      "input": "s = \"cabwefgewcwaefgcf\", t = \"cae\"",
+      "expected": "cwae"
+    },
+    {
+      "input": "s = \"abcabcabc\", t = \"aaa\"",
+      "expected": "abcabca"
+    },
+    {
+      "input": "s = \"abc\", t = \"abc\"",
+      "expected": "abc"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", t = \"aaaaaaaaaaaaaaaaaaaaaaaaa\"",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "input": "s = \"zjwsxeyrhtlnejzjwsxeyrhtlnej\", t = \"nejxyz\"",
+      "expected": "nejzjwsxey"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"jihgfedcba\"",
+      "expected": "abcdefghij"
+    },
+    {
+      "input": "s = \"abacabadabacaba\", t = \"abc\"",
+      "expected": "bac"
+    },
+    {
+      "input": "s = \"abcabcabcabcabcabcabcabcabcabc\", t = \"cba\"",
+      "expected": "abc"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhii\", t = \"abcdefghi\"",
+      "expected": "abbccddeeffgghhi"
+    },
+    {
+      "input": "s = \"aaaaaaaaaabbbbbbcccccc\", t = \"abc\"",
+      "expected": "abbbbbbc"
+    },
+    {
+      "input": "s = \"mississippi\", t = \"issip\"",
+      "expected": "issip"
+    },
+    {
+      "input": "s = \"zzzzzzzzzzzzzzzzz\", t = \"zzz\"",
+      "expected": "zzz"
+    },
+    {
+      "input": "s = \"xyxzyxzyxzyxzyx\", t = \"xzy\"",
+      "expected": "yxz"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", t = \"zyxwvutsrqponmlkjihgfedcba\"",
+      "expected": "abbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyz"
+    },
+    {
+      "input": "s = \"xyzxzyzxzyzzyzyxzyzyxzyzyx\", t = \"xyzzyxzyzyzx\"",
+      "expected": "xyzxzyzxzyzzy"
+    },
+    {
+      "input": "s = \"aaabbbaaabbbccc\", t = \"aabbcc\"",
+      "expected": "aabbbcc"
+    },
+    {
+      "input": "s = \"zzzzzzzzzzz\", t = \"z\"",
+      "expected": "z"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", t = \"abcdef\"",
+      "expected": "abbccddeef"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhii\", t = \"aabbccddeeffgghhii\"",
+      "expected": "aabbccddeeffgghhii"
+    },
+    {
+      "input": "s = \"abcabcabcabcabcabcabcabcabcabcabcabc\", t = \"aabbcc\"",
+      "expected": "abcabc"
+    },
+    {
+      "input": "s = \"bbaabbbbbaabbbbaaabbbbaaabbababababab\", t = \"bbbbaaaa\"",
+      "expected": "aabbbbaa"
+    },
+    {
+      "input": "s = \"mississippi\", t = \"issi\"",
+      "expected": "issi"
+    },
+    {
+      "input": "s = \"aaabbcccccccdddeee\", t = \"abcde\"",
+      "expected": "abbcccccccddde"
+    },
+    {
+      "input": "s = \"zxcvbnmasdfghjklqwertyuiop\", t = \"opq\"",
+      "expected": "qwertyuiop"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaabbbbbbcccccccc\", t = \"abc\"",
+      "expected": "abbbbbbc"
+    },
+    {
+      "input": "s = \"abcabcabcabcabcabc\", t = \"cba\"",
+      "expected": "abc"
+    },
+    {
+      "input": "s = \"xyzzxyzzxyzz\", t = \"xyz\"",
+      "expected": "xyz"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaabbbbbbbbbbbcccccccccc\", t = \"abc\"",
+      "expected": "abbbbbbbbbbbc"
+    },
+    {
+      "input": "s = \"xyzzzyxzyxzyxzyxzy\", t = \"zyxzyxz\"",
+      "expected": "xyzzzyx"
+    },
+    {
+      "input": "s = \"ababababababab\", t = \"abba\"",
+      "expected": "abab"
+    },
+    {
+      "input": "s = \"abcdabcdeabcdf\", t = \"abcfed\"",
+      "expected": "eabcdf"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhii\", t = \"aabbcc\"",
+      "expected": "aabbcc"
+    },
+    {
+      "input": "s = \"ababcabcabcabcabcabcabcabcabcabcabcabc\", t = \"abcabcabc\"",
+      "expected": "abcabcabc"
+    },
+    {
+      "input": "s = \"hellohellohello\", t = \"lle\"",
+      "expected": "ell"
+    },
+    {
+      "input": "s = \"abcdefghijklmnopqrstuvwxyz\", t = \"zyxwvutsrqponmlkjihgfedcba\"",
+      "expected": "abcdefghijklmnopqrstuvwxyz"
+    },
+    {
+      "input": "s = \"sadjhasjhdjahsjdhasjhadsjhsahjdahjdsjahjdhasjdhajsdhasjdhajsdjasdhasjdhsa\", t = \"hasjdh\"",
+      "expected": "hasjhd"
+    },
+    {
+      "input": "s = \"bancbbancbbanc\", t = \"abc\"",
+      "expected": "banc"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzzzzzzzzzzzzzzzzzzzz\", t = \"abcdefghijklmnopqrstuvwxyz\"",
+      "expected": "abbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyz"
+    },
+    {
+      "input": "s = \"thisisaverylongstringthatweneedtolookinto\", t = \"tin\"",
+      "expected": "int"
+    },
+    {
+      "input": "s = \"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\", t = \"zzzzzzzz\"",
+      "expected": "zzzzzzzz"
+    },
+    {
+      "input": "s = \"bbaaaaaaabbbbcccc\", t = \"aabbbccc\"",
+      "expected": "aabbbbccc"
+    },
+    {
+      "input": "s = \"abababababababab\", t = \"abab\"",
+      "expected": "abab"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", t = \"mnopqrstuvwxyz\"",
+      "expected": "mnnooppqqrrssttuuvvwwxxyyz"
+    },
+    {
+      "input": "s = \"qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm\", t = \"qwertyuiopzxcvbnm\"",
+      "expected": "zxcvbnmqwertyuiop"
+    },
+    {
+      "input": "s = \"xyzzyxzyzyxzyzxzyzxzyxzyzyxzyx\", t = \"xyz\"",
+      "expected": "xyz"
+    },
+    {
+      "input": "s = \"abcbacbacbacbacbacbacbacbacbacbacbacbacbacbac\", t = \"acbcba\"",
+      "expected": "abcbac"
+    },
+    {
+      "input": "s = \"abccbaacz\", t = \"abc\"",
+      "expected": "abc"
+    },
+    {
+      "input": "s = \"abracadabra\", t = \"rac\"",
+      "expected": "rac"
+    },
+    {
+      "input": "s = \"aaaaaaaaaabbbbbbbbbbcccccccccc\", t = \"abc\"",
+      "expected": "abbbbbbbbbbc"
+    },
+    {
+      "input": "s = \"bbaaacccaaaabbbccc\", t = \"aabbbccc\"",
+      "expected": "aabbbccc"
+    },
+    {
+      "input": "s = \"bancancode\", t = \"abc\"",
+      "expected": "banc"
+    },
+    {
+      "input": "s = \"abcdefgabcdefg\", t = \"abcd\"",
+      "expected": "abcd"
+    },
+    {
+      "input": "s = \"qwertyuiopasdfghjklzxcvbnm\", t = \"qwertyuiop\"",
+      "expected": "qwertyuiop"
+    },
+    {
+      "input": "s = \"aaaaaaaaaa\", t = \"aaa\"",
+      "expected": "aaa"
+    },
+    {
+      "input": "s = \"ababababababababababababababababababab\", t = \"aba\"",
+      "expected": "aba"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccc\", t = \"abc\"",
+      "expected": "abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbc"
+    },
+    {
+      "input": "s = \"abcdeffeghijk\", t = \"efg\"",
+      "expected": "feg"
+    },
+    {
+      "input": "s = \"abcabcabcabcabc\", t = \"cba\"",
+      "expected": "abc"
+    }
+  ]
+}

@@ -1,0 +1,534 @@
+{
+  "sample": [
+    {
+      "input": "strs = [\"hello\",\"helium\",\"helper\"]",
+      "expected": "hel"
+    },
+    {
+      "input": "strs = [\"a\"]",
+      "expected": "a"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "strs = [\"apple\",\"app\",\"apricot\"]",
+      "expected": "ap"
+    },
+    {
+      "input": "strs = [\"abcd\",\"abce\",\"abcf\"]",
+      "expected": "abc"
+    },
+    {
+      "input": "strs = [\"apple\",\"app\",\"application\"]",
+      "expected": "app"
+    },
+    {
+      "input": "strs = [\"interview\",\"interrupt\",\"inter\"]",
+      "expected": "inter"
+    },
+    {
+      "input": "strs = [\"test\",\"testing\",\"tester\"]",
+      "expected": "test"
+    },
+    {
+      "input": "strs = [\"hello\",\"hell\",\"hella\"]",
+      "expected": "hell"
+    },
+    {
+      "input": "strs = [\"flower\",\"flow\",\"flight\"]",
+      "expected": "fl"
+    },
+    {
+      "input": "strs = [\"same\",\"same\",\"same\"]",
+      "expected": "same"
+    },
+    {
+      "input": "strs = [\"single\"]",
+      "expected": "single"
+    },
+    {
+      "input": "strs = [\"ab\",\"abc\",\"abcd\"]",
+      "expected": "ab"
+    },
+    {
+      "input": "strs = [\"abc\",\"abc\",\"abc\"]",
+      "expected": "abc"
+    },
+    {
+      "input": "strs = [\"a\",\"ab\",\"abc\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"a\",\"a\",\"a\",\"a\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"abc\",\"abcd\",\"abcde\"]",
+      "expected": "abc"
+    },
+    {
+      "input": "strs = [\"abcd\",\"abc\",\"ab\",\"a\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"banana\",\"bandana\",\"banner\"]",
+      "expected": "ban"
+    },
+    {
+      "input": "strs = [\"aaaa\",\"aaab\",\"aaac\"]",
+      "expected": "aaa"
+    },
+    {
+      "input": "strs = [\"mississippi\",\"mississauga\",\"mission\",\"missed\"]",
+      "expected": "miss"
+    },
+    {
+      "input": "strs = [\"commonality\",\"commonwealth\",\"common\",\"commons\"]",
+      "expected": "common"
+    },
+    {
+      "input": "strs = [\"repetition\",\"repetitive\",\"repeat\",\"repel\",\"repeal\",\"repetend\"]",
+      "expected": "repe"
+    },
+    {
+      "input": "strs = [\"million\",\"millionaire\",\"millionth\",\"millionfold\"]",
+      "expected": "million"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algorithmic\",\"algebra\",\"alignment\"]",
+      "expected": "al"
+    },
+    {
+      "input": "strs = [\"difficult\",\"difficulty\",\"differ\"]",
+      "expected": "diff"
+    },
+    {
+      "input": "strs = [\"environment\",\"environmental\",\"envision\",\"enzyme\"]",
+      "expected": "en"
+    },
+    {
+      "input": "strs = [\"a\",\"aa\",\"aaa\",\"aaaa\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"xylophone\",\"xylotomy\",\"xylography\",\"xylograph\"]",
+      "expected": "xylo"
+    },
+    {
+      "input": "strs = [\"a\",\"aa\",\"aaa\",\"aaaa\",\"aaaaa\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"abcde\",\"abc\",\"ab\",\"a\",\"abcde\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"unique\",\"unit\",\"universe\",\"unity\",\"un\"]",
+      "expected": "un"
+    },
+    {
+      "input": "strs = [\"same\",\"same\",\"same\",\"same\"]",
+      "expected": "same"
+    },
+    {
+      "input": "strs = [\"abcdef\",\"abcde\",\"abcd\",\"abc\",\"ab\",\"a\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"short\",\"small\",\"shallow\",\"shrink\"]",
+      "expected": "s"
+    },
+    {
+      "input": "strs = [\"zebra\",\"zoo\",\"zenith\",\"zest\",\"zone\",\"zephyr\"]",
+      "expected": "z"
+    },
+    {
+      "input": "strs = [\"multidimensional\",\"multidimensionalities\",\"multidimensionally\",\"multidimensionalization\"]",
+      "expected": "multidimensional"
+    },
+    {
+      "input": "strs = [\"computation\",\"compute\",\"computer\",\"comedy\"]",
+      "expected": "com"
+    },
+    {
+      "input": "strs = [\"abcd\",\"ab\",\"a\",\"abcde\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"abcde\",\"abcdf\",\"abcde\",\"abcda\",\"abcde\",\"abcdf\"]",
+      "expected": "abcd"
+    },
+    {
+      "input": "strs = [\"zebra\",\"zoo\",\"zealot\"]",
+      "expected": "z"
+    },
+    {
+      "input": "strs = [\"abcd\",\"abcde\",\"ab\",\"a\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"microphone\",\"microwave\",\"microscope\",\"microbial\"]",
+      "expected": "micro"
+    },
+    {
+      "input": "strs = [\"longest\",\"long\",\"lonely\"]",
+      "expected": "lon"
+    },
+    {
+      "input": "strs = [\"prefix\",\"preprocessor\",\"prevent\"]",
+      "expected": "pre"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"alert\",\"alibaba\",\"allied\"]",
+      "expected": "al"
+    },
+    {
+      "input": "strs = [\"unbelievable\",\"unbeliever\",\"unbelievably\",\"unbelievability\"]",
+      "expected": "unbeliev"
+    },
+    {
+      "input": "strs = [\"prefix\",\"preposition\",\"prevent\",\"premier\"]",
+      "expected": "pre"
+    },
+    {
+      "input": "strs = [\"prefix\",\"prefixes\",\"prefixation\",\"prefixed\"]",
+      "expected": "prefix"
+    },
+    {
+      "input": "strs = [\"same\",\"same\",\"same\",\"same\",\"same\"]",
+      "expected": "same"
+    },
+    {
+      "input": "strs = [\"optimization\",\"optimization\",\"optimized\",\"optimizer\"]",
+      "expected": "optimiz"
+    },
+    {
+      "input": "strs = [\"communication\",\"communicate\",\"commune\",\"communist\"]",
+      "expected": "commun"
+    },
+    {
+      "input": "strs = [\"a\",\"ab\",\"abc\",\"abcd\",\"abcde\",\"abcdef\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algorithmically\",\"algebra\",\"allegro\"]",
+      "expected": "al"
+    },
+    {
+      "input": "strs = [\"common\",\"commotion\",\"communicate\",\"community\"]",
+      "expected": "comm"
+    },
+    {
+      "input": "strs = [\"flower\",\"flow\",\"flight\",\"flew\",\"flying\",\"flowing\"]",
+      "expected": "fl"
+    },
+    {
+      "input": "strs = [\"single\",\"singlehandedly\",\"singlemindedness\",\"singlehanded\"]",
+      "expected": "single"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algebra\",\"alaska\"]",
+      "expected": "al"
+    },
+    {
+      "input": "strs = [\"congratulations\",\"congruity\",\"congruent\"]",
+      "expected": "congr"
+    },
+    {
+      "input": "strs = [\"a\",\"ab\",\"abc\",\"abcd\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algorithmic\",\"algorithmically\",\"algorithmically\"]",
+      "expected": "algorithm"
+    },
+    {
+      "input": "strs = [\"preference\",\"prefix\",\"prevent\",\"prey\"]",
+      "expected": "pre"
+    },
+    {
+      "input": "strs = [\"abracadabra\",\"abracadabras\",\"abracadabaster\",\"abracadabration\"]",
+      "expected": "abracadab"
+    },
+    {
+      "input": "strs = [\"supercalifragilisticexpialidocious\",\"super\",\"supersonic\"]",
+      "expected": "super"
+    },
+    {
+      "input": "strs = [\"unanimity\",\"unanimous\",\"unanimously\",\"unanimated\"]",
+      "expected": "unanim"
+    },
+    {
+      "input": "strs = [\"orthogonal\",\"orthodox\",\"orthopedic\",\"orthography\"]",
+      "expected": "ortho"
+    },
+    {
+      "input": "strs = [\"abcd\",\"abcde\",\"abcdef\",\"abcdefg\"]",
+      "expected": "abcd"
+    },
+    {
+      "input": "strs = [\"programming\",\"programmer\",\"programmatic\",\"program\"]",
+      "expected": "program"
+    },
+    {
+      "input": "strs = [\"sequential\",\"sequence\",\"sequent\",\"sequel\"]",
+      "expected": "seque"
+    },
+    {
+      "input": "strs = [\"abracadabra\",\"abr\",\"abracadabrador\",\"abrac\"]",
+      "expected": "abr"
+    },
+    {
+      "input": "strs = [\"consistent\",\"consistency\",\"consistently\",\"consist\"]",
+      "expected": "consist"
+    },
+    {
+      "input": "strs = [\"common\",\"community\",\"comma\",\"communist\"]",
+      "expected": "comm"
+    },
+    {
+      "input": "strs = [\"zebra\",\"zoo\",\"zealot\",\"zest\"]",
+      "expected": "z"
+    },
+    {
+      "input": "strs = [\"a\",\"a\",\"a\",\"a\",\"a\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algebra\",\"altitude\",\"altimeter\"]",
+      "expected": "al"
+    },
+    {
+      "input": "strs = [\"supercalifragilisticexpialidocious\",\"super\",\"supercal\"]",
+      "expected": "super"
+    },
+    {
+      "input": "strs = [\"maximum\",\"maximize\",\"maximal\"]",
+      "expected": "maxim"
+    },
+    {
+      "input": "strs = [\"complex\",\"complicated\",\"complect\",\"complete\"]",
+      "expected": "compl"
+    },
+    {
+      "input": "strs = [\"prefix\",\"pre\",\"preface\",\"prefer\",\"preference\",\"prefixing\"]",
+      "expected": "pre"
+    },
+    {
+      "input": "strs = [\"abcd\",\"abcde\",\"abcdef\",\"abcdefg\",\"abcdefgh\",\"abcdefghi\"]",
+      "expected": "abcd"
+    },
+    {
+      "input": "strs = [\"abcdefghij\",\"abcdefgh\",\"abcdefg\",\"abcdef\",\"abcde\",\"abcd\",\"abc\",\"ab\",\"a\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"abcde\",\"abcde\",\"abcde\",\"abcde\"]",
+      "expected": "abcde"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algorhythm\",\"algae\"]",
+      "expected": "alg"
+    },
+    {
+      "input": "strs = [\"xylophone\",\"xylography\",\"xylogen\",\"xylophonist\"]",
+      "expected": "xylo"
+    },
+    {
+      "input": "strs = [\"onomatopoeia\",\"onomatopoetic\",\"onomatope\",\"onomatologist\"]",
+      "expected": "onomato"
+    },
+    {
+      "input": "strs = [\"rehabilitation\",\"rehabilitate\",\"rehabilitative\",\"rehabilitated\"]",
+      "expected": "rehabilitat"
+    },
+    {
+      "input": "strs = [\"mississippi\",\"missile\",\"mission\",\"missive\"]",
+      "expected": "missi"
+    },
+    {
+      "input": "strs = [\"longest\",\"longevity\",\"longitudinal\"]",
+      "expected": "long"
+    },
+    {
+      "input": "strs = [\"psychological\",\"psychologist\",\"psychology\",\"psychic\"]",
+      "expected": "psych"
+    },
+    {
+      "input": "strs = [\"environment\",\"envelope\",\"envoy\",\"evening\"]",
+      "expected": "e"
+    },
+    {
+      "input": "strs = [\"short\",\"shorthand\",\"shortfall\"]",
+      "expected": "short"
+    },
+    {
+      "input": "strs = [\"parallel\",\"parallelogram\",\"parallactic\",\"paralactic\"]",
+      "expected": "paral"
+    },
+    {
+      "input": "strs = [\"cryptography\",\"cryptographic\",\"cryptanalysis\",\"cryptanalytic\"]",
+      "expected": "crypt"
+    },
+    {
+      "input": "strs = [\"zebra\",\"zoo\",\"zero\",\"zapper\"]",
+      "expected": "z"
+    },
+    {
+      "input": "strs = [\"singleword\",\"single\",\"singleton\"]",
+      "expected": "single"
+    },
+    {
+      "input": "strs = [\"anthropomorphic\",\"anthropologist\",\"anthropology\",\"anthropocentric\"]",
+      "expected": "anthropo"
+    },
+    {
+      "input": "strs = [\"a\",\"ab\",\"abc\",\"abcd\",\"abcde\"]",
+      "expected": "a"
+    },
+    {
+      "input": "strs = [\"common\",\"commune\",\"command\",\"community\"]",
+      "expected": "comm"
+    },
+    {
+      "input": "strs = [\"same\",\"samsung\",\"sample\",\"sand\",\"satellite\",\"saturn\"]",
+      "expected": "sa"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algebra\",\"altitude\"]",
+      "expected": "al"
+    },
+    {
+      "input": "strs = [\"implementation\",\"implement\",\"implementing\",\"implementor\"]",
+      "expected": "implement"
+    },
+    {
+      "input": "strs = [\"abracadabra\",\"abracadabra\",\"abracadabra\"]",
+      "expected": "abracadabra"
+    },
+    {
+      "input": "strs = [\"reorganization\",\"reorganize\",\"reorganized\",\"reorganizing\"]",
+      "expected": "reorganiz"
+    },
+    {
+      "input": "strs = [\"university\",\"universe\",\"unique\",\"unicorn\"]",
+      "expected": "uni"
+    },
+    {
+      "input": "strs = [\"environment\",\"envy\",\"envelop\",\"enviable\"]",
+      "expected": "env"
+    },
+    {
+      "input": "strs = [\"unique\",\"unicorn\",\"unify\",\"unity\"]",
+      "expected": "uni"
+    },
+    {
+      "input": "strs = [\"aabbcc\",\"aabbc\",\"aabb\",\"aab\",\"aa\"]",
+      "expected": "aa"
+    },
+    {
+      "input": "strs = [\"zebra\",\"zoo\",\"zeal\",\"zither\"]",
+      "expected": "z"
+    },
+    {
+      "input": "strs = [\"aardvark\",\"aardwolf\",\"aardvark\",\"aard\"]",
+      "expected": "aard"
+    },
+    {
+      "input": "strs = [\"zzzzzzzz\",\"zzzzz\",\"zzzz\",\"zzz\",\"zz\",\"z\"]",
+      "expected": "z"
+    },
+    {
+      "input": "strs = [\"separation\",\"separately\",\"separated\",\"separating\"]",
+      "expected": "separat"
+    },
+    {
+      "input": "strs = [\"mississippi\",\"missile\",\"mission\",\"miss\"]",
+      "expected": "miss"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algebra\",\"alien\",\"alert\"]",
+      "expected": "al"
+    },
+    {
+      "input": "strs = [\"commonality\",\"common\",\"commune\",\"community\",\"communicate\",\"commemorative\"]",
+      "expected": "comm"
+    },
+    {
+      "input": "strs = [\"supercalifragilisticexpialidocious\",\"supercalifragilistic\",\"supercalifragili\",\"super\"]",
+      "expected": "super"
+    },
+    {
+      "input": "strs = [\"parallel\",\"parallelepiped\",\"paralleled\",\"paralegal\"]",
+      "expected": "paral"
+    },
+    {
+      "input": "strs = [\"prefix\",\"preference\",\"presentation\"]",
+      "expected": "pre"
+    },
+    {
+      "input": "strs = [\"unified\",\"uniform\",\"universe\",\"unique\"]",
+      "expected": "uni"
+    },
+    {
+      "input": "strs = [\"anagram\",\"anagrams\",\"anagrammatic\",\"anagrammatical\"]",
+      "expected": "anagram"
+    },
+    {
+      "input": "strs = [\"environment\",\"environmental\",\"environments\",\"environmentally\"]",
+      "expected": "environment"
+    },
+    {
+      "input": "strs = [\"xylophone\",\"xylography\",\"xylophonist\",\"xylophonics\"]",
+      "expected": "xylo"
+    },
+    {
+      "input": "strs = [\"algorithm\",\"algebra\",\"altimeter\"]",
+      "expected": "al"
+    },
+    {
+      "input": "strs = [\"recognition\",\"recognizable\",\"recognize\",\"recognizably\"]",
+      "expected": "recogni"
+    },
+    {
+      "input": "strs = [\"prefix\",\"preposition\",\"presentation\"]",
+      "expected": "pre"
+    },
+    {
+      "input": "strs = [\"challenges\",\"challenging\",\"challenge\",\"challengingly\"]",
+      "expected": "challeng"
+    },
+    {
+      "input": "strs = [\"universally\",\"universe\",\"universal\",\"universality\",\"universes\",\"universally\"]",
+      "expected": "univers"
+    },
+    {
+      "input": "strs = [\"mississippi\",\"missile\",\"missionary\",\"misspell\"]",
+      "expected": "miss"
+    },
+    {
+      "input": "strs = [\"photosynthesis\",\"photosynthetic\",\"photosynthesize\",\"photosynthetically\"]",
+      "expected": "photosynthe"
+    },
+    {
+      "input": "strs = [\"apple\",\"apply\",\"appetite\",\"apparatus\"]",
+      "expected": "app"
+    },
+    {
+      "input": "strs = [\"prefix\",\"pretext\",\"prevent\"]",
+      "expected": "pre"
+    },
+    {
+      "input": "strs = [\"development\",\"develop\",\"developer\",\"developmental\",\"developing\",\"devel\"]",
+      "expected": "devel"
+    },
+    {
+      "input": "strs = [\"prefix\",\"preference\",\"presentation\",\"president\",\"pressure\",\"premier\"]",
+      "expected": "pre"
+    },
+    {
+      "input": "strs = [\"complex\",\"complicated\",\"completion\"]",
+      "expected": "compl"
+    }
+  ]
+}

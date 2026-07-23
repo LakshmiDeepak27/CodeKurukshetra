@@ -1,9 +1,15 @@
 {
   "timeLimitMs": 1000,
-  "language": [
-    "cpp",
-    "python",
-    "java",
-    "js"
-  ]
+  "language": ["cpp", "python", "java", "js"],
+  "functionWrapper": {
+    "functionName": "maxActiveSections",
+    "returnType": "int",
+    "parameters": [{"name": "s", "type": "string"}],
+    "languages": {
+      "cpp": {"starterCode": "class Solution {\npublic:\n    int maxActiveSections(string s) {\n\n    }\n};\n", "inputParser": "string s; cin >> s;", "outputFormatter": "cout << answer << '\\n';", "driverTemplate": "#include <bits/stdc++.h>\nusing namespace std;\n\n{{solution}}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    {{inputParser}}\n    int answer = Solution().maxActiveSections(s);\n    {{outputFormatter}}\n    return 0;\n}\n"},
+      "python": {"starterCode": "class Solution:\n    def maxActiveSections(self, s: str) -> int:\n        pass\n", "inputParser": "s = sys.stdin.buffer.read().decode().strip()", "outputFormatter": "print(answer)", "driverTemplate": "import sys\n\n{{solution}}\n\n{{inputParser}}\nanswer = Solution().maxActiveSections(s)\n{{outputFormatter}}\n"},
+      "java": {"starterCode": "class Solution {\n    public int maxActiveSections(String s) {\n        return 0;\n    }\n}\n", "inputParser": "Scanner scanner = new Scanner(System.in);\nString s = scanner.next();", "outputFormatter": "System.out.println(answer);", "driverTemplate": "import java.util.*;\n\n{{solution}}\n\npublic class Main {\n    public static void main(String[] args) {\n        {{inputParser}}\n        int answer = new Solution().maxActiveSections(s);\n        {{outputFormatter}}\n    }\n}\n"},
+      "js": {"starterCode": "class Solution {\n  maxActiveSections(s) {\n\n  }\n}\n", "inputParser": "const s = require('fs').readFileSync(0, 'utf8').trim();", "outputFormatter": "console.log(answer);", "driverTemplate": "{{solution}}\n\n{{inputParser}}\nconst answer = new Solution().maxActiveSections(s);\n{{outputFormatter}}\n"}
+    }
+  }
 }

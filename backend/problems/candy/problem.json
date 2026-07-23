@@ -1,0 +1,43 @@
+{
+  "id": "candy",
+  "title": "Candy",
+  "statement": "There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.\nYou are giving candies to these children subjected to the following requirements:\n\nEach child must have at least one candy.\nChildren with a higher rating get more candies than their neighbors.\n\nReturn the minimum number of candies you need to have to distribute the candies to the children.\n \nExample 1:\n\nInput: ratings = [1,0,2]\nOutput: 5\nExplanation: You can allocate to the first, second and third child with 2, 1, 2 candies respectively.\n\nExample 2:\n\nInput: ratings = [1,2,2]\nOutput: 4\nExplanation: You can allocate to the first, second and third child with 1, 2, 1 candies respectively.\nThe third child gets 1 candy because it satisfies the above two conditions.\n\n \nConstraints:\n\nn == ratings.length\n1 <= n <= 2 * 104\n0 <= ratings[i] <= 2 * 104",
+  "difficulty": "Hard",
+  "sampleInput": "ratings = [50,40,30,20,10]",
+  "sampleOutput": "15",
+  "tags": [
+    "Greedy",
+    "Array"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def candy(self, ratings: List[int]) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int candy(vector<int>& ratings) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int candy(int[] ratings) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[]} ratings\n   * @return {number}\n   */\n  candy(ratings) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

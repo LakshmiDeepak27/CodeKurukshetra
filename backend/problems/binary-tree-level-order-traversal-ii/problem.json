@@ -1,0 +1,44 @@
+{
+  "id": "binary-tree-level-order-traversal-ii",
+  "title": "Binary Tree Level Order Traversal Ii",
+  "statement": "Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. (i.e., from left to right, level by level from leaf to root).\n \nExample 1:\n\n\nInput: root = [3,9,20,null,null,15,7]\nOutput: [[15,7],[9,20],[3]]\n\nExample 2:\n\nInput: root = [1]\nOutput: [[1]]\n\nExample 3:\n\nInput: root = []\nOutput: []\n\n \nConstraints:\n\nThe number of nodes in the tree is in the range [0, 2000].\n-1000 <= Node.val <= 1000",
+  "difficulty": "Medium",
+  "sampleInput": "root = [3,9,20,null,null,15,7]",
+  "sampleOutput": "[[15, 7], [9, 20], [3]]",
+  "tags": [
+    "Tree",
+    "Breadth-First Search",
+    "Binary Tree"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:\n        ",
+    "cpp": "class Solution {\npublic:\n    int levelOrderBottom(int val=0, int left=None, int right=None) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int levelOrderBottom(int val=0, int left=None, int right=None) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} left=None\n   * @param {number} right=None\n   * @return {number}\n   */\n  levelOrderBottom(val=0, left=None, right=None) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

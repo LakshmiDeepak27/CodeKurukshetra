@@ -1,0 +1,198 @@
+{
+  "sample": [
+    {
+      "input": "s = \"Hello World\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"   fly me   to   the moon  \"",
+      "expected": "4"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"luffy is still joyboy\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"    a    \"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"multiple   spaces   between   words\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"multiple    spaces    between    words\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"    word1    word2    word3    \"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"word1 word2  word3   word4    word5\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"longwordwithnospaces\"",
+      "expected": "20"
+    },
+    {
+      "input": "s = \"trailing    spaces   ontheend    \"",
+      "expected": "8"
+    },
+    {
+      "input": "s = \"a \"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"Multiple     spaces     between     words\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"trailing spaces    \"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \" \"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"oneTwoThree\"",
+      "expected": "11"
+    },
+    {
+      "input": "s = \"   leading and trailing spaces   \"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"    leading spaces\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"noSpacesHere\"",
+      "expected": "12"
+    },
+    {
+      "input": "s = \"special!@#$%^&*()characters\"",
+      "expected": "27"
+    },
+    {
+      "input": "s = \"\\tword\\twith\\ttabs\\t\"",
+      "expected": "16"
+    },
+    {
+      "input": "s = \"   a    b   c    d   \"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"word1 word2 word3 word4word5\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"   oneTwoThree   \"",
+      "expected": "11"
+    },
+    {
+      "input": "s = \"singleword\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"   longwordwithnospaces   \"",
+      "expected": "20"
+    },
+    {
+      "input": "s = \"    very    very    very    long    string    with    many    spaces    in    between    words    \"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"   SingleWord   \"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"one\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"onewordwithpunctuation!\"",
+      "expected": "23"
+    },
+    {
+      "input": "s = \"   multiple      spaces     between   words   \"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"   \"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"     onlyspaces    \"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"multiple     spaces    between words\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"   special!@#$%^&*()characters   \"",
+      "expected": "27"
+    },
+    {
+      "input": "s = \"word1word2word3\"",
+      "expected": "15"
+    },
+    {
+      "input": "s = \"   a   \"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"Python     programming    language\"",
+      "expected": "8"
+    },
+    {
+      "input": "s = \"   Leading and trailing spaces   \"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"   a    b   c   d   e   f   g   h   i   j   k   l   m   n   o   p   q   r   s   t   u   v   w   x   y   z   \"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"word with special@characters!\"",
+      "expected": "19"
+    },
+    {
+      "input": "s = \"word\\nwith\\nnewlines\"",
+      "expected": "18"
+    },
+    {
+      "input": "s = \"word1 word2 word3\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"SingleWord\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"     \"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"a\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"    verylongwordwithoutspaces    \"",
+      "expected": "25"
+    },
+    {
+      "input": "s = \"another-word-with-hyphens\"",
+      "expected": "25"
+    }
+  ]
+}

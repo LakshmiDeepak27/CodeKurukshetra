@@ -1,13 +1,43 @@
 {
   "id": "two-sum",
-  "title": "Add Two Numbers",
-  "statement": "Given two integers, return their sum.",
+  "title": "Two Sum",
+  "statement": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\nYou can return the answer in any order.\n \nExample 1:\n\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].\n\nExample 2:\n\nInput: nums = [3,2,4], target = 6\nOutput: [1,2]\n\nExample 3:\n\nInput: nums = [3,3], target = 6\nOutput: [0,1]\n\n \nConstraints:\n\n2 <= nums.length <= 104\n-109 <= nums[i] <= 109\n-109 <= target <= 109\nOnly one valid answer exists.\n\n \nFollow-up: Can you come up with an algorithm that is less than O(n2) time complexity?",
   "difficulty": "Easy",
-  "sampleInput": "2 3",
-  "sampleOutput": "5",
-  "tags": ["Math", "Implementation"],
+  "sampleInput": "nums = [3,3], target = 6",
+  "sampleOutput": "[0, 1]",
+  "tags": [
+    "Array",
+    "Hash Table"
+  ],
   "constraints": [
-    "1 <= a, b <= 10^9",
-    "Input is given as two space-separated integers"
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        ",
+    "cpp": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        return new int[]{};\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[]} nums\n   * @param {number} target\n   * @return {number[]}\n   */\n  twoSum(nums, target) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "id": "largest-rectangle-in-histogram",
+  "title": "Largest Rectangle In Histogram",
+  "statement": "Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.\n \nExample 1:\n\n\nInput: heights = [2,1,5,6,2,3]\nOutput: 10\nExplanation: The above is a histogram where width of each bar is 1.\nThe largest rectangle is shown in the red area, which has an area = 10 units.\n\nExample 2:\n\n\nInput: heights = [2,4]\nOutput: 4\n\n \nConstraints:\n\n1 <= heights.length <= 105\n0 <= heights[i] <= 104",
+  "difficulty": "Hard",
+  "sampleInput": "heights = [1]",
+  "sampleOutput": "1",
+  "tags": [
+    "Stack",
+    "Array",
+    "Monotonic Stack"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def largestRectangleArea(self, heights: List[int]) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int largestRectangleArea(vector<int>& heights) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int largestRectangleArea(int[] heights) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[]} heights\n   * @return {number}\n   */\n  largestRectangleArea(heights) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

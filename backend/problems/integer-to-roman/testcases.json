@@ -1,0 +1,314 @@
+{
+  "sample": [
+    {
+      "input": "num = 44",
+      "expected": "XLIV"
+    },
+    {
+      "input": "num = 9",
+      "expected": "IX"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "num = 4",
+      "expected": "IV"
+    },
+    {
+      "input": "num = 2023",
+      "expected": "MMXXIII"
+    },
+    {
+      "input": "num = 589",
+      "expected": "DLXXXIX"
+    },
+    {
+      "input": "num = 444",
+      "expected": "CDXLIV"
+    },
+    {
+      "input": "num = 1000",
+      "expected": "M"
+    },
+    {
+      "input": "num = 789",
+      "expected": "DCCLXXXIX"
+    },
+    {
+      "input": "num = 58",
+      "expected": "LVIII"
+    },
+    {
+      "input": "num = 3999",
+      "expected": "MMMCMXCIX"
+    },
+    {
+      "input": "num = 399",
+      "expected": "CCCXCIX"
+    },
+    {
+      "input": "num = 3749",
+      "expected": "MMMDCCXLIX"
+    },
+    {
+      "input": "num = 1994",
+      "expected": "MCMXCIV"
+    },
+    {
+      "input": "num = 1",
+      "expected": "I"
+    },
+    {
+      "input": "num = 3549",
+      "expected": "MMMDXLIX"
+    },
+    {
+      "input": "num = 944",
+      "expected": "CMXLIV"
+    },
+    {
+      "input": "num = 199",
+      "expected": "CXCIX"
+    },
+    {
+      "input": "num = 60",
+      "expected": "LX"
+    },
+    {
+      "input": "num = 621",
+      "expected": "DCXXI"
+    },
+    {
+      "input": "num = 3000",
+      "expected": "MMM"
+    },
+    {
+      "input": "num = 1499",
+      "expected": "MCDXCIX"
+    },
+    {
+      "input": "num = 1602",
+      "expected": "MDCII"
+    },
+    {
+      "input": "num = 999",
+      "expected": "CMXCIX"
+    },
+    {
+      "input": "num = 207",
+      "expected": "CCVII"
+    },
+    {
+      "input": "num = 2078",
+      "expected": "MMLXXVIII"
+    },
+    {
+      "input": "num = 894",
+      "expected": "DCCCXCIV"
+    },
+    {
+      "input": "num = 2421",
+      "expected": "MMCDXXI"
+    },
+    {
+      "input": "num = 2999",
+      "expected": "MMCMXCIX"
+    },
+    {
+      "input": "num = 149",
+      "expected": "CXLIX"
+    },
+    {
+      "input": "num = 3949",
+      "expected": "MMMCMXLIX"
+    },
+    {
+      "input": "num = 99",
+      "expected": "XCIX"
+    },
+    {
+      "input": "num = 1492",
+      "expected": "MCDXCII"
+    },
+    {
+      "input": "num = 1234",
+      "expected": "MCCXXXIV"
+    },
+    {
+      "input": "num = 647",
+      "expected": "DCXLVII"
+    },
+    {
+      "input": "num = 844",
+      "expected": "DCCCXLIV"
+    },
+    {
+      "input": "num = 798",
+      "expected": "DCCXCVIII"
+    },
+    {
+      "input": "num = 1043",
+      "expected": "MXLIII"
+    },
+    {
+      "input": "num = 3001",
+      "expected": "MMMI"
+    },
+    {
+      "input": "num = 2345",
+      "expected": "MMCCCXLV"
+    },
+    {
+      "input": "num = 500",
+      "expected": "D"
+    },
+    {
+      "input": "num = 746",
+      "expected": "DCCXLVI"
+    },
+    {
+      "input": "num = 2944",
+      "expected": "MMCMXLIV"
+    },
+    {
+      "input": "num = 1500",
+      "expected": "MD"
+    },
+    {
+      "input": "num = 3357",
+      "expected": "MMMCCCLVII"
+    },
+    {
+      "input": "num = 3388",
+      "expected": "MMMCCCLXXXVIII"
+    },
+    {
+      "input": "num = 1597",
+      "expected": "MDXCVII"
+    },
+    {
+      "input": "num = 2737",
+      "expected": "MMDCCXXXVII"
+    },
+    {
+      "input": "num = 40",
+      "expected": "XL"
+    },
+    {
+      "input": "num = 2708",
+      "expected": "MMDCCVIII"
+    },
+    {
+      "input": "num = 349",
+      "expected": "CCCXLIX"
+    },
+    {
+      "input": "num = 799",
+      "expected": "DCCXCIX"
+    },
+    {
+      "input": "num = 1001",
+      "expected": "MI"
+    },
+    {
+      "input": "num = 583",
+      "expected": "DLXXXIII"
+    },
+    {
+      "input": "num = 2422",
+      "expected": "MMCDXXII"
+    },
+    {
+      "input": "num = 891",
+      "expected": "DCCCXCI"
+    },
+    {
+      "input": "num = 39",
+      "expected": "XXXIX"
+    },
+    {
+      "input": "num = 1444",
+      "expected": "MCDXLIV"
+    },
+    {
+      "input": "num = 1094",
+      "expected": "MXCIV"
+    },
+    {
+      "input": "num = 2751",
+      "expected": "MMDCCLI"
+    },
+    {
+      "input": "num = 3888",
+      "expected": "MMMDCCCLXXXVIII"
+    },
+    {
+      "input": "num = 2994",
+      "expected": "MMCMXCIV"
+    },
+    {
+      "input": "num = 876",
+      "expected": "DCCCLXXVI"
+    },
+    {
+      "input": "num = 1009",
+      "expected": "MIX"
+    },
+    {
+      "input": "num = 1648",
+      "expected": "MDCXLVIII"
+    },
+    {
+      "input": "num = 1066",
+      "expected": "MLXVI"
+    },
+    {
+      "input": "num = 2349",
+      "expected": "MMCCCXLIX"
+    },
+    {
+      "input": "num = 2763",
+      "expected": "MMDCCLXIII"
+    },
+    {
+      "input": "num = 1646",
+      "expected": "MDCXLVI"
+    },
+    {
+      "input": "num = 3499",
+      "expected": "MMMCDXCIX"
+    },
+    {
+      "input": "num = 1529",
+      "expected": "MDXXIX"
+    },
+    {
+      "input": "num = 1453",
+      "expected": "MCDLIII"
+    },
+    {
+      "input": "num = 1099",
+      "expected": "MXCIX"
+    },
+    {
+      "input": "num = 299",
+      "expected": "CCXCIX"
+    },
+    {
+      "input": "num = 89",
+      "expected": "LXXXIX"
+    },
+    {
+      "input": "num = 2074",
+      "expected": "MMLXXIV"
+    },
+    {
+      "input": "num = 2549",
+      "expected": "MMDXLIX"
+    },
+    {
+      "input": "num = 1423",
+      "expected": "MCDXXIII"
+    }
+  ]
+}

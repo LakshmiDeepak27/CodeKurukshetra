@@ -1,0 +1,44 @@
+{
+  "id": "multiply-strings",
+  "title": "Multiply Strings",
+  "statement": "Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.\nNote: You must not use any built-in BigInteger library or convert the inputs to integer directly.\n \nExample 1:\nInput: num1 = \"2\", num2 = \"3\"\nOutput: \"6\"\nExample 2:\nInput: num1 = \"123\", num2 = \"456\"\nOutput: \"56088\"\n\n \nConstraints:\n\n1 <= num1.length, num2.length <= 200\nnum1 and num2 consist of digits only.\nBoth num1 and num2 do not contain any leading zero, except the number 0 itself.",
+  "difficulty": "Medium",
+  "sampleInput": "num1 = \"999999999999999999\", num2 = \"888888888888888888\"",
+  "sampleOutput": "888888888888888887111111111111111112",
+  "tags": [
+    "Math",
+    "String",
+    "Simulation"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def multiply(self, num1: str, num2: str) -> str:\n        ",
+    "cpp": "class Solution {\npublic:\n    string multiply(string& num1, string& num2) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String multiply(String num1, String num2) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} num1\n   * @param {string} num2\n   * @return {string}\n   */\n  multiply(num1, num2) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

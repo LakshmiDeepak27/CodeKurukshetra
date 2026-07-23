@@ -1,0 +1,44 @@
+{
+  "id": "spiral-matrix-ii",
+  "title": "Spiral Matrix Ii",
+  "statement": "Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.\n \nExample 1:\n\n\nInput: n = 3\nOutput: [[1,2,3],[8,9,4],[7,6,5]]\n\nExample 2:\n\nInput: n = 1\nOutput: [[1]]\n\n \nConstraints:\n\n1 <= n <= 20",
+  "difficulty": "Medium",
+  "sampleInput": "n = 3",
+  "sampleOutput": "[[1, 2, 3], [8, 9, 4], [7, 6, 5]]",
+  "tags": [
+    "Array",
+    "Matrix",
+    "Simulation"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def generateMatrix(self, n: int) -> List[List[int]]:\n        ",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> generateMatrix(int n) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int[][] generateMatrix(int n) {\n        return new int[][]{};\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} n\n   * @return {number[][]}\n   */\n  generateMatrix(n) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

@@ -1,0 +1,458 @@
+{
+  "sample": [
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ihgfedcbaj\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"noon\", s2 = \"onon\"",
+      "expected": "True"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s1 = \"abc\", s2 = \"cab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghijklmnop\", s2 = \"ponmlkjihgfedcba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcde\", s2 = \"caebd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghijk\", s2 = \"abcdefghijk\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abc\", s2 = \"bca\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefgh\", s2 = \"hgfedcba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ijabcdefgh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"eebaacbcbcadaaedceaaacadccd\", s2 = \"eadcaacabaddaceacbceaabe\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"ab\", s2 = \"ba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"jihgfedcba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"abcabc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabbcc\", s2 = \"ccbbaa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"great\", s2 = \"rgeat\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"abcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"bdac\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"hello\", s2 = \"lohel\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"dcba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"aabb\", s2 = \"baba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefgh\", s2 = \"efghabcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"eebaacb\", s2 = \"aceebbb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"xstjzkfpqczbdy\", s2 = \"bdyxzcqpzkjfst\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"hello\", s2 = \"olelh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"xyzz\", s2 = \"zzyx\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"xyz\", s2 = \"zyx\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefg\", s2 = \"efgabcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghijk\", s2 = \"kabcdefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"a\", s2 = \"a\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"algorithm\", s2 = \"logarithm\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"introduction\", s2 = \"oitrnuduinc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdabcd\", s2 = \"ddddcccc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdexyz\", s2 = \"zyxdecba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdxyz\", s2 = \"yzabcdx\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"efghijklabdc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"recursion\", s2 = \"rursiicno\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"jihgfecdba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefgh\", s2 = \"abcdghfe\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"abijhgfedc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"xylophone\", s2 = \"eponhloxy\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefg\", s2 = \"gfedcba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"scramble\", s2 = \"elmacrbs\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"interview\", s2 = \"wetneivrt\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abababab\", s2 = \"babababa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"backtracking\", s2 = \"tcgakknbirn\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefgh\", s2 = \"ghfedcba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdexyz\", s2 = \"xyzexbcd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefgh\", s2 = \"cdabefgh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"qwertyuiop\", s2 = \"yuiopqwert\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"intention\", s2 = \"tennotiin\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"jihgfedabc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcd\", s2 = \"cdab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"scramble\", s2 = \"melbrcsa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdexyz\", s2 = \"xyzabcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"algorithm\", s2 = \"rhtaglmoi\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"dynamicprogramming\", s2 = \"nmmagorpdynci\"",
+      "expected": "Error: string index out of range"
+    },
+    {
+      "input": "s1 = \"optimization\", s2 = \"tivioonpmzas\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"interview\", s2 = \"ewrotnive\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"programming\", s2 = \"gnimmargorp\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"efghabcdij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"recursion\", s2 = \"suoncire\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"abcdjihgfe\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"fedcbaighj\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"waterbottle\", s2 = \"elbottlewat\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ghfedcbaab\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"scramble\", s2 = \"leacrbms\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"mississippi\", s2 = \"ppiimssiss\"",
+      "expected": "Error: string index out of range"
+    },
+    {
+      "input": "s1 = \"scramble\", s2 = \"rscmable\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ihgfedcba\"",
+      "expected": "Error: string index out of range"
+    },
+    {
+      "input": "s1 = \"algorithm\", s2 = \"rhtlgmaoi\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"scrambledstring\", s2 = \"stgimrebldstring\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ijklmnopqr\", s2 = \"mnopqrjkl\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"hgfecdba\"",
+      "expected": "Error: string index out of range"
+    },
+    {
+      "input": "s1 = \"abcdefghijk\", s2 = \"efghijkabcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abracadabra\", s2 = \"carrabbadaba\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ihgfedcbaa\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"hgfedcbaij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"abcdghfjie\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"abcdefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ihgfjedcba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ijklabefgh\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ghijefabcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ihgfjklmno\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"interview\", s2 = \"reterivne\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"python\", s2 = \"nohtyp\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"bcdefghiaj\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"cdabefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdabcd\", s2 = \"dcbacabd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"scramble\", s2 = \"blecrmas\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"cbadefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"optimization\", s2 = \"nizationopti\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"intvw\", s2 = \"nvtiw\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"cdefghijab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"intervw\", s2 = \"wvnreit\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"efghijabcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"optimization\", s2 = \"nizaitpmosio\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"algorithm\", s2 = \"rhtgmialo\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"interview\", s2 = \"terviewin\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdabcd\", s2 = \"abcdabcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"jabcdefghi\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghijk\", s2 = \"kjiabcdefgh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abab\", s2 = \"baba\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"scramble\", s2 = \"melcarbs\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"thisisatest\", s2 = \"tsaistestihis\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"fghebacijd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"ijklabcdefgh\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"scramble\", s2 = \"ercmsbal\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"scramblestring\", s2 = \"gterinmbscrl\"",
+      "expected": "False"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"cbadefghji\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"introduction\", s2 = \"ntrioduicton\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"abjihgfedc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"abcdefghij\", s2 = \"abcdefghijab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s1 = \"recursion\", s2 = \"insrucero\"",
+      "expected": "False"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "single-number-ii",
+  "title": "Single Number Ii",
+  "statement": "Given an integer array nums where every element appears three times except for one, which appears exactly once. Find the single element and return it.\nYou must implement a solution with a linear runtime complexity and use only constant extra space.\n \nExample 1:\nInput: nums = [2,2,3,2]\nOutput: 3\nExample 2:\nInput: nums = [0,1,0,1,0,1,99]\nOutput: 99\n\n \nConstraints:\n\n1 <= nums.length <= 3 * 104\n-231 <= nums[i] <= 231 - 1\nEach element in nums appears exactly three times except for one element which appears once.",
+  "difficulty": "Medium",
+  "sampleInput": "nums = [1000000000,1000000000,1000000000,7]",
+  "sampleOutput": "7",
+  "tags": [
+    "Bit Manipulation",
+    "Array"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int singleNumber(int[] nums) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[]} nums\n   * @return {number}\n   */\n  singleNumber(nums) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

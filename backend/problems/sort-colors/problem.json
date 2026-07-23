@@ -1,0 +1,44 @@
+{
+  "id": "sort-colors",
+  "title": "Sort Colors",
+  "statement": "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.\nWe will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.\nYou must solve this problem without using the library's sort function.\n \nExample 1:\n\nInput: nums = [2,0,2,1,1,0]\nOutput: [0,0,1,1,2,2]\n\nExample 2:\n\nInput: nums = [2,0,1]\nOutput: [0,1,2]\n\n \nConstraints:\n\nn == nums.length\n1 <= n <= 300\nnums[i] is either 0, 1, or 2.\n\n \nFollow up: Could you come up with a one-pass algorithm using only constant extra space?",
+  "difficulty": "Medium",
+  "sampleInput": "nums = [1,0,2,0,1,2,1]",
+  "sampleOutput": "None",
+  "tags": [
+    "Array",
+    "Two Pointers",
+    "Sorting"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def sortColors(self, nums: List[int]) -> None:\n        \"\"\"\n        Do not return anything, modify nums in-place instead.\n        \"\"\"\n        ",
+    "cpp": "class Solution {\npublic:\n    void sortColors(vector<int>& nums) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public void sortColors(int[] nums) {\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[]} nums\n   * @return {void}\n   */\n  sortColors(nums) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

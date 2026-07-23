@@ -1,0 +1,43 @@
+{
+  "id": "sqrtx",
+  "title": "Sqrtx",
+  "statement": "Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.\nYou must not use any built-in exponent function or operator.\n\nFor example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.\n\n \nExample 1:\n\nInput: x = 4\nOutput: 2\nExplanation: The square root of 4 is 2, so we return 2.\n\nExample 2:\n\nInput: x = 8\nOutput: 2\nExplanation: The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.\n\n \nConstraints:\n\n0 <= x <= 231 - 1",
+  "difficulty": "Easy",
+  "sampleInput": "x = 2147483647",
+  "sampleOutput": "46340",
+  "tags": [
+    "Math",
+    "Binary Search"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def mySqrt(self, x: int) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int mySqrt(int x) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int mySqrt(int x) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} x\n   * @return {number}\n   */\n  mySqrt(x) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

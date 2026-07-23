@@ -1,0 +1,238 @@
+{
+  "sample": [
+    {
+      "input": "n = 3, k = 1",
+      "expected": "123"
+    },
+    {
+      "input": "n = 8, k = 40320",
+      "expected": "87654321"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "n = 4, k = 9",
+      "expected": "2314"
+    },
+    {
+      "input": "n = 9, k = 362880",
+      "expected": "987654321"
+    },
+    {
+      "input": "n = 5, k = 10",
+      "expected": "13452"
+    },
+    {
+      "input": "n = 3, k = 3",
+      "expected": "213"
+    },
+    {
+      "input": "n = 2, k = 1",
+      "expected": "12"
+    },
+    {
+      "input": "n = 2, k = 2",
+      "expected": "21"
+    },
+    {
+      "input": "n = 6, k = 720",
+      "expected": "654321"
+    },
+    {
+      "input": "n = 7, k = 5040",
+      "expected": "7654321"
+    },
+    {
+      "input": "n = 5, k = 1",
+      "expected": "12345"
+    },
+    {
+      "input": "n = 5, k = 120",
+      "expected": "54321"
+    },
+    {
+      "input": "n = 9, k = 362879",
+      "expected": "987654312"
+    },
+    {
+      "input": "n = 5, k = 60",
+      "expected": "32541"
+    },
+    {
+      "input": "n = 8, k = 25921",
+      "expected": "62134578"
+    },
+    {
+      "input": "n = 4, k = 11",
+      "expected": "2413"
+    },
+    {
+      "input": "n = 9, k = 181440",
+      "expected": "549876321"
+    },
+    {
+      "input": "n = 6, k = 399",
+      "expected": "425316"
+    },
+    {
+      "input": "n = 7, k = 1",
+      "expected": "1234567"
+    },
+    {
+      "input": "n = 8, k = 30240",
+      "expected": "68754321"
+    },
+    {
+      "input": "n = 6, k = 359",
+      "expected": "365412"
+    },
+    {
+      "input": "n = 5, k = 119",
+      "expected": "54312"
+    },
+    {
+      "input": "n = 4, k = 19",
+      "expected": "4123"
+    },
+    {
+      "input": "n = 6, k = 719",
+      "expected": "654312"
+    },
+    {
+      "input": "n = 8, k = 1",
+      "expected": "12345678"
+    },
+    {
+      "input": "n = 8, k = 20161",
+      "expected": "51234678"
+    },
+    {
+      "input": "n = 9, k = 123456",
+      "expected": "416589732"
+    },
+    {
+      "input": "n = 8, k = 40321",
+      "expected": "1234567"
+    },
+    {
+      "input": "n = 8, k = 20160",
+      "expected": "48765321"
+    },
+    {
+      "input": "n = 6, k = 100",
+      "expected": "162453"
+    },
+    {
+      "input": "n = 6, k = 360",
+      "expected": "365421"
+    },
+    {
+      "input": "n = 4, k = 15",
+      "expected": "3214"
+    },
+    {
+      "input": "n = 9, k = 270000",
+      "expected": "764985321"
+    },
+    {
+      "input": "n = 9, k = 100000",
+      "expected": "358926471"
+    },
+    {
+      "input": "n = 7, k = 2521",
+      "expected": "4512367"
+    },
+    {
+      "input": "n = 7, k = 3500",
+      "expected": "5716243"
+    },
+    {
+      "input": "n = 9, k = 50000",
+      "expected": "239574186"
+    },
+    {
+      "input": "n = 9, k = 326592",
+      "expected": "917548632"
+    },
+    {
+      "input": "n = 7, k = 5041",
+      "expected": "123456"
+    },
+    {
+      "input": "n = 9, k = 274567",
+      "expected": "784315269"
+    },
+    {
+      "input": "n = 6, k = 391",
+      "expected": "423156"
+    },
+    {
+      "input": "n = 6, k = 500",
+      "expected": "516243"
+    },
+    {
+      "input": "n = 6, k = 1",
+      "expected": "123456"
+    },
+    {
+      "input": "n = 8, k = 25000",
+      "expected": "58624371"
+    },
+    {
+      "input": "n = 8, k = 12345",
+      "expected": "35184627"
+    },
+    {
+      "input": "n = 9, k = 181441",
+      "expected": "561234789"
+    },
+    {
+      "input": "n = 4, k = 24",
+      "expected": "4321"
+    },
+    {
+      "input": "n = 7, k = 5000",
+      "expected": "7642153"
+    },
+    {
+      "input": "n = 7, k = 1000",
+      "expected": "2436571"
+    },
+    {
+      "input": "n = 5, k = 24",
+      "expected": "15432"
+    },
+    {
+      "input": "n = 7, k = 2520",
+      "expected": "4376521"
+    },
+    {
+      "input": "n = 4, k = 4",
+      "expected": "1342"
+    },
+    {
+      "input": "n = 4, k = 10",
+      "expected": "2341"
+    },
+    {
+      "input": "n = 5, k = 100",
+      "expected": "51342"
+    },
+    {
+      "input": "n = 9, k = 98765",
+      "expected": "357214968"
+    },
+    {
+      "input": "n = 7, k = 5039",
+      "expected": "7654312"
+    },
+    {
+      "input": "n = 6, k = 397",
+      "expected": "425136"
+    },
+    {
+      "input": "n = 6, k = 361",
+      "expected": "412356"
+    }
+  ]
+}

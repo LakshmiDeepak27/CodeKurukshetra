@@ -1,0 +1,45 @@
+{
+  "id": "same-tree",
+  "title": "Same Tree",
+  "statement": "Given the roots of two binary trees p and q, write a function to check if they are the same or not.\nTwo binary trees are considered the same if they are structurally identical, and the nodes have the same value.\n \nExample 1:\n\n\nInput: p = [1,2,3], q = [1,2,3]\nOutput: true\n\nExample 2:\n\n\nInput: p = [1,2], q = [1,null,2]\nOutput: false\n\nExample 3:\n\n\nInput: p = [1,2,1], q = [1,1,2]\nOutput: false\n\n \nConstraints:\n\nThe number of nodes in both trees is in the range [0, 100].\n-104 <= Node.val <= 104",
+  "difficulty": "Easy",
+  "sampleInput": "p = [1,2,3], q = [1,2,3,4]",
+  "sampleOutput": "False",
+  "tags": [
+    "Tree",
+    "Depth-First Search",
+    "Breadth-First Search",
+    "Binary Tree"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:\n        ",
+    "cpp": "class Solution {\npublic:\n    int isSameTree(int val=0, int left=None, int right=None) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int isSameTree(int val=0, int left=None, int right=None) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} left=None\n   * @param {number} right=None\n   * @return {number}\n   */\n  isSameTree(val=0, left=None, right=None) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

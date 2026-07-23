@@ -1,0 +1,62 @@
+{
+  "sample": [
+    {
+      "input": "n = 3",
+      "expected": "5"
+    },
+    {
+      "input": "n = 4",
+      "expected": "14"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "n = 19",
+      "expected": "1767263190"
+    },
+    {
+      "input": "n = 1",
+      "expected": "1"
+    },
+    {
+      "input": "n = 10",
+      "expected": "16796"
+    },
+    {
+      "input": "n = 5",
+      "expected": "42"
+    },
+    {
+      "input": "n = 8",
+      "expected": "1430"
+    },
+    {
+      "input": "n = 15",
+      "expected": "9694845"
+    },
+    {
+      "input": "n = 12",
+      "expected": "208012"
+    },
+    {
+      "input": "n = 18",
+      "expected": "477638700"
+    },
+    {
+      "input": "n = 9",
+      "expected": "4862"
+    },
+    {
+      "input": "n = 6",
+      "expected": "132"
+    },
+    {
+      "input": "n = 2",
+      "expected": "2"
+    },
+    {
+      "input": "n = 7",
+      "expected": "429"
+    }
+  ]
+}

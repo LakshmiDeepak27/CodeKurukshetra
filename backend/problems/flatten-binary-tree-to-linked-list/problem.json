@@ -1,0 +1,46 @@
+{
+  "id": "flatten-binary-tree-to-linked-list",
+  "title": "Flatten Binary Tree To Linked List",
+  "statement": "Given the root of a binary tree, flatten the tree into a \"linked list\":\n\nThe \"linked list\" should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null.\nThe \"linked list\" should be in the same order as a pre-order traversal of the binary tree.\n\n \nExample 1:\n\n\nInput: root = [1,2,5,3,4,null,6]\nOutput: [1,null,2,null,3,null,4,null,5,null,6]\n\nExample 2:\n\nInput: root = []\nOutput: []\n\nExample 3:\n\nInput: root = [0]\nOutput: [0]\n\n \nConstraints:\n\nThe number of nodes in the tree is in the range [0, 2000].\n-100 <= Node.val <= 100\n\n \nFollow up: Can you flatten the tree in-place (with O(1) extra space)?",
+  "difficulty": "Medium",
+  "sampleInput": "root = [1,2,3,4,5,6,7]",
+  "sampleOutput": "None",
+  "tags": [
+    "Stack",
+    "Tree",
+    "Depth-First Search",
+    "Linked List",
+    "Binary Tree"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def flatten(self, root: Optional[TreeNode]) -> None:\n        \"\"\"\n        Do not return anything, modify root in-place instead.\n        \"\"\"\n        ",
+    "cpp": "class Solution {\npublic:\n    int flatten(int val=0, int left=None, int right=None) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int flatten(int val=0, int left=None, int right=None) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} left=None\n   * @param {number} right=None\n   * @return {number}\n   */\n  flatten(val=0, left=None, right=None) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "add-binary",
+  "title": "Add Binary",
+  "statement": "Given two binary strings a and b, return their sum as a binary string.\n \nExample 1:\nInput: a = \"11\", b = \"1\"\nOutput: \"100\"\nExample 2:\nInput: a = \"1010\", b = \"1011\"\nOutput: \"10101\"\n\n \nConstraints:\n\n1 <= a.length, b.length <= 104\na and b consist only of '0' or '1' characters.\nEach string does not contain leading zeros except for the zero itself.",
+  "difficulty": "Easy",
+  "sampleInput": "a = \"11\", b = \"1\"",
+  "sampleOutput": "100",
+  "tags": [
+    "Bit Manipulation",
+    "Math",
+    "String",
+    "Simulation"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def addBinary(self, a: str, b: str) -> str:\n        ",
+    "cpp": "class Solution {\npublic:\n    string addBinary(string& a, string& b) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String addBinary(String a, String b) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} a\n   * @param {string} b\n   * @return {string}\n   */\n  addBinary(a, b) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

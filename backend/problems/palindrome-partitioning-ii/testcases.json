@@ -1,0 +1,638 @@
+{
+  "sample": [
+    {
+      "input": "s = \"abcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aabbaa\"",
+      "expected": "0"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"abcdcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abababab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"a\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"ab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"noonnoon\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aabaa\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aabb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"racecar\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abcdabcdabcd\"",
+      "expected": "11"
+    },
+    {
+      "input": "s = \"abc\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcd\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"abccba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcbm\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"aabbcc\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"mississippi\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"leet\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcdefg\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"ababcbabcba\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abacdcbaabcdeedcba\"",
+      "expected": "4"
+    },
+    {
+      "input": "s = \"abacdfgdcabaedcba\"",
+      "expected": "12"
+    },
+    {
+      "input": "s = \"aabcbabcbabcba\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abaaabaaabaaab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcabcabcabc\"",
+      "expected": "11"
+    },
+    {
+      "input": "s = \"abcdeedcbaeedcba\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"acbbccaaa\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabaaabaaabaaa\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abacdbacabcbaabcbaabcba\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"aabbababaabbaabb\"",
+      "expected": "4"
+    },
+    {
+      "input": "s = \"abacdbacabcbaab\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"abacba\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"aaaaabaaaabaaabaaa\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abacdbacabcbaabcbaabcbaabcbaabcba\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"abacdcbaabcdeedcbaabcdeedcba\"",
+      "expected": "4"
+    },
+    {
+      "input": "s = \"aaaabaaaaa\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"noonmoonnoon\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"abccbaabccba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abacabacaba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aaaaabbbbb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abbbabbabbbabbabbbabbabbbabbbabbb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abbaabbabbabba\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"noonnoonnoonnoon\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abcdcbe\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"ababbbababbbaba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abacaba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"madamracecar\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcbac\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdedcbafedcbabcd\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"aaaabaaa\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabbaabbaabbaabb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abbbabbabbbabbabbbabbabbb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcbaababcba\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"abbabbaabbabba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abacabadabacabadabacabadabacaba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdcbaefghfeabcdcba\"",
+      "expected": "7"
+    },
+    {
+      "input": "s = \"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"racecarabcba\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"xyzyxzyxyzyx\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"aabbccddeeeffffggg\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"levelup\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcdefghijklmnopqrstuvwxyzzyxwvutsrqponmlkjihgfedcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abababababababab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdeedcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"ababababababab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"noon\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aaaaaa\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"xyxzyzyxzyxzyx\"",
+      "expected": "9"
+    },
+    {
+      "input": "s = \"abababababab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"deeee\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcbaabcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"xyzyxzyzyxzyx\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"abcdeedcbaabcdeedcbaabcdeedcbaabcdeedcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"zyxxyzyxyzyx\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcdabcdabcdabcd\"",
+      "expected": "15"
+    },
+    {
+      "input": "s = \"level\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"bananaabananabana\"",
+      "expected": "4"
+    },
+    {
+      "input": "s = \"abcdefghiijihgfedcba\"",
+      "expected": "17"
+    },
+    {
+      "input": "s = \"aabaabaaa\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abacdbacabcbaabcbaabcbaabcbaab\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"abcdabcdabcdabcdabcd\"",
+      "expected": "19"
+    },
+    {
+      "input": "s = \"madam\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abbbba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaa\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"ababababcba\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"rotorcarcarecat\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"abacabadabacaba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abababa\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aabbccddeeefffggg\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"ababbabaababbabaababbab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"zzzzzzzzzzzzzzzzzzzz\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abacdbacabcbaabcbaabcbaabcba\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"abbabbabb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abbbabbbbabb\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcbabcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"banana\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcbddcba\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"abcbaeabcdedcba\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcbabcbabcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"bcbabbc\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"ababababababababababababab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"anana\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aababababababababababababababababababababababababababababababababababababab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabbccddeeffgg\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"abbacdcba\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"aabbccddeeff\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"abaca\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abacdbacaba\"",
+      "expected": "4"
+    },
+    {
+      "input": "s = \"madamimadam\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abcdefghij\"",
+      "expected": "9"
+    },
+    {
+      "input": "s = \"abcbaabcbaabcbaabcbaabcbaabcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\"",
+      "expected": "25"
+    },
+    {
+      "input": "s = \"aabbabba\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"bananaabananabananaabananabanana\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"aabbccddeeefffgggbbb\"",
+      "expected": "7"
+    },
+    {
+      "input": "s = \"abacdbacabcbaabcbaab\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"racecarannakayak\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"amanaplanacanalpanama\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"noonracecar\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"noonnoonnoon\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abacdbacabcba\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"noonmoonnoonnoonnoonnoonnoon\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"abcdedcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abcdeedcbabacdcba\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"mamad\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"aaaaaaaaaabbbbbbbbbccccccccc\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcdefgfedcbamnoponmabcdedcba\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"noonhighnoon\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"racecarlevelmadamracecar\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"abacdfgdcaba\"",
+      "expected": "7"
+    },
+    {
+      "input": "s = \"aabaaabbaabbaabb\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcdabcabcde\"",
+      "expected": "11"
+    },
+    {
+      "input": "s = \"ababababab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdedcbaabcdedcbaabcdedcba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abacdbacabcbaabcba\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"rotor\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abcadacbdb\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"xyzzazxzyx\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"aabba\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcabcabcabcabcabcabcabc\"",
+      "expected": "23"
+    },
+    {
+      "input": "s = \"ababbbababbbababb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabbccddeeefff\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"abacdbacabcbaabcbaabcbaab\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"abcdcbabcdcbabcdcbabcdcb\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabbccddeeefffggghhhhiiiii\"",
+      "expected": "8"
+    },
+    {
+      "input": "s = \"abcabcabcabcabc\"",
+      "expected": "14"
+    },
+    {
+      "input": "s = \"abacdcaba\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"aaaaabbbbbccccc\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"aabbababab\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"xyxzyzyx\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"abbab\"",
+      "expected": "1"
+    }
+  ]
+}

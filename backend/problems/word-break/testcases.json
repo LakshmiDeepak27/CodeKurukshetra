@@ -1,0 +1,354 @@
+{
+  "sample": [
+    {
+      "input": "s = \"cars\", wordDict = [\"car\",\"ca\",\"rs\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"goals\", wordDict = [\"go\",\"goal\",\"goals\"]",
+      "expected": "True"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"pineapplepenapple\", wordDict = [\"apple\",\"pen\",\"applepen\",\"pine\",\"pineapple\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"leetcode\", wordDict = [\"leet\",\"code\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"applepenapple\", wordDict = [\"apple\",\"pen\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", wordDict = [\"a\",\"abc\",\"b\",\"cd\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"supercalifragilisticexpialidocious\", wordDict = [\"super\",\"cali\",\"fragi\",\"listic\",\"expi\",\"ali\",\"docious\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"skyscraper\", wordDict = [\"sky\",\"sc\",\"raper\",\"scra\",\"per\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"wordbreakproblem\", wordDict = [\"word\",\"break\",\"problem\",\"wordbreak\",\"breakproblem\",\"wordbreakproblem\",\"wordbreakpro\",\"blem\",\"wordprob\",\"lem\",\"wordb\",\"reak\",\"breakpro\",\"brea\",\"kprob\",\"wordbre\",\"akprob\",\"wordbreakp\",\"rob\",\"reakp\",\"reakpro\",\"wordbre\",\"reakproblem\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"cascadingsubstrings\", wordDict = [\"cascade\",\"sub\",\"strings\",\"cascade\",\"ing\",\"substring\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"breaktheglassceiling\", wordDict = [\"break\",\"the\",\"glass\",\"ceiling\",\"breaks\",\"theglass\",\"ceiling\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aquickbrownfoxjumpsoverthelazydog\", wordDict = [\"a\",\"quick\",\"brown\",\"fox\",\"jumps\",\"over\",\"the\",\"lazy\",\"dog\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdabcdabcd\", wordDict = [\"a\", \"ab\", \"abc\", \"abcd\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", wordDict = [\"a\",\"b\",\"c\",\"d\",\"abc\",\"bc\",\"abcd\",\"cd\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"wordbreakproblem\", wordDict = [\"word\",\"break\",\"problem\",\"pro\",\"gram\",\"wordbreak\",\"breakprob\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaab\", wordDict = [\"a\",\"aa\",\"aaa\",\"aaaa\",\"aaaaa\",\"aaaaaa\",\"aaaaaaa\",\"aaaaaaaa\",\"aaaaaaaaa\",\"aaaaaaaaaa\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"interviewquestionsarehard\", wordDict = [\"interview\",\"questions\",\"are\",\"hard\",\"inter\",\"view\",\"quest\",\"ions\",\"ques\",\"tionsare\",\"arehard\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", wordDict = [\"mis\",\"is\",\"sip\",\"i\",\"pi\",\"p\",\"mississipp\",\"missis\",\"miss\",\"issi\",\"ippi\",\"ssippi\",\"ssipp\",\"ssip\",\"ssips\",\"ssip\",\"issipi\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\",\"issip\",\"issipp\",\"issip\",\"issips\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"complexwordbreakproblem\", wordDict = [\"complex\",\"word\",\"break\",\"problem\",\"wordbreak\",\"breakprob\",\"lem\",\"prob\",\"lemp\",\"complexword\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", wordDict = [\"mis\",\"issi\",\"ppi\",\"issip\",\"ippi\",\"missis\",\"sip\",\"pi\",\"ssippi\",\"is\",\"ip\",\"sipi\",\"issipp\",\"ippi\",\"ippi\",\"mississi\",\"ppis\",\"ippii\",\"missi\",\"mississipp\",\"i\",\"p\",\"issippip\",\"issiippi\",\"mississippi\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abracadabra\", wordDict = [\"abra\",\"cad\",\"abra\",\"cadabra\",\"ra\",\"dab\",\"ra\",\"cadabra\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"supercalifragilisticexpialidocious\", wordDict = [\"super\",\"cali\",\"fragilistic\",\"expiali\",\"docious\",\"superca\",\"li\",\"fragi\",\"listicex\",\"piali\",\"do\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abrakadabra\", wordDict = [\"abra\",\"kadabra\",\"abra\",\"ka\",\"da\",\"bra\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbccddeeff\", wordDict = [\"aa\",\"bb\",\"cc\",\"dd\",\"ee\",\"ff\",\"abc\",\"def\",\"ef\",\"fe\",\"efg\",\"gh\",\"abcdefgh\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"helplineshorthelpline\", wordDict = [\"help\", \"line\", \"short\", \"helpline\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"leetleetcodeleet\", wordDict = [\"leet\",\"code\",\"leetcode\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"racecar\", wordDict = [\"race\",\"car\",\"racec\",\"arc\",\"cec\",\"er\",\"c\",\"ra\",\"ec\",\"ce\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab\", wordDict = [\"a\", \"aa\", \"aaa\", \"aaaa\", \"aaaaa\", \"ba\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"mississippi\", wordDict = [\"mis\",\"sis\",\"ip\",\"is\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"aaaaaaa\", wordDict = [\"aa\",\"aaa\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", wordDict = [\"mis\",\"is\",\"ip\",\"i\",\"ssip\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"supercalifragilisticexpialidocious\", wordDict = [\"super\",\"cali\",\"fragilistic\",\"expiali\",\"docious\",\"superfragilisticexpialidocious\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"banana\", wordDict = [\"ba\",\"na\",\"nan\",\"ban\",\"nana\",\"an\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thisisatest\", wordDict = [\"this\",\"is\",\"a\",\"test\",\"thisis\",\"isatest\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefgh\", wordDict = [\"a\",\"abc\",\"abcd\",\"efg\",\"h\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdabcdeabcdabcde\", wordDict = [\"abc\",\"abcd\",\"abcde\",\"de\",\"abcdabcde\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"ababcabcabcabab\", wordDict = [\"ab\",\"abc\",\"ababc\",\"ababcabc\",\"ababcabcabc\",\"abab\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"ababababab\", wordDict = [\"ab\",\"aba\",\"bab\",\"baba\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaaa\", wordDict = [\"aa\", \"aaa\", \"aaaa\", \"aaaaa\", \"aaaaaa\", \"aaaaaaa\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"dynamicprogramming\", wordDict = [\"dynamic\",\"programming\",\"dyna\",\"mic\",\"prog\",\"gram\",\"ming\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aquickbrownfoxjumpsoverthelazydog\", wordDict = [\"a\",\"quick\",\"brown\",\"fox\",\"jumps\",\"over\",\"the\",\"lazy\",\"dog\",\"aquick\",\"brownfox\",\"jump\",\"sover\",\"thelazy\",\"zydog\",\"quickbr\",\"ownfo\",\"xjump\",\"soverth\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thisisaverylongstringthatisdifficulttobreak\", wordDict = [\"this\",\"is\",\"a\",\"very\",\"long\",\"string\",\"that\",\"is\",\"difficult\",\"to\",\"break\",\"avery\",\"longstring\",\"isdifficult\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbccddeeff\", wordDict = [\"aa\",\"bb\",\"cc\",\"dd\",\"ee\",\"ff\",\"abc\",\"def\",\"ef\",\"cd\",\"ab\",\"de\",\"fe\",\"bc\",\"dc\",\"ad\",\"da\",\"fb\",\"bf\",\"ba\",\"ac\",\"ca\",\"ea\",\"ae\",\"be\",\"eb\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"programmingisfun\", wordDict = [\"pro\",\"gram\",\"ming\",\"is\",\"fun\",\"grammi\",\"ngis\",\"funny\",\"progr\",\"amming\",\"isfun\",\"ogramming\",\"grammi\",\"ngisfu\",\"n\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", wordDict = [\"missi\", \"pi\", \"ssippi\", \"issipi\", \"ippi\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", wordDict = [\"a\",\"ab\",\"abc\",\"abcd\",\"abcde\",\"abcdef\",\"abcdefg\",\"abcdefgh\",\"abcdefghi\",\"abcdefghij\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", wordDict = [\"abc\",\"def\",\"ghi\",\"jkl\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"thefastbrownfoxjumpedoverthelazydog\", wordDict = [\"the\",\"fast\",\"brown\",\"fox\",\"jumped\",\"over\",\"lazy\",\"dog\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"solutionsarefun\", wordDict = [\"solution\",\"solutions\",\"are\",\"fun\",\"solu\",\"tions\",\"sol\",\"u\",\"n\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thelongestword\", wordDict = [\"the\",\"long\",\"longest\",\"word\",\"lon\",\"gest\",\"longes\",\"estword\",\"longestwo\",\"longestwo\",\"longes\",\"gestwo\",\"est\",\"wordwo\",\"rdwo\",\"rdo\",\"wo\",\"o\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"bcbcbc\", wordDict = [\"b\", \"c\", \"bc\", \"cb\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"programming\", wordDict = [\"pro\",\"gram\",\"ming\",\"gramm\",\"ing\",\"program\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xyzzyzyxzyzyzyzyxzyz\", wordDict = [\"xyz\",\"zyz\",\"zx\",\"zyxzy\",\"zyzyz\",\"zyzyzy\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"theskyisblue\", wordDict = [\"the\",\"sky\",\"is\",\"blue\",\"thesky\",\"isblue\",\"theskyisblue\",\"theblue\",\"theskyblue\",\"blueis\",\"isblue\",\"blueisblue\",\"theskyis\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", wordDict = [\"miss\",\"issi\",\"ssippi\",\"ppi\",\"ipi\",\"i\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"sheisbeautiful\", wordDict = [\"she\",\"is\",\"beau\",\"tiful\",\"beauti\",\"ful\",\"be\",\"auti\",\"ful\",\"ti\",\"ful\",\"shi\",\"bea\",\"autiful\",\"sheis\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"exampleexampleexampleexample\", wordDict = [\"ex\",\"ample\",\"example\",\"pleexam\",\"ampleex\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefgh\", wordDict = [\"ab\",\"abc\",\"cd\",\"efgh\",\"abcd\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijklmnopqrstuvwxyz\", wordDict = [\"abcdefgh\",\"ijklmnop\",\"qrstuvwx\",\"yz\",\"mnopqr\",\"stuvwx\",\"yzab\",\"cdefghijklmnop\",\"qrstuvwxyza\",\"bcdefghijklmnopq\",\"rstuvwxyzabcde\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"supercalifragilisticexpialidocious\", wordDict = [\"super\",\"cali\",\"fragilistic\",\"expiali\",\"docious\",\"superfragilistic\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"ababababab\", wordDict = [\"a\", \"ab\", \"aba\", \"ababa\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thisisaverylongwordthatcanbebrokenintomultiplesubwords\", wordDict = [\"this\",\"is\",\"a\",\"very\",\"long\",\"word\",\"that\",\"can\",\"be\",\"broken\",\"into\",\"multiple\",\"sub\",\"words\",\"averylong\",\"bebroken\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"interview\", wordDict = [\"in\",\"ter\",\"view\",\"int\",\"ent\",\"rview\",\"terview\",\"erview\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", wordDict = [\"ab\",\"abc\",\"cd\",\"efg\",\"hij\",\"abcdefghij\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thisisatutorial\", wordDict = [\"this\",\"is\",\"a\",\"tu\",\"torial\",\"tuto\",\"rial\",\"ial\",\"al\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdabcde\", wordDict = [\"ab\",\"cd\",\"ef\",\"de\",\"abcde\",\"abcd\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", wordDict = [\"mis\",\"is\",\"is\",\"ppi\",\"issi\",\"ippi\",\"pp\",\"miss\",\"mis\",\"ippi\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab\", wordDict = [\"a\",\"aa\",\"aaa\",\"aaaa\",\"aaaaa\",\"aaaaaa\",\"aaaaaaa\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"findingthesolutionisfun\", wordDict = [\"find\",\"finding\",\"the\",\"solution\",\"is\",\"fun\",\"solutions\",\"funny\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thelongestword\", wordDict = [\"the\",\"long\",\"longest\",\"word\",\"longestword\",\"oneword\",\"endword\",\"word\",\"one\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", wordDict = [\"a\",\"ab\",\"abc\",\"abcd\",\"abcde\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xxyzzyyx\", wordDict = [\"xy\",\"xyz\",\"zy\",\"zyx\",\"yx\",\"xx\",\"zz\",\"zyxzyx\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"supercalifragilisticexpialidocious\", wordDict = [\"super\",\"cali\",\"fragi\",\"listic\",\"expi\",\"ali\",\"docious\",\"supercalifragilisticexpialidoci\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thelongestword\", wordDict = [\"the\",\"long\",\"est\",\"word\",\"longest\",\"estword\",\"ongestwor\",\"ngestwo\",\"gestw\",\"estwo\",\"stwo\",\"two\",\"thelo\",\"hello\",\"world\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"programmingisawesome\", wordDict = [\"pro\",\"gram\",\"ming\",\"is\",\"awe\",\"some\",\"awesome\",\"awe\",\"so\",\"me\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thecodecanbeanything\", wordDict = [\"the\",\"code\",\"can\",\"be\",\"anything\",\"any\",\"thing\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"a\", wordDict = [\"a\",\"aa\",\"aaa\",\"aaaa\",\"aaaaa\",\"aaaaaa\",\"aaaaaaa\",\"aaaaaaaa\",\"aaaaaaaaa\",\"aaaaaaaaaa\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdabcd\", wordDict = [\"ab\",\"abcd\",\"cd\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"thisisaverylongstringthatshouldnotmatch\", wordDict = [\"this\", \"is\", \"very\", \"long\", \"string\", \"that\", \"should\", \"not\", \"match\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"programmingproblemsolver\", wordDict = [\"pro\", \"gram\", \"ming\", \"problem\", \"problemsolver\", \"solver\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaaa\", wordDict = [\"aaa\",\"aaaa\",\"aa\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"skilfullyskilled\", wordDict = [\"skill\",\"ful\",\"ly\",\"ski\",\"lly\",\"ed\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"internationalization\", wordDict = [\"inter\",\"national\",\"ization\",\"inter\",\"nationalization\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab\", wordDict = [\"a\",\"aa\",\"aaa\",\"aaaa\",\"aaaaa\",\"aaaaaa\",\"aaaaaaa\",\"aaaaaaaa\",\"aaaaaaaaa\",\"aaaaaaaaaa\"]",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abracadabra\", wordDict = [\"abra\",\"cad\",\"bra\",\"a\",\"ab\",\"rac\"]",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"complexstringwithwords\", wordDict = [\"complex\", \"string\", \"with\", \"words\", \"complexstring\", \"stringwith\", \"withwords\"]",
+      "expected": "True"
+    }
+  ]
+}

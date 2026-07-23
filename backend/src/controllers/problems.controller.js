@@ -1,9 +1,9 @@
 const problemsService = require("../services/problems.service");
 
-async function listProblems(_req, res, next) {
+async function listProblems(req, res, next) {
   try {
-    const problems = await problemsService.listProblems();
-    return res.json({ problems });
+    const result = await problemsService.listProblems(req.query);
+    return res.json(result);
   } catch (error) {
     return next(error);
   }
@@ -38,7 +38,7 @@ async function voteProblem(req, res, next) {
   try {
     const { id } = req.params;
     const { type } = req.body;
-    const stats = await problemsService.voteProblem(id, type);
+    const stats = await problemsService.voteProblem(id, req.user.id, type);
     return res.json(stats);
   } catch (error) {
     return next(error);
@@ -48,8 +48,11 @@ async function voteProblem(req, res, next) {
 async function addComment(req, res, next) {
   try {
     const { id } = req.params;
-    const { author, text } = req.body;
-    const stats = await problemsService.addComment(id, author, text);
+    const text = String(req.body.text || "").trim();
+    if (!text || text.length > 1000) {
+      return res.status(400).json({ status: "error", message: "Comment must be 1-1000 characters" });
+    }
+    const stats = await problemsService.addComment(id, req.user.name, req.user.id, text);
     return res.json(stats);
   } catch (error) {
     return next(error);

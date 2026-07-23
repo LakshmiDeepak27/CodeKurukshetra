@@ -1,0 +1,44 @@
+{
+  "id": "letter-combinations-of-a-phone-number",
+  "title": "Letter Combinations Of A Phone Number",
+  "statement": "Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.\nA mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.\n\n \nExample 1:\n\nInput: digits = \"23\"\nOutput: [\"ad\",\"ae\",\"af\",\"bd\",\"be\",\"bf\",\"cd\",\"ce\",\"cf\"]\n\nExample 2:\n\nInput: digits = \"\"\nOutput: []\n\nExample 3:\n\nInput: digits = \"2\"\nOutput: [\"a\",\"b\",\"c\"]\n\n \nConstraints:\n\n0 <= digits.length <= 4\ndigits[i] is a digit in the range ['2', '9'].",
+  "difficulty": "Medium",
+  "sampleInput": "digits = \"5678\"",
+  "sampleOutput": "['jmpt', 'jmpu', 'jmpv', 'jmqt', 'jmqu', 'jmqv', 'jmrt', 'jmru', 'jmrv', 'jmst', 'jmsu', 'jmsv', 'jnpt', 'jnpu', 'jnpv', 'jnqt', 'jnqu', 'jnqv', 'jnrt', 'jnru', 'jnrv', 'jnst', 'jnsu', 'jnsv', 'jopt', 'jopu', 'jopv', 'joqt', 'joqu', 'joqv', 'jort', 'joru', 'jorv', 'jost', 'josu', 'josv', 'kmpt', 'kmpu', 'kmpv', 'kmqt', 'kmqu', 'kmqv', 'kmrt', 'kmru', 'kmrv', 'kmst', 'kmsu', 'kmsv', 'knpt', 'knpu', 'knpv', 'knqt', 'knqu', 'knqv', 'knrt', 'knru', 'knrv', 'knst', 'knsu', 'knsv', 'kopt', 'kopu', 'kopv', 'koqt', 'koqu', 'koqv', 'kort', 'koru', 'korv', 'kost', 'kosu', 'kosv', 'lmpt', 'lmpu', 'lmpv', 'lmqt', 'lmqu', 'lmqv', 'lmrt', 'lmru', 'lmrv', 'lmst', 'lmsu', 'lmsv', 'lnpt', 'lnpu', 'lnpv', 'lnqt', 'lnqu', 'lnqv', 'lnrt', 'lnru', 'lnrv', 'lnst', 'lnsu', 'lnsv', 'lopt', 'lopu', 'lopv', 'loqt', 'loqu', 'loqv', 'lort', 'loru', 'lorv', 'lost', 'losu', 'losv']",
+  "tags": [
+    "Hash Table",
+    "String",
+    "Backtracking"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def letterCombinations(self, digits: str) -> List[str]:\n        ",
+    "cpp": "class Solution {\npublic:\n    vector<string> letterCombinations(string& digits) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String[] letterCombinations(String digits) {\n        return new String[]{};\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} digits\n   * @return {string[]}\n   */\n  letterCombinations(digits) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "reverse-integer",
+  "title": "Reverse Integer",
+  "statement": "Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.\nAssume the environment does not allow you to store 64-bit integers (signed or unsigned).\n \nExample 1:\n\nInput: x = 123\nOutput: 321\n\nExample 2:\n\nInput: x = -123\nOutput: -321\n\nExample 3:\n\nInput: x = 120\nOutput: 21\n\n \nConstraints:\n\n-231 <= x <= 231 - 1",
+  "difficulty": "Medium",
+  "sampleInput": "x = -2147483412",
+  "sampleOutput": "-2143847412",
+  "tags": [
+    "Math"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def reverse(self, x: int) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int reverse(int x) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int reverse(int x) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} x\n   * @return {number}\n   */\n  reverse(x) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

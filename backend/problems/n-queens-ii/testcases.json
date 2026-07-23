@@ -1,0 +1,42 @@
+{
+  "sample": [
+    {
+      "input": "n = 8",
+      "expected": "92"
+    },
+    {
+      "input": "n = 3",
+      "expected": "0"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "n = 4",
+      "expected": "2"
+    },
+    {
+      "input": "n = 9",
+      "expected": "352"
+    },
+    {
+      "input": "n = 6",
+      "expected": "4"
+    },
+    {
+      "input": "n = 2",
+      "expected": "0"
+    },
+    {
+      "input": "n = 1",
+      "expected": "1"
+    },
+    {
+      "input": "n = 7",
+      "expected": "40"
+    },
+    {
+      "input": "n = 5",
+      "expected": "10"
+    }
+  ]
+}

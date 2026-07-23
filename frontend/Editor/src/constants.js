@@ -9,8 +9,8 @@ export const LANGUAGES = [
 ];
 
 export const DEFAULT_CODE = {
-    cpp: `#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    // Write your solution here\n\n    return 0;\n}`,
-    python: `import sys\n\ndef solve():\n    # Write your solution here\n    s = sys.stdin.readline().strip()\n    if s:\n        print(0)\n\nif __name__ == "__main__":\n    solve()`,
-    java: `import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        if (scanner.hasNext()) {\n            String s = scanner.next();\n            // Write your solution here\n            System.out.println(0);\n        }\n    }\n}`,
-    js: `const input = require("fs").readFileSync(0, "utf8").trim();\nif (input) {\n    // Write your solution here\n    console.log(0);\n}`,
+    cpp: `class Solution {\npublic:\n    int solve() {\n        // Write your solution here\n        return 0;\n    }\n};\n`,
+    python: `class Solution:\n    def solve(self):\n        # Write your solution here\n        pass\n`,
+    java: `class Solution {\n    public int solve() {\n        // Write your solution here\n        return 0;\n    }\n}\n`,
+    js: `class Solution {\n  solve() {\n    // Write your solution here\n    return 0;\n  }\n}\n`,
 };

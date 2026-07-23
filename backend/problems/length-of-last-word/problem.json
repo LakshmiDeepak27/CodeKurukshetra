@@ -1,0 +1,42 @@
+{
+  "id": "length-of-last-word",
+  "title": "Length Of Last Word",
+  "statement": "Given a string s consisting of words and spaces, return the length of the last word in the string.\nA word is a maximal substring consisting of non-space characters only.\n \nExample 1:\n\nInput: s = \"Hello World\"\nOutput: 5\nExplanation: The last word is \"World\" with length 5.\n\nExample 2:\n\nInput: s = \"   fly me   to   the moon  \"\nOutput: 4\nExplanation: The last word is \"moon\" with length 4.\n\nExample 3:\n\nInput: s = \"luffy is still joyboy\"\nOutput: 6\nExplanation: The last word is \"joyboy\" with length 6.\n\n \nConstraints:\n\n1 <= s.length <= 104\ns consists of only English letters and spaces ' '.\nThere will be at least one word in s.",
+  "difficulty": "Easy",
+  "sampleInput": "s = \"Hello World\"",
+  "sampleOutput": "5",
+  "tags": [
+    "String"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def lengthOfLastWord(self, s: str) -> int:",
+    "cpp": "class Solution {\npublic:\n    int lengthOfLastWord(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int lengthOfLastWord(String s) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {number}\n   */\n  lengthOfLastWord(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

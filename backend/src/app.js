@@ -5,6 +5,9 @@ const { ping } = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 const problemsRoutes = require("./routes/problems.routes");
 const submissionsRoutes = require("./routes/submissions.routes");
+const adminRoutes = require("./routes/admin.routes");
+const leaderboardRoutes = require("./routes/leaderboard.routes");
+const battlesRoutes = require("./routes/battles.routes");
 const submissionsController = require("./controllers/submissions.controller");
 const { optionalAuthenticate } = require("./middleware/auth");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
@@ -17,7 +20,7 @@ function createApp() {
   app.use(
     cors({
       origin: config.corsOrigins,
-      methods: ["GET", "POST"],
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization"],
     })
   );
@@ -42,6 +45,9 @@ function createApp() {
   app.use("/auth", authRoutes);
   app.use("/problems", problemsRoutes);
   app.use("/submissions", submissionsRoutes);
+  app.use("/admin", adminRoutes);
+  app.use("/leaderboard", leaderboardRoutes);
+  app.use("/battles", battlesRoutes);
 
   // Backward-compatible alias used by the Editor frontend
   app.post(

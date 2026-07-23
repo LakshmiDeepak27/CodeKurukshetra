@@ -1,0 +1,53 @@
+{
+  "timeLimitMs": 1000,
+  "language": [
+    "cpp",
+    "python",
+    "java",
+    "js"
+  ],
+  "functionWrapper": {
+    "functionName": "inorderTraversal",
+    "returnType": "int",
+    "parameters": [
+      {
+        "name": "val=0",
+        "type": "int"
+      },
+      {
+        "name": "left=None",
+        "type": "int"
+      },
+      {
+        "name": "right=None",
+        "type": "int"
+      }
+    ],
+    "languages": {
+      "cpp": {
+        "starterCode": "class Solution {\npublic:\n    int inorderTraversal(int val=0, int left=None, int right=None) {\n        \n    }\n};\n",
+        "inputParser": "string input; cin >> input;",
+        "outputFormatter": "cout << answer << '\\n';",
+        "driverTemplate": "#include <bits/stdc++.h>\nusing namespace std;\n\n{{solution}}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    Solution solution;\n    // driver invocation\n    return 0;\n}\n"
+      },
+      "python": {
+        "starterCode": "class Solution:\n    def inorderTraversal(self, val=0: int, left=None: int, right=None: int) -> int:\n        pass\n",
+        "inputParser": "import sys\ndata = sys.stdin.read()",
+        "outputFormatter": "print(answer)",
+        "driverTemplate": "import sys\n\n{{solution}}\n"
+      },
+      "java": {
+        "starterCode": "class Solution {\n    public int inorderTraversal(int val=0, int left=None, int right=None) {\n        return 0;\n    }\n}\n",
+        "inputParser": "Scanner scanner = new Scanner(System.in);",
+        "outputFormatter": "System.out.println(answer);",
+        "driverTemplate": "import java.util.*;\n\n{{solution}}\n\npublic class Main {\n    public static void main(String[] args) {\n        Solution solution = new Solution();\n    }\n}\n"
+      },
+      "js": {
+        "starterCode": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} left=None\n   * @param {number} right=None\n   * @return {number}\n   */\n  inorderTraversal(val=0, left=None, right=None) {\n    \n  }\n}\n",
+        "inputParser": "const input = require('fs').readFileSync(0, 'utf8');",
+        "outputFormatter": "console.log(answer);",
+        "driverTemplate": "{{solution}}\n"
+      }
+    }
+  }
+}

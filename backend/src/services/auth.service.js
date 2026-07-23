@@ -9,6 +9,11 @@ function publicUser(row) {
     name: row.name,
     email: row.email,
     provider: row.provider,
+    role: row.role || "user",
+    bio: row.bio || null,
+    institution: row.institution || null,
+    preferredLanguage: row.preferred_language || "cpp",
+    avatarUrl: row.avatar_url || null,
   };
 }
 
@@ -26,6 +31,30 @@ async function findUserByEmail(email) {
   return rows[0] || null;
 }
 
+async function updateUserLastSeen(id) {
+  try {
+    await query("UPDATE users SET last_seen_at = CURRENT_TIMESTAMP WHERE id = :id", { id });
+  } catch { }
+}
+
+async function updateUserProfile(id, { name, bio, institution, preferredLanguage, avatarUrl }) {
+  const fields = [];
+  const params = { id };
+
+  if (name !== undefined) { fields.push("name = :name"); params.name = String(name).trim(); }
+  if (bio !== undefined) { fields.push("bio = :bio"); params.bio = String(bio).trim(); }
+  if (institution !== undefined) { fields.push("institution = :institution"); params.institution = String(institution).trim(); }
+  if (preferredLanguage !== undefined) { fields.push("preferred_language = :preferredLanguage"); params.preferredLanguage = String(preferredLanguage).trim(); }
+  if (avatarUrl !== undefined) { fields.push("avatar_url = :avatarUrl"); params.avatarUrl = String(avatarUrl).trim(); }
+
+  if (fields.length > 0) {
+    await query(`UPDATE users SET ${fields.join(", ")} WHERE id = :id`, params);
+  }
+
+  const updated = await findUserById(id);
+  return publicUser(updated);
+}
+
 async function signup({ name, email, password }) {
   const existing = await findUserByEmail(email);
   if (existing) {
@@ -41,7 +70,7 @@ async function signup({ name, email, password }) {
     { id, name, email, passwordHash: hashPassword(password) }
   );
 
-  return authResponse({ id, name, email, provider: "password" });
+  return authResponse({ id, name, email, provider: "password", role: "user" });
 }
 
 async function signin({ email, password }) {
@@ -51,6 +80,7 @@ async function signin({ email, password }) {
     error.status = 401;
     throw error;
   }
+  await updateUserLastSeen(user.id);
   return authResponse(user);
 }
 
@@ -80,21 +110,23 @@ async function googleSignIn(credential) {
        VALUES (:id, :name, :email, 'google', :googleSub)`,
       { id, name, email, googleSub: profile.sub || null }
     );
-    user = { id, name, email, provider: "google" };
+    user = { id, name, email, provider: "google", role: "user" };
   }
 
+  await updateUserLastSeen(user.id);
   return authResponse(user);
 }
 
 async function getOnlineUsersCount() {
-  const rows = await query("SELECT COUNT(*) as activeCount FROM users");
-  const count = Number(rows[0]?.activeCount || 0);
-  return count > 0 ? count : 1;
+  const rows = await query("SELECT COUNT(*) as activeCount FROM users WHERE last_seen_at > NOW() - INTERVAL 5 MINUTE");
+  return Number(rows[0]?.activeCount || 0);
 }
 
 module.exports = {
   publicUser,
   findUserById,
+  updateUserLastSeen,
+  updateUserProfile,
   signup,
   signin,
   googleSignIn,

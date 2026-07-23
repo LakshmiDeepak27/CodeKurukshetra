@@ -1,0 +1,410 @@
+{
+  "sample": [
+    {
+      "input": "s = \"PAYPALISHIRING\", numRows = 4",
+      "expected": "PINALSIGYAHRPI"
+    },
+    {
+      "input": "s = \"ABCDEFGHI\", numRows = 3",
+      "expected": "AEIBDFHCG"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\", numRows = 5",
+      "expected": "AEIMQUY,,,,,,,,,,,,,BDFHJLNPRTVXZ,,,,,,,,,,,,CGKOSW"
+    },
+    {
+      "input": "s = \"PAYPALISHIRING\", numRows = 3",
+      "expected": "PAHNAPLSIIGYIR"
+    },
+    {
+      "input": "s = \"A\", numRows = 1",
+      "expected": "A"
+    },
+    {
+      "input": "s = \"HELLO\", numRows = 5",
+      "expected": "HELLO"
+    },
+    {
+      "input": "s = \"ABCDEF\", numRows = 2",
+      "expected": "ACEBDF"
+    },
+    {
+      "input": "s = \"HELLO WORLD\", numRows = 5",
+      "expected": "HREOLLWDL O"
+    },
+    {
+      "input": "s = \"a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\", numRows = 20",
+      "expected": "atM,,,,,bsuLN,,,,,crvKO,,,,,dqwJP,,,,,epxIQ,,,,,foyHR,,,,,gnzGSZ,,,,,,hmAFTY,,,,,,ilBEUX,,,,,,jkCDVW,,,"
+    },
+    {
+      "input": "s = \"AB\", numRows = 1",
+      "expected": "AB"
+    },
+    {
+      "input": "s = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\", numRows = 5",
+      "expected": "AIQYBHJPRXZCGKOSWDFLNTVEMU"
+    },
+    {
+      "input": "s = \"ABCD\", numRows = 2",
+      "expected": "ACBD"
+    },
+    {
+      "input": "s = \"ABCDEFGHIJKL\", numRows = 4",
+      "expected": "AGBFHLCEIKDJ"
+    },
+    {
+      "input": "s = \"HELLO.WORLD.\", numRows = 3",
+      "expected": "HOREL.OL.LWD"
+    },
+    {
+      "input": "s = \"ABC\", numRows = 2",
+      "expected": "ACB"
+    },
+    {
+      "input": "s = \"ABCDEFG\", numRows = 1",
+      "expected": "ABCDEFG"
+    },
+    {
+      "input": "s = \"A,B.C\", numRows = 3",
+      "expected": "AC,.B"
+    },
+    {
+      "input": "s = \"A,B,C,D,E,F,G\", numRows = 3",
+      "expected": "ACEG,,,,,,BDF"
+    },
+    {
+      "input": "s = \"ABCDEFGHIJKL\", numRows = 3",
+      "expected": "AEIBDFHJLCGK"
+    },
+    {
+      "input": "s = \"COMPLEX.EXAMPLE\", numRows = 6",
+      "expected": "CAOXMMEPP.LLXEE"
+    },
+    {
+      "input": "s = \"A,B,C.,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z.\", numRows = 7",
+      "expected": "A,,,,,FGLMRSXYB,,,,,,,,,EHKNQTWZC,,,,,,,..DIJOPUV,,,,"
+    },
+    {
+      "input": "s = \"..............................\", numRows = 10",
+      "expected": ".............................."
+    },
+    {
+      "input": "s = \"ZIGZAG\", numRows = 6",
+      "expected": "ZIGZAG"
+    },
+    {
+      "input": "s = \"ThisIsATestOfTheEmergencyBroadcastSystem\", numRows = 10",
+      "expected": "TeshmrytiEgSeseetmIhnssTcaAfycTOBdetraso"
+    },
+    {
+      "input": "s = \"The quick brown fox jumps over the lazy dog.\", numRows = 3",
+      "expected": "Tqkofjsehadh uc rw o up vrtelz o.eibnxmo  yg"
+    },
+    {
+      "input": "s = \"WithSpecialCharacters!@#$%^&*()\", numRows = 5",
+      "expected": "Wic$icaat#%telre@^)hpCar!&(Shs*"
+    },
+    {
+      "input": "s = \"The quick brown fox jumps over the lazy dog.\", numRows = 8",
+      "expected": "Tneghw vro.eofo d ro t qbxshyu  pezikjm acul"
+    },
+    {
+      "input": "s = \"This,is,a,longer,string,with,punctuation!\", numRows = 7",
+      "expected": "Tnwthog,iaiilegtuos,rnhtn,a,i,c!i,srpnstu"
+    },
+    {
+      "input": "s = \"Short\", numRows = 1",
+      "expected": "Short"
+    },
+    {
+      "input": "s = \"Lorem.ipsum.dolor.sit.amet.consectetur.adipiscing.elit\", numRows = 12",
+      "expected": "Laso.micrtepieitinms.dg..ca.iro.eponrlslsuiuoettmdce.t"
+    },
+    {
+      "input": "s = \"ABCD\", numRows = 1",
+      "expected": "ABCD"
+    },
+    {
+      "input": "s = \"ZigzagPatternConversionIsCool.\", numRows = 7",
+      "expected": "ZnsirCICgeonoztnooatvilgaes.Pr"
+    },
+    {
+      "input": "s = \"ZIGZAGCONVERSION\", numRows = 6",
+      "expected": "ZEIVRGNSZOIACOGN"
+    },
+    {
+      "input": "s = \".,,..,.\", numRows = 3",
+      "expected": "..,.,,."
+    },
+    {
+      "input": "s = \"1234567890\", numRows = 2",
+      "expected": "1357924680"
+    },
+    {
+      "input": "s = \"a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s.t.u.v.w.x.y.z.\", numRows = 12",
+      "expected": "alw.....bkmvx.....cjnuy.....diotz.....ehps....fgqr.."
+    },
+    {
+      "input": "s = \"HELLOALLOHELLOALLOHELLOALLO\", numRows = 2",
+      "expected": "HLOLOELALHLOLOELALHLOLOELAL"
+    },
+    {
+      "input": "s = \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\", numRows = 10",
+      "expected": "asKbrtJLcquIMdpvHNZeowGOYfnxFPXgmyEQWhlzDRVikACSUjBT"
+    },
+    {
+      "input": "s = \"AnotherExampleWithALongerStringThatShouldBeChallengingToFormatCorrectly\", numRows = 8",
+      "expected": "AWieFyneirnBCoololttgdhTrttphSTlagmchmArhulnaeeaLeaolitrrxogthegCrEnSno"
+    },
+    {
+      "input": "s = \"A\", numRows = 5",
+      "expected": "A"
+    },
+    {
+      "input": "s = \"SHORT\", numRows = 25",
+      "expected": "SHORT"
+    },
+    {
+      "input": "s = \"Zigzag.patters.are.pretty.cool.and.fascinating\", numRows = 10",
+      "expected": "Z.aiepfsgrr.czaedia.tnngstaa.ry.tpe.liatcontog"
+    },
+    {
+      "input": "s = \"ZigZagConversion\", numRows = 6",
+      "expected": "ZeivrgnsZoiaCogn"
+    },
+    {
+      "input": "s = \"PYTHONISAWESOMELANGUAGEFORTACKLINGCOMPLEXPROBLEMS\", numRows = 6",
+      "expected": "PEALXYWSUGKIEPTAOGECNLRSHSMNFAGPOMOIEAOTCMBENLROL"
+    },
+    {
+      "input": "s = \"PYTHONPROGRAMMING\", numRows = 5",
+      "expected": "POGYRGNTPRIHNAMOM"
+    },
+    {
+      "input": "s = \"BUTTERTOOMELON\", numRows = 3",
+      "expected": "BEOOUTROMLNTTE"
+    },
+    {
+      "input": "s = \"1234567890abcdefghijklmnopqrstuvwxyz\", numRows = 7",
+      "expected": "1co2bdnpz3aemqy40flrx59gksw68hjtv7iu"
+    },
+    {
+      "input": "s = \"ZIGZAGCONVERSION\", numRows = 8",
+      "expected": "ZOIINGSZRAEGVCNO"
+    },
+    {
+      "input": "s = \"HELLOPYTHONHELLOPYTHONHELLOPYTHONHELLOPYTHON\", numRows = 8",
+      "expected": "HLYOELOPTHNLEPOHTLHYLOYONTLNPPOHEHOYHOHELTNL"
+    },
+    {
+      "input": "s = \"A.B.C.D.E.F.G.H.I.J.K.L.M.N.O.P.Q.R.S.T.U.V.W.X.Y.Z.\", numRows = 5",
+      "expected": "AEIMQUY.............BDFHJLNPRTVXZ.............CGKOSW"
+    },
+    {
+      "input": "s = \"ALGORITHMSANDDATASTRUCTURES\", numRows = 8",
+      "expected": "AALDTGDASONSERATRISRUTMUTHC"
+    },
+    {
+      "input": "s = \"A.B.C.D.E.F.G.H.I.J.K.L.M.N.O.P.Q.R.S.T.U.V.W.X.Y.Z.\", numRows = 10",
+      "expected": "AJS.....BIKRT......CHLQUZ......DGMPVY......EFNOWX..."
+    },
+    {
+      "input": "s = \"A.B.C.D.E.F.G.H.I.J.K.L.M.N.O.P.Q.R.S.T.U.V.W.X.Y.Z.\", numRows = 6",
+      "expected": "AFKPUZ...........BEGJLOQTVY..........CDHIMNRSWX....."
+    },
+    {
+      "input": "s = \"ToCodeOrNotToCode.\", numRows = 2",
+      "expected": "TCdONtooeooeroTCd."
+    },
+    {
+      "input": "s = \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\", numRows = 11",
+      "expected": "auObtvNPcswMQdrxLReqyKSfpzJTgoAIUhnBHVimCGWjlDFXZkEY"
+    },
+    {
+      "input": "s = \"HELLO.WORLD.THIS.IS.A.TEST\", numRows = 8",
+      "expected": "HIEHSLT.L.ITODSS.L.EWRATO."
+    },
+    {
+      "input": "s = \"Lorem ipsum dolor sit amet, consectetur adipiscing elit.\", numRows = 6",
+      "expected": "Lmtna ou i os dgersdsacerinlepo m cupiimilre,ttict otes."
+    },
+    {
+      "input": "s = \"Longer.string.for.testing.the.zigzag.conversion\", numRows = 2",
+      "expected": "Lne.tigfrtsigtezga.ovrinogrsrn.o.etn.h.izgcneso"
+    },
+    {
+      "input": "s = \"THISISAMUCHLONGERSTRINGTHANTHEPREVIOUSONES\", numRows = 9",
+      "expected": "TREHESRVIGTPISNREOIOIHUSLNTSAHGNOMCTANSUHE"
+    },
+    {
+      "input": "s = \"REPEATEREPEATEREPEATEREPEATEREPEAT\", numRows = 15",
+      "expected": "RREEEPTPEAEAEATPTEERREEPTEAAETPEER"
+    },
+    {
+      "input": "s = \"1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\", numRows = 12",
+      "expected": "1Mi2LNhj3KOgk4JPfl5IQem6HRdnz7GScoy8FTbpx9EUaqw0DVZrvACWYsuBXt"
+    },
+    {
+      "input": "s = \"HELLOWORLDTHISISATEST\", numRows = 7",
+      "expected": "HIEHSLTILDSOLATWRTSOE"
+    },
+    {
+      "input": "s = \"AQuickBrownFoxJumpsOverTheLazyDog\", numRows = 11",
+      "expected": "AvQOeusripTcmhkueBJLrxaoozgwFyonD"
+    },
+    {
+      "input": "s = \"123456789012345678901234567890\", numRows = 5",
+      "expected": "197528068463715937462402805319"
+    },
+    {
+      "input": "s = \"........................................\", numRows = 4",
+      "expected": "........................................"
+    },
+    {
+      "input": "s = \"ThisIsALongStringToTestTheFunctionalityOfTheZigZagConversion\", numRows = 7",
+      "expected": "TthiahSrTeltZgnigitFaygCosnnsunOioiIogenofZnssLTTciTevrAothe"
+    },
+    {
+      "input": "s = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\", numRows = 8",
+      "expected": "AOBNPCMQDLRZEKSYFJTXGIUWHV"
+    },
+    {
+      "input": "s = \"HELLO.,WORLD.,HELLO.,WORLD.,HELLO.,WORLD.\", numRows = 10",
+      "expected": "HOOEL.WRLL,,LLEW.DOHOO..,RL,.LLWDDEOL.HR,"
+    },
+    {
+      "input": "s = \"Short.string\", numRows = 1",
+      "expected": "Short.string"
+    },
+    {
+      "input": "s = \"THISISALONGSTRINGFORTHETESTCASE\", numRows = 7",
+      "expected": "TTEHSRTSIGIETSNNHCIOGTASLFRSAOE"
+    },
+    {
+      "input": "s = \"12345678901234567890\", numRows = 10",
+      "expected": "19280374655647382910"
+    },
+    {
+      "input": "s = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\", numRows = 7",
+      "expected": "AMYBLNXZ9CKOW08DJPV17EIQU26FHRT35GS4"
+    },
+    {
+      "input": "s = \"ONETWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN\", numRows = 12",
+      "expected": "O,TNES,EEVIENTIXNWF,IO,SN,RE,TUVTHOEHRFNGE,,IEE"
+    },
+    {
+      "input": "s = \"THEQUICK.BROWN.FOX.JUMPS.OVER.THE.LAZY.DOG.\", numRows = 5",
+      "expected": "T.O.EOHKBFXSOH.DGECR..PVTL..QIONJME.AYUWURZ"
+    },
+    {
+      "input": "s = \"ALGORITHMSAREFUN\", numRows = 6",
+      "expected": "AALSRGMEOHFRTUIN"
+    },
+    {
+      "input": "s = \"123456789012345678901234567890\", numRows = 6",
+      "expected": "111202020393939484848575757666"
+    },
+    {
+      "input": "s = \"This.is.a.test.string\", numRows = 5",
+      "expected": "Tath..srist.isietn.sg"
+    },
+    {
+      "input": "s = \"ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ\", numRows = 12",
+      "expected": "AWSBVXRTCUYQUDTZPVESAOWFRBNXGQCMYHPDLZIOEKJNFJKMGILH"
+    },
+    {
+      "input": "s = \"AQUICKMOVEMENTOFTHEBROWNFOX\", numRows = 9",
+      "expected": "ATQFHUOEITBCNRKEOMMWXOENOVF"
+    },
+    {
+      "input": "s = \"OneTwoThreeFourFiveSixSevenEightNineTenElevenTwelveThirteenFourteenFifteen\", numRows = 9",
+      "expected": "OiNlenFvtievteerehnwernTuSgeTTuFwoiiTnhoioFxEeeiFfTeSnnvrntheeeEeteenrvlee"
+    },
+    {
+      "input": "s = \"abcdefghijklmnopqrstuvwxyz\", numRows = 13",
+      "expected": "aybxzcwdveuftgshriqjpkolnm"
+    },
+    {
+      "input": "s = \"AVERYLONGSTRINGTHATWILLBETESTEDTOENSURETHECORRECTNESSOFTHETEST\", numRows = 20",
+      "expected": "AEVRTEUHRSEYNCLEOOORNTRGDESECTTTRSNIEENTSGESTBOTHLFSALTETIHTWE"
+    },
+    {
+      "input": "s = \"Python.is.awesome.and.fun\", numRows = 9",
+      "expected": "Peym.toahsnoednw..afi.usn"
+    },
+    {
+      "input": "s = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ.,\", numRows = 5",
+      "expected": "AIQYBHJPRXZCGKOSW.DFLNTV,EMU"
+    },
+    {
+      "input": "s = \"PythonIsFun\", numRows = 5",
+      "expected": "PFysutInhno"
+    },
+    {
+      "input": "s = \"COMPLEXTESTCASEWITHVARYINGCHARS,.,\", numRows = 9",
+      "expected": "CI.OWT,,MEHSPSVRLAAAECRHXTYCTSIGEN"
+    },
+    {
+      "input": "s = \"Mississippi\", numRows = 2",
+      "expected": "Msispiissip"
+    },
+    {
+      "input": "s = \"PythonProgrammingIsFunAndEducational!\", numRows = 7",
+      "expected": "Pmd!yamnEltriAdahgnnunooguconrIFaiPst"
+    },
+    {
+      "input": "s = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\", numRows = 10",
+      "expected": "ASBRTCQUDPVEOWFNXGMYHLZIKJ"
+    },
+    {
+      "input": "s = \"zigzagzigzagzigzagzigzagzigzagzigzagzigzag\", numRows = 4",
+      "expected": "zzzzzzzigigigigigigiggagagagagagagazzzzzzz"
+    },
+    {
+      "input": "s = \"SOMETIMESGOODPROGRAMSMAKEYOUCRY\", numRows = 2",
+      "expected": "SMTMSODRGASAEOCYOEIEGOPORMMKYUR"
+    },
+    {
+      "input": "s = \"REPEATEDCHARACTERSTESTCASEEEEEEEEEEEEEEEEEEEEEE\", numRows = 15",
+      "expected": "REEEEPEEEEEASETAEECEDTECSEHEEATEERSEEAREECEEETE"
+    },
+    {
+      "input": "s = \"TheQuickBrownFoxJumpsOverTheLazyDog\", numRows = 6",
+      "expected": "ToszhrwpOayeBnmvLDQkFueeoucoJrhgixT"
+    },
+    {
+      "input": "s = \"HELLO.,WORLD.,HELLO.,WORLD.\", numRows = 5",
+      "expected": "HOLLEWRELRDL,LHOO.L.D,.WO.,"
+    },
+    {
+      "input": "s = \"AABBAABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ\", numRows = 12",
+      "expected": "AJUAIJTUBIKTVBHKSVAHLSWAGLRWBGMRXBFMQXCFNQYCENPYDEOPZDOZ"
+    },
+    {
+      "input": "s = \"PYTHON.IS.A.GREAT.LANGUAGE.\", numRows = 4",
+      "expected": "P.GLGYNI.R.AAETOSAETNU.H.AG"
+    },
+    {
+      "input": "s = \"MULTIPLELINESAREHERE.FIXEDFONTISNEAT.\", numRows = 15",
+      "expected": "MNUOTLFITDSIENPXELIAEFTL..IENREESHAER"
+    },
+    {
+      "input": "s = \"MixedCASEAndNumbers123\", numRows = 4",
+      "expected": "MANsiCSdur1xdEnme2eAb3"
+    },
+    {
+      "input": "s = \"PythonIsFunAndChallenging\", numRows = 5",
+      "expected": "PFagysuhlntInClihnAdegonn"
+    },
+    {
+      "input": "s = \"S.P.E.C.I.A.L.,C.H.A.R.A.C.T.E.R.S.\", numRows = 9",
+      "expected": "S...CHRSP,.....AEEL....RTCA....ACI."
+    },
+    {
+      "input": "s = \"OneMoreExampleHere\", numRows = 10",
+      "expected": "OneerMeoHreelEpxma"
+    }
+  ]
+}

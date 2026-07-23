@@ -1,4 +1,4 @@
-const API = import.meta.env.VITE_API_URL || "/api";
+const API = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 function sessionHeaders() {
   const token = localStorage.getItem("ck_token");
@@ -15,9 +15,17 @@ async function request(path, options = {}) {
   return data;
 }
 
-export async function fetchProblems() {
-  const data = await request("/problems");
-  return data.problems || [];
+export async function fetchProblems(queryParams = {}) {
+  const params = new URLSearchParams();
+  if (queryParams.page) params.append("page", queryParams.page);
+  if (queryParams.limit) params.append("limit", queryParams.limit);
+  if (queryParams.search) params.append("search", queryParams.search);
+  if (queryParams.difficulty && queryParams.difficulty !== "All") params.append("difficulty", queryParams.difficulty);
+  if (queryParams.tag) params.append("tag", queryParams.tag);
+
+  const qs = params.toString() ? `?${params.toString()}` : "";
+  const data = await request(`/problems${qs}`);
+  return data.problems || (Array.isArray(data) ? data : []);
 }
 
 export function fetchProblem(problemId) {
@@ -29,8 +37,41 @@ export async function fetchTestCases(problemId) {
   return data.sample || [];
 }
 
+export function voteProblem(problemId, type) {
+  return request(`/problems/${problemId}/vote`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ type }),
+  });
+}
+
+export function addComment(problemId, author, text) {
+  return request(`/problems/${problemId}/comments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ author, text }),
+  });
+}
+
+export function fetchOnlineCount() {
+  return request("/auth/online");
+}
+
 export function fetchCurrentUser() {
   return request("/auth/me");
+}
+
+export function updateProfile(profileData) {
+  return request("/auth/profile", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(profileData),
+  });
+}
+
+export async function fetchLeaderboard() {
+  const data = await request("/leaderboard");
+  return data.leaderboard || [];
 }
 
 export function fetchMySubmissions(problemId) {

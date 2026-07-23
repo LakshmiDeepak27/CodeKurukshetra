@@ -1,0 +1,522 @@
+{
+  "sample": [
+    {
+      "input": "board = [[\"A\",\"B\"],[\"C\",\"D\"]], word = \"BD\"",
+      "expected": "True"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"BDFH\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"word\": \"ABCB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"word\": \"ABCCED\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "board = [[\"A\",\"B\"],[\"C\",\"D\"]], word = \"AC\"",
+      "expected": "True"
+    },
+    {
+      "input": "board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = 'ABCB'",
+      "expected": "False"
+    },
+    {
+      "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ASADB\"",
+      "expected": "False"
+    },
+    {
+      "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"",
+      "expected": "False"
+    },
+    {
+      "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"E\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCESEEEFS\"",
+      "expected": "True"
+    },
+    {
+      "input": "board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = 'Z'",
+      "expected": "False"
+    },
+    {
+      "input": "board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = 'AB'",
+      "expected": "True"
+    },
+    {
+      "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"",
+      "expected": "True"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\"],[\"C\",\"D\"]], \"word\": \"ACDB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"ADEGI\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"word\": \"SEE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\"],[\"C\",\"D\"]], \"word\": \"ABCD\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = 'SEE'",
+      "expected": "True"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"AEH\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = 'E'",
+      "expected": "True"
+    },
+    {
+      "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"",
+      "expected": "True"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"CEGI\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "board = [[\"A\",\"B\"],[\"C\",\"D\"]], word = \"AB\"",
+      "expected": "True"
+    },
+    {
+      "input": "board = [[\"A\",\"B\"],[\"C\",\"D\"]], word = \"CD\"",
+      "expected": "True"
+    },
+    {
+      "input": "board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = 'ASAD'",
+      "expected": "True"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"AIBF\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "board = [[\"A\"]], word = \"A\"",
+      "expected": "True"
+    },
+    {
+      "input": "board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = 'ABCCED'",
+      "expected": "True"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"ABCFEDA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"BEFN\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"AECEES\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"W\"]], \"word\": \"ZXCWE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"ABCB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"ZYXWEDCBA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"CFI\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"ADGFC\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"SEE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"SSFCCEEE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"ABCCEDZ\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"ABCDSEF\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"]], \"word\": \"AAAAAAAAAAAA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"S\",\"R\",\"B\"],[\"L\",\"A\",\"N\"],[\"R\",\"A\",\"N\"]], \"word\": \"SLABRAN\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"K\",\"L\",\"M\"],[\"N\",\"O\",\"P\"],[\"Q\",\"R\",\"S\"]], \"word\": \"KPNS\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"],[\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\"]], \"word\": \"AEIMQ\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"ABCCEDWXY\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"Z\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"ABCB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"]], \"word\": \"AAAAAAAAAAAAA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"AEIMNGOHFBCDJLP\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"BCJN\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"Z\",\"Z\",\"Z\",\"Z\"],[\"Z\",\"Z\",\"Z\",\"Z\"],[\"Z\",\"Z\",\"Z\",\"Z\"],[\"Z\",\"Z\",\"Z\",\"Z\"]], \"word\": \"ZZZZ\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"SFCSADEC\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"ADG\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"W\"]], \"word\": \"SFCE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"WXYZ\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"AEIMOFHJL\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"V\"]], \"word\": \"ASDFGHJKL\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"X\",\"Y\",\"Z\"],[\"Y\",\"Y\",\"Y\"],[\"Z\",\"Y\",\"X\"]], \"word\": \"XYZYX\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"V\"]], \"word\": \"ABCB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"SFCS\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"BFGK\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"],[\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\"]], \"word\": \"ABCDFGHIJKL\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"BCCEDAB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"V\"]], \"word\": \"SFCEZ\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"AFCBAEED\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"ABCCEDBA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"Y\",\"A\",\"A\"],[\"A\",\"Y\",\"A\"],[\"B\",\"C\",\"Y\"]], \"word\": \"YACBYAAY\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"LHN\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"SFCSAX\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"AFCGI\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"],[\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\"]], \"word\": \"ACEGIKMO\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"CEGIHFA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"]], \"word\": \"AAAAAAAAAAA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"ASADEED\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"AEIM\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"C\",\"A\",\"T\"],[\"T\",\"A\",\"T\"],[\"C\",\"O\",\"T\"]], \"word\": \"CATCAT\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"P\",\"R\",\"O\",\"G\"],[\"R\",\"O\",\"G\",\"R\"],[\"O\",\"G\",\"R\",\"A\"],[\"G\",\"R\",\"A\",\"M\"]], \"word\": \"PROGRAMMING\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"Z\",\"A\",\"A\"],[\"A\",\"B\",\"B\",\"B\"],[\"A\",\"B\",\"B\",\"B\"],[\"A\",\"A\",\"A\",\"A\"]], \"word\": \"AZABAABBAABBA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"AEIMNDFHOGLKPCBJ\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"W\",\"I\",\"R\"],[\"D\",\"I\",\"R\"],[\"W\",\"I\",\"R\"],[\"D\",\"I\",\"R\"]], \"word\": \"WIRDIR\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"AEIMBFJNGKOHP\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"AECGI\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"ABFJEKMNOLP\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"],[\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\"],[\"P\",\"Q\",\"R\"]], \"word\": \"ABCDEGHILK\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"X\",\"Y\",\"X\",\"Y\"],[\"Y\",\"X\",\"Y\",\"X\"],[\"X\",\"Y\",\"X\",\"Y\"]], \"word\": \"XYXYXYXYXYXYXYXYX\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"AABCCED\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"AGMS\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"ABCFSAD\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"]], \"word\": \"ABCDEFGHIJ\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"W\"]], \"word\": \"ABFDSAE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"FJKN\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"ABCESCFSADEE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"AXEZE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"SACBEC\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"P\",\"Q\",\"R\",\"S\",\"T\"],[\"U\",\"V\",\"W\",\"X\",\"Y\"],[\"Z\",\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\",\"I\"]], \"word\": \"PXVZBG\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"W\"]], \"word\": \"ABCDEE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"A\",\"A\",\"B\"]], \"word\": \"AAAAAAAAAAAAAB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"],[\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\"]], \"word\": \"MNOLOKJIHGFE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"H\",\"A\",\"B\"],[\"C\",\"D\",\"E\"],[\"F\",\"G\",\"H\"]], \"word\": \"HDFG\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"ABCESEEEFS\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"C\",\"A\",\"A\"],[\"A\",\"A\",\"A\"],[\"B\",\"C\",\"D\"]], \"word\": \"AAB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"A\",\"B\",\"C\"],[\"A\",\"B\",\"C\"],[\"A\",\"B\",\"C\"]], \"word\": \"ABCCBA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"Q\",\"W\",\"E\",\"R\",\"T\"],[\"Y\",\"U\",\"I\",\"O\",\"P\"],[\"A\",\"S\",\"D\",\"F\",\"G\"],[\"H\",\"J\",\"K\",\"L\",\"Z\"],[\"X\",\"C\",\"V\",\"B\",\"N\"]], \"word\": \"QUICK\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"H\",\"E\",\"L\",\"L\",\"O\"],[\"W\",\"O\",\"R\",\"L\",\"D\"],[\"P\",\"Y\",\"T\",\"H\",\"O\"],[\"N\",\"A\",\"M\",\"E\",\"S\"]], \"word\": \"HELLOWORLD\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"ABCCEDF\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"ABCDEFGHIJKL\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"X\",\"Y\",\"Z\"],[\"Y\",\"X\",\"Y\"],[\"Z\",\"Y\",\"X\"]], \"word\": \"XYZX\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"SEEECCFAB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"H\",\"E\",\"L\",\"L\"],[\"O\",\"O\",\"L\",\"L\"],[\"O\",\"O\",\"O\",\"O\"]], \"word\": \"HELLO\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"ABCCED\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"D\",\"O\",\"G\"],[\"O\",\"D\",\"O\"],[\"G\",\"O\",\"D\"]], \"word\": \"DOGOD\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\"],[\"C\",\"D\"],[\"E\",\"F\"],[\"G\",\"H\"]], \"word\": \"ACEG\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"D\"],[\"E\",\"F\",\"G\",\"H\"],[\"I\",\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\",\"P\"]], \"word\": \"ABCEFGHILKOPNMJI\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"V\"]], \"word\": \"ABCCEDZ\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"B\",\"B\",\"A\"],[\"A\",\"B\",\"B\",\"A\"],[\"A\",\"A\",\"A\",\"A\"]], \"word\": \"ABBA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"B\",\"D\",\"E\"],[\"C\",\"E\",\"F\"]], \"word\": \"ABCEDCBA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"M\",\"A\",\"Y\"],[\"A\",\"Z\",\"Y\"],[\"Y\",\"A\",\"Z\"]], \"word\": \"MAZAZY\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"BCCEED\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"XYZW\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"B\",\"C\",\"D\",\"A\"]], \"word\": \"ACFEDCBA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"],[\"J\",\"K\",\"L\"]], \"word\": \"ABEHIK\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"G\",\"H\",\"I\",\"J\"],[\"K\",\"L\",\"M\",\"N\"],[\"O\",\"P\",\"Q\",\"R\"],[\"S\",\"T\",\"U\",\"V\"]], \"word\": \"GHPQMUT\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\"],[\"D\",\"E\",\"F\"],[\"G\",\"H\",\"I\"],[\"J\",\"K\",\"L\"],[\"M\",\"N\",\"O\"]], \"word\": \"BFJNO\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"W\",\"O\",\"R\"],[\"L\",\"D\",\"W\"],[\"O\",\"R\",\"D\"]], \"word\": \"WORLD\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"P\",\"E\",\"E\",\"R\"],[\"P\",\"A\",\"E\",\"R\"],[\"P\",\"E\",\"E\",\"R\"],[\"A\",\"D\",\"E\",\"R\"]], \"word\": \"PEERPERADER\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"ZEENED\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"A\",\"A\",\"A\"],[\"A\",\"B\",\"B\",\"B\"],[\"A\",\"B\",\"A\",\"B\"],[\"A\",\"B\",\"B\",\"A\"]], \"word\": \"BABBBB\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"V\",\"N\"]], \"word\": \"ABCCEDA\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"Z\",\"X\",\"C\",\"W\"]], \"word\": \"SFCFSC\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    },
+    {
+      "input": "{\"board\": [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"],[\"W\",\"X\",\"Y\",\"Z\"]], \"word\": \"ASAE\"}",
+      "expected": "Error: Solution.exist() missing 2 required positional arguments: 'board' and 'word'"
+    }
+  ]
+}

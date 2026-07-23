@@ -1,0 +1,46 @@
+{
+  "id": "word-search",
+  "title": "Word Search",
+  "statement": "Given an m x n grid of characters board and a string word, return true if word exists in the grid.\nThe word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.\n \nExample 1:\n\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"\nOutput: true\n\nExample 2:\n\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"\nOutput: true\n\nExample 3:\n\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"\nOutput: false\n\n \nConstraints:\n\nm == board.length\nn = board[i].length\n1 <= m, n <= 6\n1 <= word.length <= 15\nboard and word consists of only lowercase and uppercase English letters.\n\n \nFollow up: Could you use search pruning to make your solution faster with a larger board?",
+  "difficulty": "Medium",
+  "sampleInput": "board = [[\"A\",\"B\"],[\"C\",\"D\"]], word = \"BD\"",
+  "sampleOutput": "True",
+  "tags": [
+    "Depth-First Search",
+    "Array",
+    "String",
+    "Backtracking",
+    "Matrix"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def exist(self, board: List[List[str]], word: str) -> bool:\n        ",
+    "cpp": "class Solution {\npublic:\n    bool exist(vector<vector<string>>& board, string& word) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public boolean exist(String[][] board, String word) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string[][]} board\n   * @param {string} word\n   * @return {boolean}\n   */\n  exist(board, word) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

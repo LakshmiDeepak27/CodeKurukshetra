@@ -1,0 +1,42 @@
+{
+  "id": "n-queens-ii",
+  "title": "N Queens Ii",
+  "statement": "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.\nGiven an integer n, return the number of distinct solutions to the n-queens puzzle.\n \nExample 1:\n\n\nInput: n = 4\nOutput: 2\nExplanation: There are two distinct solutions to the 4-queens puzzle as shown.\n\nExample 2:\n\nInput: n = 1\nOutput: 1\n\n \nConstraints:\n\n1 <= n <= 9",
+  "difficulty": "Hard",
+  "sampleInput": "n = 8",
+  "sampleOutput": "92",
+  "tags": [
+    "Backtracking"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def totalNQueens(self, n: int) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int totalNQueens(int n) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int totalNQueens(int n) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} n\n   * @return {number}\n   */\n  totalNQueens(n) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

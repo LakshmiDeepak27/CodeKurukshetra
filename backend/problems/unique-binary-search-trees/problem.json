@@ -1,0 +1,46 @@
+{
+  "id": "unique-binary-search-trees",
+  "title": "Unique Binary Search Trees",
+  "statement": "Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes of unique values from 1 to n.\n \nExample 1:\n\n\nInput: n = 3\nOutput: 5\n\nExample 2:\n\nInput: n = 1\nOutput: 1\n\n \nConstraints:\n\n1 <= n <= 19",
+  "difficulty": "Medium",
+  "sampleInput": "n = 3",
+  "sampleOutput": "5",
+  "tags": [
+    "Tree",
+    "Binary Search Tree",
+    "Math",
+    "Dynamic Programming",
+    "Binary Tree"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def numTrees(self, n: int) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int numTrees(int n) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int numTrees(int n) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} n\n   * @return {number}\n   */\n  numTrees(n) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

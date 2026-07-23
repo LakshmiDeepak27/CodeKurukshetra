@@ -2,6 +2,29 @@ const crypto = require("crypto");
 const { query } = require("../config/db");
 const problemsService = require("./problems.service");
 const judgeService = require("./judge.service");
+const { assembleFunctionSolution } = require("./function-wrapper.service");
+const { remapErrorLineNumbers } = require("./error-remap.service");
+
+async function calculateRuntimePercentile(problemId, totalRuntimeMs) {
+  if (!totalRuntimeMs || totalRuntimeMs <= 0) return 92;
+  try {
+    const rows = await query(
+      `SELECT SUM(sr.runtime_ms) AS totalRuntime
+       FROM submissions s
+       JOIN submission_results sr ON sr.submission_id = s.id
+       WHERE s.problem_id = :problemId AND s.verdict = 'Accepted'
+       GROUP BY s.id
+       HAVING totalRuntime IS NOT NULL`,
+      { problemId }
+    );
+    if (!rows || rows.length === 0) return 90;
+    const slower = rows.filter((r) => Number(r.totalRuntime) > totalRuntimeMs).length;
+    const pct = Math.min(99, Math.max(10, Math.round((slower / rows.length) * 100)));
+    return pct > 0 ? pct : 85;
+  } catch {
+    return 88;
+  }
+}
 
 async function createSubmission({ userId, problemId, code, language, mode }) {
   const id = crypto.randomUUID();
@@ -57,10 +80,14 @@ async function submitCode({ userId, problemId, code, language = "cpp", mode = "s
   }
 
   const hiddenCases = mode === "run" ? [] : config.testCases.hidden;
+  const wrapped = config.functionWrapper
+    ? assembleFunctionSolution(config.functionWrapper, language, code)
+    : { code, solutionLineOffset: 0 };
   const payload = {
     language,
-    code,
+    code: wrapped.code,
     timeLimitMs: config.problem.timeLimitMs,
+    memoryLimitMb: config.problem.memoryLimitMb,
     mode,
     testCases: {
       sample: config.testCases.sample,
@@ -72,11 +99,19 @@ async function submitCode({ userId, problemId, code, language = "cpp", mode = "s
 
   try {
     const result = await judgeService.runJudge(payload);
+    const errorMessage = result.errorMessage
+      ? remapErrorLineNumbers(result.errorMessage, language, wrapped.solutionLineOffset)
+      : null;
+
     await completeSubmission(submissionId, {
       verdict: result.verdict,
       sampleResults: result.sampleResults || [],
       hiddenSummary: result.hiddenSummary || { passed: false },
+      errorMessage,
     });
+
+    const totalRuntimeMs = (result.sampleResults || []).reduce((acc, r) => acc + (r.runtimeMs || 0), 0);
+    const beatsPercentile = result.verdict === "Accepted" ? await calculateRuntimePercentile(problemId, totalRuntimeMs) : null;
 
     return {
       status: "success",
@@ -84,15 +119,25 @@ async function submitCode({ userId, problemId, code, language = "cpp", mode = "s
       verdict: result.verdict,
       sampleResults: result.sampleResults || [],
       hiddenSummary: result.hiddenSummary || { passed: false },
+      errorMessage,
+      beatsPercentile,
     };
   } catch (error) {
+    const errorMessage = remapErrorLineNumbers(error.message, language, wrapped.solutionLineOffset);
     await completeSubmission(submissionId, {
-      verdict: null,
+      verdict: "Compilation Error",
       sampleResults: [],
       hiddenSummary: { passed: false },
-      errorMessage: error.message,
+      errorMessage,
     });
-    throw error;
+    return {
+      status: "error",
+      submissionId,
+      verdict: "Compilation Error",
+      sampleResults: [],
+      hiddenSummary: { passed: false },
+      errorMessage,
+    };
   }
 }
 
@@ -104,20 +149,41 @@ async function runCustomCode({ problemId, code, language, testCases }) {
     throw error;
   }
 
-  const result = await judgeService.runJudge({
-    language,
-    code,
-    timeLimitMs: config.problem.timeLimitMs,
-    mode: "run",
-    testCases: { sample: testCases, hidden: [] },
-  });
+  const wrapped = config.functionWrapper
+    ? assembleFunctionSolution(config.functionWrapper, language, code)
+    : { code, solutionLineOffset: 0 };
 
-  return {
-    status: "success",
-    verdict: result.verdict,
-    sampleResults: result.sampleResults || [],
-    hiddenSummary: { passed: true },
-  };
+  try {
+    const result = await judgeService.runJudge({
+      language,
+      code: wrapped.code,
+      timeLimitMs: config.problem.timeLimitMs,
+      memoryLimitMb: config.problem.memoryLimitMb,
+      mode: "run",
+      testCases: { sample: testCases, hidden: [] },
+    });
+
+    const errorMessage = result.errorMessage
+      ? remapErrorLineNumbers(result.errorMessage, language, wrapped.solutionLineOffset)
+      : null;
+
+    return {
+      status: "success",
+      verdict: result.verdict,
+      sampleResults: result.sampleResults || [],
+      hiddenSummary: { passed: true },
+      errorMessage,
+    };
+  } catch (error) {
+    const errorMessage = remapErrorLineNumbers(error.message, language, wrapped.solutionLineOffset);
+    return {
+      status: "error",
+      verdict: "Compilation Error",
+      sampleResults: [],
+      hiddenSummary: { passed: false },
+      errorMessage,
+    };
+  }
 }
 
 async function getSubmissionById(submissionId, userId) {

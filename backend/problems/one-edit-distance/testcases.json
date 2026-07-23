@@ -1,0 +1,706 @@
+{
+  "sample": [
+    {
+      "input": "s = \"123\", t = \"1234\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abc\", t = \"abcd\"",
+      "expected": "True"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"ab\", t = \"acb\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abde\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"cat\", t = \"dog\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"123\", t = \"113\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"\", t = \"\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abc\", t = \"ab\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aAbB\", t = \"aabb\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"a\", t = \"\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abcf\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"1234\", t = \"2234\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abc\", t = \"aabbcc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"1234\", t = \"123\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"123\", t = \"143\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdef\", t = \"abcde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abdc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"123\", t = \"12\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aAbB\", t = \"aAb\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abc\", t = \"adc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"cat\", t = \"catt\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"teacher\", t = \"teach\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"123\", t = \"123\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"\", t = \"a\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aAbB\", t = \"aAbBB\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abc\", t = \"abc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"umbrella\", t = \"umbrell\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"algorithm\", t = \"alorithm\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"aefghijkl\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", t = \"ab\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghikl\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"algorithm\", t = \"algoritm\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abxdefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", t = \"abcd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"qwertyuiopasdfghjklzxcvbnm\", t = \"qwertyuiopasdfghjklzxcvbn\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghi\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefgha\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"a\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"zoo\", t = \"zoology\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"a1b2c3d4\", t = \"a1b2c3d4e5\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefg\", t = \"abecdefg\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", t = \"abcdex\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aaaaaa\", t = \"aaaaaaa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefg\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abacaxi\", t = \"abacax\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghjk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"gumbo\", t = \"gambol\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"happy\", t = \"happiness\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghikj\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefgh\", t = \"abcdfgh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdexyz\", t = \"abcdexyz\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"hello world\", t = \"hello wold\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbcc\", t = \"aabbca\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"aabbcc\", t = \"aabbc\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghix\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"umbrella\", t = \"umbralra\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abec\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghi\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abc\", t = \"abcde\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghijkabc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"12345\", t = \"12346\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", t = \"dabc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefgh\", t = \"abcdegh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefgh\", t = \"abcdef\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"algorithm\", t = \"algoritam\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijka\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkij\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefgh\", t = \"abcdefh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijl\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abchijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkabcdefghijkabcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"pale\", t = \"ple\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghia\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", t = \"acbd\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"mississippi\", t = \"missisipi\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdef\", t = \"abcdefg\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkj\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abx\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghijabc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"algorithm\", t = \"alorhythm\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"example\", t = \"exmple\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", t = \"dcba\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abfd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghijab\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"a\", t = \"b\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefgh\", t = \"abcdefghi\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghijx\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", t = \"abcde\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abce\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghijabchij\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghijac\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcde\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijabc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefg\", t = \"abcdegh\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"short\", t = \"forty\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghjik\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"12345\", t = \"1234\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"elephant\", t = \"eleppant\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"12345\", t = \"123456\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijlk\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefgh\", t = \"abcefg\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"hello\", t = \"h3llo\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkk\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghijk\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefg\", t = \"abcdef\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"kitten\", t = \"sitting\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkkl\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"\", t = \"abcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"distance\", t = \"distane\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"gumbo\", t = \"sumo\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdef\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghi\", t = \"abcdefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"bacdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"123456\", t = \"12345\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghij\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abdd\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefgh\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghixj\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abracadabra\", t = \"abracadabrA\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"accomodate\", t = \"accommodate\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkaa\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abacax\", t = \"abacaxx\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"hello\", t = \"hallo\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"1234567890\", t = \"12345678901\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkabcdefghijkabcdefghijkabcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcde\", t = \"abfde\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"algorithm\", t = \"altruistic\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefgh\", t = \"abcdefg\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkabcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"flaw\", t = \"lawn\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"aaaaaa\", t = \"aaaaa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"qwertyuiop\", t = \"qwertyuiopo\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefgijk\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", t = \"mississipp\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijkabcdefghijk\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"0123456789\", t = \"1234567890\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"karolin\", t = \"kathrin\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghiij\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"phoneme\", t = \"phonam\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijak\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"racecar\", t = \"racecer\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcde\", t = \"abc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghijkg\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"xylophone\", t = \"xyophone\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"algorithm\", t = \"altrithm\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcd\", t = \"\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghiabc\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"interspecies\", t = \"interpres\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"mississippi\", t = \"mssissippi\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"mississippi\", t = \"mississsippi\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghj\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"algorithm\", t = \"altrithem\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"supercalifragilisticexpialidocious\", t = \"superduperfragilisticexpialidocious\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"intention\", t = \"execution\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefgh\", t = \"abcefgh\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"computer\", t = \"comuter\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghik\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"123456\", t = \"123457\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"ab\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghija\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"umbrella\", t = \"umbrellaa\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"same\", t = \"same\"",
+      "expected": "False"
+    },
+    {
+      "input": "s = \"a1b2c3\", t = \"a1b2c4\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"abcdefghija\"",
+      "expected": "True"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"bcdefghijk\"",
+      "expected": "True"
+    }
+  ]
+}

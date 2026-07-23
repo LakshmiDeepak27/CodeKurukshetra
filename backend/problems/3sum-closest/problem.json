@@ -1,0 +1,44 @@
+{
+  "id": "3sum-closest",
+  "title": "3sum Closest",
+  "statement": "Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.\nReturn the sum of the three integers.\nYou may assume that each input would have exactly one solution.\n \nExample 1:\n\nInput: nums = [-1,2,1,-4], target = 1\nOutput: 2\nExplanation: The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).\n\nExample 2:\n\nInput: nums = [0,0,0], target = 1\nOutput: 0\nExplanation: The sum that is closest to the target is 0. (0 + 0 + 0 = 0).\n\n \nConstraints:\n\n3 <= nums.length <= 500\n-1000 <= nums[i] <= 1000\n-104 <= target <= 104",
+  "difficulty": "Medium",
+  "sampleInput": "nums = [1,2,4,8,16,32,64,128], target = 82",
+  "sampleOutput": "82",
+  "tags": [
+    "Array",
+    "Two Pointers",
+    "Sorting"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def threeSumClosest(self, nums: List[int], target: int) -> int:\n        ",
+    "cpp": "class Solution {\npublic:\n    int threeSumClosest(vector<int>& nums, int target) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int threeSumClosest(int[] nums, int target) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number[]} nums\n   * @param {number} target\n   * @return {number}\n   */\n  threeSumClosest(nums, target) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

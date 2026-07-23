@@ -1,0 +1,44 @@
+{
+  "id": "longest-palindromic-substring",
+  "title": "Longest Palindromic Substring",
+  "statement": "Given a string s, return the longest palindromic substring in s.\n \nExample 1:\n\nInput: s = \"babad\"\nOutput: \"bab\"\nExplanation: \"aba\" is also a valid answer.\n\nExample 2:\n\nInput: s = \"cbbd\"\nOutput: \"bb\"\n\n \nConstraints:\n\n1 <= s.length <= 1000\ns consist of only digits and English letters.",
+  "difficulty": "Medium",
+  "sampleInput": "s = \"abba\"",
+  "sampleOutput": "abba",
+  "tags": [
+    "Two Pointers",
+    "String",
+    "Dynamic Programming"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def longestPalindrome(self, s: str) -> str:\n        ",
+    "cpp": "class Solution {\npublic:\n    string longestPalindrome(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String longestPalindrome(String s) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {string}\n   */\n  longestPalindrome(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

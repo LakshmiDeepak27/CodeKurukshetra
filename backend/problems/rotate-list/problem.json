@@ -1,0 +1,43 @@
+{
+  "id": "rotate-list",
+  "title": "Rotate List",
+  "statement": "Given the head of a linked list, rotate the list to the right by k places.\n \nExample 1:\n\n\nInput: head = [1,2,3,4,5], k = 2\nOutput: [4,5,1,2,3]\n\nExample 2:\n\n\nInput: head = [0,1,2], k = 4\nOutput: [2,0,1]\n\n \nConstraints:\n\nThe number of nodes in the list is in the range [0, 500].\n-100 <= Node.val <= 100\n0 <= k <= 2 * 109",
+  "difficulty": "Medium",
+  "sampleInput": "head = [-100, 100, 0], k = 1",
+  "sampleOutput": "[0, -100, 100]",
+  "tags": [
+    "Linked List",
+    "Two Pointers"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:\n        ",
+    "cpp": "class Solution {\npublic:\n    int rotateRight(int val=0, int next=None) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public int rotateRight(int val=0, int next=None) {\n        return 0;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {number} val=0\n   * @param {number} next=None\n   * @return {number}\n   */\n  rotateRight(val=0, next=None) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

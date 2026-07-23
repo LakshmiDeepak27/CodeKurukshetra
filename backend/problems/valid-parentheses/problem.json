@@ -1,0 +1,43 @@
+{
+  "id": "valid-parentheses",
+  "title": "Valid Parentheses",
+  "statement": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\nAn input string is valid if:\n\nOpen brackets must be closed by the same type of brackets.\nOpen brackets must be closed in the correct order.\nEvery close bracket has a corresponding open bracket of the same type.\n\n \nExample 1:\n\nInput: s = \"()\"\nOutput: true\n\nExample 2:\n\nInput: s = \"()[]{}\"\nOutput: true\n\nExample 3:\n\nInput: s = \"(]\"\nOutput: false\n\nExample 4:\n\nInput: s = \"([])\"\nOutput: true\n\n \nConstraints:\n\n1 <= s.length <= 104\ns consists of parentheses only '()[]{}'.",
+  "difficulty": "Easy",
+  "sampleInput": "s = \"((((((()))))))\"",
+  "sampleOutput": "True",
+  "tags": [
+    "Stack",
+    "String"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def isValid(self, s: str) -> bool:\n        ",
+    "cpp": "class Solution {\npublic:\n    bool isValid(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public boolean isValid(String s) {\n        return null;\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {boolean}\n   */\n  isValid(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

@@ -1,0 +1,410 @@
+{
+  "sample": [
+    {
+      "input": "s = \"abc\", t = \"abcd\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"abcd\", t = \"abcd\"",
+      "expected": "1"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "s = \"rabbbit\", t = \"rabbit\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"aaa\", t = \"a\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"\", t = \"abc\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"mississippi\", t = \"isip\"",
+      "expected": "16"
+    },
+    {
+      "input": "s = \"aaaaa\", t = \"aa\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"abcde\", t = \"ae\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcde\", t = \"\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcd\", t = \"ab\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"a\", t = \"a\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdabcabc\", t = \"abc\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"babgbag\", t = \"bag\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"abc\", t = \"abc\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"pppp\", t = \"p\"",
+      "expected": "4"
+    },
+    {
+      "input": "s = \"abab\", t = \"aba\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"\", t = \"\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"leetcodeisgood\", t = \"code\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdefghijklmnopqrstuvwxyz\", t = \"acegikmoqsuwy\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"zzzzzzzzzzzzzzzzzzzz\", t = \"zzz\"",
+      "expected": "1140"
+    },
+    {
+      "input": "s = \"dynamicprogramming\", t = \"dpm\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"ababababab\", t = \"abab\"",
+      "expected": "35"
+    },
+    {
+      "input": "s = \"abcdabcdabcd\", t = \"abcd\"",
+      "expected": "15"
+    },
+    {
+      "input": "s = \"abcdabcdabcdabcd\", t = \"abcd\"",
+      "expected": "35"
+    },
+    {
+      "input": "s = \"zzzzzzzzzz\", t = \"zzzz\"",
+      "expected": "210"
+    },
+    {
+      "input": "s = \"aaaabbbbccccdddd\", t = \"abcd\"",
+      "expected": "256"
+    },
+    {
+      "input": "s = \"abracadabra\", t = \"abrac\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdefgabcdefgabcdefgabcdefgabcdefg\", t = \"abcdefg\"",
+      "expected": "330"
+    },
+    {
+      "input": "s = \"abcabcabcabcabcabcabcabc\", t = \"abcabc\"",
+      "expected": "924"
+    },
+    {
+      "input": "s = \"ababcabcabc\", t = \"abc\"",
+      "expected": "19"
+    },
+    {
+      "input": "s = \"abcdefghikjlmnopqrstuvwxyz\", t = \"xyz\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcabcabcabc\", t = \"abc\"",
+      "expected": "20"
+    },
+    {
+      "input": "s = \"abcbabc\", t = \"abc\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"xyzxyzxyz\", t = \"xyzyx\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabbbccc\", t = \"abc\"",
+      "expected": "18"
+    },
+    {
+      "input": "s = \"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\", t = \"zzzzzzzzzz\"",
+      "expected": "64512240"
+    },
+    {
+      "input": "s = \"xyzxyzxyzxyz\", t = \"xyz\"",
+      "expected": "20"
+    },
+    {
+      "input": "s = \"aabbccddeeffgg\", t = \"aabbcc\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdeabcdeabcde\", t = \"abc\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"xyzzxyzzxyzzxyzz\", t = \"xyz\"",
+      "expected": "40"
+    },
+    {
+      "input": "s = \"xxyxyxyxyxyxyxyx\", t = \"xyx\"",
+      "expected": "112"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", t = \"abc\"",
+      "expected": "8"
+    },
+    {
+      "input": "s = \"xyxxyxyxyx\", t = \"xyx\"",
+      "expected": "27"
+    },
+    {
+      "input": "s = \"mississippi\", t = \"issi\"",
+      "expected": "15"
+    },
+    {
+      "input": "s = \"pneumonoultramicroscopicsilicovolcanoconiosis\", t = \"pneumo\"",
+      "expected": "23"
+    },
+    {
+      "input": "s = \"pppppppppppp\", t = \"pppp\"",
+      "expected": "495"
+    },
+    {
+      "input": "s = \"aaaaabaaaaabaabaaabaababab\", t = \"aab\"",
+      "expected": "686"
+    },
+    {
+      "input": "s = \"abcdefg\", t = \"xyz\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"rabbbitrabbbitrabbbit\", t = \"rabbit\"",
+      "expected": "126"
+    },
+    {
+      "input": "s = \"leetcodeleetcode\", t = \"leet\"",
+      "expected": "12"
+    },
+    {
+      "input": "s = \"xyzxyzxyzxyz\", t = \"xyzxyz\"",
+      "expected": "28"
+    },
+    {
+      "input": "s = \"abcdefghijk\", t = \"acegi\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz\", t = \"abcdefghijklmnopqrstuvwxyz\"",
+      "expected": "67108864"
+    },
+    {
+      "input": "s = \"aabbccddeeffgg\", t = \"abcde\"",
+      "expected": "32"
+    },
+    {
+      "input": "s = \"longerstringexample\", t = \"long\"",
+      "expected": "3"
+    },
+    {
+      "input": "s = \"abracadabra\", t = \"abra\"",
+      "expected": "9"
+    },
+    {
+      "input": "s = \"xxyyzzxxxyyzz\", t = \"xyxz\"",
+      "expected": "24"
+    },
+    {
+      "input": "s = \"pppppppp\", t = \"pp\"",
+      "expected": "28"
+    },
+    {
+      "input": "s = \"attatchmentattach\", t = \"attach\"",
+      "expected": "32"
+    },
+    {
+      "input": "s = \"abcdefghijabcdefghij\", t = \"abcde\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"abcdabcdeabcdeabcd\", t = \"abcd\"",
+      "expected": "35"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"abcdefghijk\"",
+      "expected": "0"
+    },
+    {
+      "input": "s = \"zzzzzzzzzz\", t = \"zz\"",
+      "expected": "45"
+    },
+    {
+      "input": "s = \"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\", t = \"zzzzzzzzzz\"",
+      "expected": "14782231840815648"
+    },
+    {
+      "input": "s = \"ppppppppp\", t = \"ppp\"",
+      "expected": "84"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"j\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcdabcdabcdabcdabcd\", t = \"abcd\"",
+      "expected": "70"
+    },
+    {
+      "input": "s = \"repeatedsequence\", t = \"seq\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aaaaaaaaaaaaaab\", t = \"aaab\"",
+      "expected": "364"
+    },
+    {
+      "input": "s = \"aabbaabbaabbaabbaabb\", t = \"aabb\"",
+      "expected": "415"
+    },
+    {
+      "input": "s = \"mixedcharacters\", t = \"mix\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abababababab\", t = \"ababab\"",
+      "expected": "84"
+    },
+    {
+      "input": "s = \"abcabcabcabc\", t = \"abcabc\"",
+      "expected": "28"
+    },
+    {
+      "input": "s = \"aaaaaaabbaaaaa\", t = \"aaaaaab\"",
+      "expected": "14"
+    },
+    {
+      "input": "s = \"abcabcabc\", t = \"abc\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"abcdabcdabcd\", t = \"abca\"",
+      "expected": "5"
+    },
+    {
+      "input": "s = \"babgbagbabgbagbabgbag\", t = \"bagbag\"",
+      "expected": "329"
+    },
+    {
+      "input": "s = \"anappleperap\", t = \"ape\"",
+      "expected": "10"
+    },
+    {
+      "input": "s = \"zzzzzzzzzz\", t = \"zzz\"",
+      "expected": "120"
+    },
+    {
+      "input": "s = \"aaaaaaaaaa\", t = \"aaaaa\"",
+      "expected": "252"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"af\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abcabcabcabcabcabcabcabcabcabc\", t = \"abcabc\"",
+      "expected": "3003"
+    },
+    {
+      "input": "s = \"complexpattern\", t = \"comp\"",
+      "expected": "2"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"a\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabbaabbaabbaabbaabb\", t = \"aab\"",
+      "expected": "190"
+    },
+    {
+      "input": "s = \"abracadabraabracadabra\", t = \"abra\"",
+      "expected": "103"
+    },
+    {
+      "input": "s = \"leetcodeleetcodeleetcode\", t = \"leet\"",
+      "expected": "51"
+    },
+    {
+      "input": "s = \"aabbccddeeffgghhiijjkkllmnoonnpooqqrrssttuuvvwwxxyyzz\", t = \"abcxyz\"",
+      "expected": "64"
+    },
+    {
+      "input": "s = \"abcdefabcdefabcdef\", t = \"abcdef\"",
+      "expected": "28"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"acegi\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"pppppppppp\", t = \"pp\"",
+      "expected": "45"
+    },
+    {
+      "input": "s = \"hellohellohello\", t = \"hellohello\"",
+      "expected": "17"
+    },
+    {
+      "input": "s = \"abcdefghij\", t = \"aceg\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"aabbccddeeffgg\", t = \"abcdefg\"",
+      "expected": "128"
+    },
+    {
+      "input": "s = \"hellohellohello\", t = \"he\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"thisisaverylongstringthisisaverylongstring\", t = \"thisisaverylongstring\"",
+      "expected": "73"
+    },
+    {
+      "input": "s = \"subsequenceexample\", t = \"subseq\"",
+      "expected": "1"
+    },
+    {
+      "input": "s = \"abracadabra\", t = \"aca\"",
+      "expected": "6"
+    },
+    {
+      "input": "s = \"abcdeabcde\", t = \"abc\"",
+      "expected": "4"
+    },
+    {
+      "input": "s = \"aaaaabaaaabaaaab\", t = \"aaab\"",
+      "expected": "380"
+    },
+    {
+      "input": "s = \"abcdefghijabcdefghijabcdefghij\", t = \"abcde\"",
+      "expected": "21"
+    }
+  ]
+}

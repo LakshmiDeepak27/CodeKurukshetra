@@ -1,0 +1,43 @@
+{
+  "id": "restore-ip-addresses",
+  "title": "Restore Ip Addresses",
+  "statement": "A valid IP address consists of exactly four integers separated by single dots. Each integer is between 0 and 255 (inclusive) and cannot have leading zeros.\n\nFor example, \"0.1.2.201\" and \"192.168.1.1\" are valid IP addresses, but \"0.011.255.245\", \"192.168.1.312\" and \"192.168@1.1\" are invalid IP addresses.\n\nGiven a string s containing only digits, return all possible valid IP addresses that can be formed by inserting dots into s. You are not allowed to reorder or remove any digits in s. You may return the valid IP addresses in any order.\n \nExample 1:\n\nInput: s = \"25525511135\"\nOutput: [\"255.255.11.135\",\"255.255.111.35\"]\n\nExample 2:\n\nInput: s = \"0000\"\nOutput: [\"0.0.0.0\"]\n\nExample 3:\n\nInput: s = \"101023\"\nOutput: [\"1.0.10.23\",\"1.0.102.3\",\"10.1.0.23\",\"10.10.2.3\",\"101.0.2.3\"]\n\n \nConstraints:\n\n1 <= s.length <= 20\ns consists of digits only.",
+  "difficulty": "Medium",
+  "sampleInput": "s = \"101023\"",
+  "sampleOutput": "['1.0.10.23', '1.0.102.3', '10.1.0.23', '10.10.2.3', '101.0.2.3']",
+  "tags": [
+    "String",
+    "Backtracking"
+  ],
+  "constraints": [
+    "Follow standard time and space bounds."
+  ],
+  "hints": [
+    "Analyze the constraints and choose appropriate algorithmic patterns."
+  ],
+  "editorial": "### Optimal Solution\n\nUse optimal data structures and time complexity bounds.",
+  "solutions": {
+    "python": "class Solution:\n    def restoreIpAddresses(self, s: str) -> List[str]:\n        ",
+    "cpp": "class Solution {\npublic:\n    vector<string> restoreIpAddresses(string& s) {\n        \n    }\n};\n",
+    "java": "class Solution {\n    public String[] restoreIpAddresses(String s) {\n        return new String[]{};\n    }\n}\n",
+    "js": "class Solution {\n  /**\n   * @param {string} s\n   * @return {string[]}\n   */\n  restoreIpAddresses(s) {\n    \n  }\n}\n"
+  },
+  "companies": [
+    {
+      "name": "Google",
+      "freq": "High (88%)"
+    },
+    {
+      "name": "Amazon",
+      "freq": "High (92%)"
+    },
+    {
+      "name": "Meta",
+      "freq": "Medium (81%)"
+    },
+    {
+      "name": "Microsoft",
+      "freq": "Medium (76%)"
+    }
+  ]
+}

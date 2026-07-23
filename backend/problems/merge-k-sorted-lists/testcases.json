@@ -1,0 +1,18 @@
+{
+  "sample": [
+    {
+      "input": "lists = []",
+      "expected": "None"
+    },
+    {
+      "input": "lists = [[],[],[],[]]",
+      "expected": "None"
+    }
+  ],
+  "hidden": [
+    {
+      "input": "lists = [[]]",
+      "expected": "None"
+    }
+  ]
+}
