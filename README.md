@@ -167,10 +167,6 @@ cd ../Editor
 npm run build
 ```
 
-## Interview-ready explanation
-
-> “CodeKurukshetra separates user interaction, application logic, persistent state, and untrusted code execution. React provides the dashboard, editor, and battle experience. Express exposes REST and Socket.IO interfaces; MySQL persists users, content, submissions, and battle outcomes. Rather than execute user code in the API process, the backend delegates compilation and execution to a self-hosted Judge0 service with explicit resource limits. This lets the platform return deterministic verdicts while keeping execution concerns isolated from the core application.”
-
 For claims such as match count, test-case volume, or average execution latency, retain database queries, logs, or benchmark output and state the measurement conditions. Do not present unmeasured figures as production metrics.
 
 ## License
