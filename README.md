@@ -1,60 +1,178 @@
-# Code Kurukshetra
+# CodeKurukshetra
 
-Competitive Coding & Code Review Platform.
+CodeKurukshetra is a full-stack competitive-programming platform where users solve coding problems, run and submit solutions against test cases, review their history, and compete in real-time 1v1 coding battles.
 
-## Production Setup & Prerequisites
+Built with React, Node.js, Express, MySQL, Socket.IO, and self-hosted Judge0.
 
-Before deploying the judge engine on Linux, ensure the unprivileged sandbox user is created once on the host system:
+## Architecture
 
-```bash
-sudo useradd --no-create-home --shell /usr/sbin/nologin ck-sandbox
+![CodeKurukshetra system architecture](docs/architecture.svg)
+
+### Request and execution flow
+
+1. A React client sends REST requests for authentication, problems, submissions, leaderboard data, and battle actions.
+2. Express validates the request, applies authentication/rate limiting where required, and invokes the relevant service.
+3. MySQL stores durable application data: users, problems, test cases, submissions, results, battles, and player state.
+4. For a run or submission, the backend sends source code, language, stdin, CPU, wall-time, and memory limits to Judge0.
+5. Judge0 compiles and executes code in its isolated execution environment. The backend polls for completion, normalizes output, evaluates each case, stores the result, and returns the verdict.
+6. Socket.IO broadcasts battle lifecycle events and server-authoritative timer updates to connected battle rooms.
+
+## Features
+
+- Password and Google sign-in, signed sessions, profiles, and role-based admin routes
+- Searchable problem catalogue with difficulty/tag filters, hints, editorials, votes, and comments
+- Monaco-based editor with C++, Python, Java, and JavaScript support
+- Public sample runs, hidden test-case submissions, custom test cases, and submission history
+- Judge0-powered compilation/execution with output normalization and compile-error line remapping
+- Real-time 1v1 battle rooms, matchmaking by topic, private room codes, timers, forfeits, and Elo-style ratings
+- Problem administration and leaderboard APIs
+
+## Technology stack
+
+| Area | Technology |
+| --- | --- |
+| Client | React 19, Vite, Monaco Editor, Socket.IO Client |
+| API | Node.js, Express 5, REST APIs, Socket.IO |
+| Data | MySQL 8 with a connection pool |
+| Code execution | Self-hosted Judge0, PostgreSQL, Redis, Docker |
+| Security | scrypt password hashes, HMAC-signed tokens, CORS allowlist, security headers, rate limiting |
+
+> This repository uses **MySQL**, not MongoDB. Its schema is in [backend/src/db/schema.sql](backend/src/db/schema.sql).
+
+## Repository layout
+
+```text
+CodeKurukshetra/
+├── backend/                 # Express API, MySQL services, Socket.IO and Judge0 integration
+│   ├── src/controllers/     # HTTP request handlers
+│   ├── src/routes/          # API route definitions
+│   ├── src/services/        # Domain logic and external integrations
+│   ├── src/db/              # Schema, migration, and seed scripts
+│   └── problems/            # Problem metadata, wrapper config, and test cases
+├── frontend/
+│   ├── Home/                # Dashboard and 1v1 battle UI
+│   └── Editor/              # Coding workspace UI
+├── docs/                    # Documentation and diagrams
+├── docker-compose.yml       # MySQL and self-hosted Judge0 stack
+└── Dockerfile               # Backend production image
 ```
 
-> **Security Note**: The judge process fails closed (`_exit(2)`) if the `ck-sandbox` user is missing, preventing untrusted user submissions from executing under host process privileges.
+## Data model
 
-## Development & Setup
+The main persistent entities are:
 
-1. **Database Migration & Seed**:
-   ```bash
-   cd backend
-   npm run db:migrate
-   npm run db:seed
-   ```
-2. **Backend Server**:
-   ```bash
-   cd backend
-   npm run dev
-   ```
-3. **Frontend Application**:
-   ```bash
-   cd frontend/Editor
-   npm run dev
-   ```
+- `users` - account details, role, profile fields, and battle rating
+- `problems`, `problem_tags`, and `problem_constraints` - problem catalogue data
+- `test_cases` - public and private input/output cases
+- `submissions` and `submission_results` - source code, verdicts, and per-case execution data
+- `battles` and `battle_players` - room metadata, participants, winner, and battle performance
+- `battle_events` - extensible event/audit history for battles
 
-## Judge0 Code Execution Engine
+The matchmaking queue is intentionally in memory for fast matching; completed battle information is persisted in MySQL.
 
-CodeKurukshetra supports two judging engines configured via `JUDGE_ENGINE` (`judge0` or `native`):
+## Local setup
 
-### 1. Judge0 (Default)
+### Prerequisites
 
-Judge0 is an open-source, self-hosted code execution engine running via Docker:
+- Node.js 20+
+- Docker Desktop with Docker Compose
+- MySQL 8, only when running the backend outside Docker
+
+### Run the full backend and Judge0 stack
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-- **API Endpoint**: `http://localhost:2358`
-- **Environment Variables** (`backend/.env` or `docker-compose.yml`):
-  - `JUDGE_ENGINE="judge0"`
-  - `JUDGE0_API_URL="http://localhost:2358"`
-  - `JUDGE0_API_KEY=""` (optional)
-- **Privileged Container Requirement**: The `judge0-worker` container requires `privileged: true` in `docker-compose.yml` to access cgroups and run Linux `isolate` sandboxing. It will not run unmodified in restricted CI runners or nested Docker environments without container privilege delegation.
-- **Server Ceilings**: Ensure `MAX_CPU_TIME_LIMIT`, `MAX_WALL_TIME_LIMIT`, and `MAX_MEMORY_LIMIT` in `docker-compose.yml` are set generously enough to cover your largest problem limits, avoiding silent truncation by Judge0.
+This starts MySQL, the backend on `http://localhost:3000`, Judge0 on `http://localhost:2358`, and Judge0's PostgreSQL/Redis dependencies. The backend runs its idempotent MySQL migration on startup.
 
-### 2. Native C++ Judge (Fallback)
+Start either frontend separately:
 
-If Docker or privileged containers are unavailable, set:
 ```bash
-JUDGE_ENGINE="native"
+cd frontend/Home
+npm install
+npm run dev
 ```
-The backend will automatically fall back to invoking the bundled C++ `/judge` binary (or `wsl.exe` on Windows).
+
+```bash
+cd frontend/Editor
+npm install
+npm run dev
+```
+
+### Run the backend locally
+
+Create `backend/.env`, ensure MySQL and Judge0 are available, then run:
+
+```bash
+cd backend
+npm install
+npm run db:migrate
+npm run db:seed
+npm run dev
+```
+
+## Environment variables
+
+| Variable | Purpose | Default |
+| --- | --- | --- |
+| `PORT` | Backend HTTP/Socket.IO port | `3000` |
+| `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` | MySQL connection | local MySQL defaults |
+| `AUTH_TOKEN_SECRET` | HMAC token-signing secret | development-only fallback |
+| `CORS_ORIGINS` | Comma-separated frontend origins | local Vite ports |
+| `GOOGLE_CLIENT_ID` | Enables Google ID-token verification | unset |
+| `JUDGE0_API_URL` | Judge0 API base URL | `http://localhost:2358` |
+| `JUDGE0_API_KEY` | Optional Judge0 API key | unset |
+| `JUDGE0_POLL_INTERVAL_MS` | Judge0 polling interval | `100` |
+| `JUDGE0_POLL_TIMEOUT_MS` | Judge0 polling timeout | `60000` |
+
+Never commit real production secrets. In production, `AUTH_TOKEN_SECRET` must be explicitly configured and at least 32 characters long.
+
+## API overview
+
+| Area | Base route | Examples |
+| --- | --- | --- |
+| Authentication | `/auth` | sign up, sign in, current user, profile |
+| Problems | `/problems` | list, details, sample cases, votes, comments |
+| Submissions | `/submissions` | submit, custom run, history |
+| Battles | `/battles` | topics, matchmaking queue, rooms, submit, forfeit |
+| Leaderboard | `/leaderboard` | global ranking |
+| Administration | `/admin` | create/update/deactivate problems and test cases |
+
+`GET /health` checks both MySQL and a Judge0 execution round trip.
+
+## Code execution lifecycle
+
+`POST /submissions` stores the original source code as a pending submission. Function-style problems are wrapped with a language-specific driver; standard problems are sent unchanged. The Judge0 provider batches up to 20 cases and processes up to four batches concurrently. Results are mapped to Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Runtime Error, or Compilation Error. Only public case details are returned; hidden cases produce a summary.
+
+## 1v1 battle lifecycle
+
+1. An authenticated user joins a topic queue or creates a private room.
+2. The service selects an active problem and records the battle/players in MySQL.
+3. Players join the Socket.IO battle room and receive timer/status events.
+4. Each battle submission uses the Judge0 execution path.
+5. The winner is decided by first accepted solution; if needed, the service applies complexity/runtime tie-breakers or a draw.
+6. The result is persisted and both player ratings are updated with Elo, using a K-factor of 32.
+
+## Validation
+
+```bash
+cd backend
+node --test tests/*.test.js
+
+cd ../frontend/Home
+npm run build
+
+cd ../Editor
+npm run build
+```
+
+## Interview-ready explanation
+
+> “CodeKurukshetra separates user interaction, application logic, persistent state, and untrusted code execution. React provides the dashboard, editor, and battle experience. Express exposes REST and Socket.IO interfaces; MySQL persists users, content, submissions, and battle outcomes. Rather than execute user code in the API process, the backend delegates compilation and execution to a self-hosted Judge0 service with explicit resource limits. This lets the platform return deterministic verdicts while keeping execution concerns isolated from the core application.”
+
+For claims such as match count, test-case volume, or average execution latency, retain database queries, logs, or benchmark output and state the measurement conditions. Do not present unmeasured figures as production metrics.
+
+## License
+
+No license has been specified for this repository.

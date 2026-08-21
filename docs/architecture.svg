@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">CodeKurukshetra system architecture</title>
+  <desc id="desc">React clients communicate with an Express backend over REST and Socket.IO. The backend persists state in MySQL and sends code executions to Judge0.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker>
+    <style>.title{font:700 34px Arial,sans-serif;fill:#0f172a}.group{font:700 18px Arial,sans-serif;fill:#0f172a}.label{font:600 16px Arial,sans-serif;fill:#1e293b}.small{font:14px Arial,sans-serif;fill:#334155}.box{stroke-width:2;rx:16}.line{stroke:#475569;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1400" height="760" fill="#f8fafc"/>
+  <text x="700" y="54" text-anchor="middle" class="title">CodeKurukshetra - System Architecture</text>
+  <rect x="45" y="95" width="300" height="525" class="box" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="195" y="132" text-anchor="middle" class="group">CLIENTS</text><text x="195" y="158" text-anchor="middle" class="small">React + Vite</text>
+  <rect x="75" y="190" width="240" height="70" class="box" fill="#fff" stroke="#60a5fa"/><text x="195" y="220" text-anchor="middle" class="label">Home application</text><text x="195" y="243" text-anchor="middle" class="small">Dashboard and 1v1 battles</text>
+  <rect x="75" y="285" width="240" height="70" class="box" fill="#fff" stroke="#60a5fa"/><text x="195" y="315" text-anchor="middle" class="label">Editor application</text><text x="195" y="338" text-anchor="middle" class="small">Problems and Monaco workspace</text>
+  <rect x="75" y="380" width="240" height="155" class="box" fill="#fff" stroke="#60a5fa"/><text x="195" y="414" text-anchor="middle" class="label">User capabilities</text><text x="195" y="444" text-anchor="middle" class="small">Authentication and profile</text><text x="195" y="470" text-anchor="middle" class="small">Run / submit solutions</text><text x="195" y="496" text-anchor="middle" class="small">History and leaderboard</text><text x="195" y="522" text-anchor="middle" class="small">Live battle status</text>
+  <rect x="465" y="95" width="470" height="525" class="box" fill="#f0fdf4" stroke="#16a34a"/>
+  <text x="700" y="132" text-anchor="middle" class="group">BACKEND SERVER</text><text x="700" y="158" text-anchor="middle" class="small">Node.js + Express + Socket.IO</text>
+  <rect x="500" y="190" width="400" height="112" class="box" fill="#fff" stroke="#4ade80"/><text x="700" y="220" text-anchor="middle" class="label">REST API layer</text><text x="700" y="247" text-anchor="middle" class="small">Auth · Problems · Submissions · Battles</text><text x="700" y="271" text-anchor="middle" class="small">Leaderboard · Administration · Health</text>
+  <rect x="500" y="327" width="400" height="112" class="box" fill="#fff" stroke="#4ade80"/><text x="700" y="357" text-anchor="middle" class="label">Service layer</text><text x="700" y="384" text-anchor="middle" class="small">Authentication · problem management · judging</text><text x="700" y="408" text-anchor="middle" class="small">Battle rules · Elo rating · output evaluation</text>
+  <rect x="500" y="464" width="400" height="112" class="box" fill="#fff" stroke="#4ade80"/><text x="700" y="494" text-anchor="middle" class="label">Real-time layer</text><text x="700" y="521" text-anchor="middle" class="small">Battle rooms · timer ticks · lifecycle events</text><text x="700" y="545" text-anchor="middle" class="small">Socket.IO</text>
+  <rect x="1055" y="95" width="300" height="210" class="box" fill="#faf5ff" stroke="#9333ea"/>
+  <text x="1205" y="132" text-anchor="middle" class="group">CODE EXECUTION</text><text x="1205" y="158" text-anchor="middle" class="small">Self-hosted Judge0</text>
+  <rect x="1085" y="185" width="240" height="82" class="box" fill="#fff" stroke="#c084fc"/><text x="1205" y="216" text-anchor="middle" class="label">Isolated execution</text><text x="1205" y="240" text-anchor="middle" class="small">Compile · run · limits · results</text>
+  <rect x="1055" y="395" width="300" height="225" class="box" fill="#fffbeb" stroke="#d97706"/>
+  <text x="1205" y="432" text-anchor="middle" class="group">PERSISTENT DATA</text><text x="1205" y="458" text-anchor="middle" class="small">MySQL 8</text>
+  <rect x="1085" y="485" width="240" height="95" class="box" fill="#fff" stroke="#f59e0b"/><text x="1205" y="515" text-anchor="middle" class="label">Core tables</text><text x="1205" y="540" text-anchor="middle" class="small">users · problems · test_cases</text><text x="1205" y="563" text-anchor="middle" class="small">submissions · battles · players</text>
+  <path d="M345 250 H465" class="line"/><text x="405" y="231" text-anchor="middle" class="small">REST / HTTPS</text>
+  <path d="M465 520 H345" class="line"/><text x="405" y="549" text-anchor="middle" class="small">Socket.IO events</text>
+  <path d="M935 246 H1055" class="line"/><text x="995" y="226" text-anchor="middle" class="small">code + limits</text>
+  <path d="M1055 280 H935" class="line"/><text x="995" y="305" text-anchor="middle" class="small">verdict + telemetry</text>
+  <path d="M935 475 H1055" class="line"/><text x="995" y="455" text-anchor="middle" class="small">SQL queries</text>
+  <text x="700" y="690" text-anchor="middle" class="label">Workflow: Client request → Express service → MySQL / Judge0 → persisted verdict → REST response and real-time update</text>
+</svg>
